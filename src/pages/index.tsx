@@ -8,9 +8,9 @@ import { api } from "~/utils/api";
 import { use } from "react";
 
 const Home: NextPage = () => {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
-
   const { user } = useUser();
+
+  const { data } = api.posts.getAll.useQuery();
 
   return (
     <>
@@ -21,7 +21,7 @@ const Home: NextPage = () => {
       </Head>
       <main className={styles.main}>
         <div className={styles.container}>
-          <h1 className={styles.title}>hoe4hila</h1>
+          <h1 className={styles.title}>HOE<span className={styles.pinkSpan}>4</span>HILA</h1>
           <SignedOut>
             <SignIn />
           </SignedOut>
@@ -29,6 +29,9 @@ const Home: NextPage = () => {
             <div>
               <span><UserButton /></span>
               <span>{user?.username}!</span>
+            </div>
+            <div>
+              {data?.map(({ id, content }) => (<div key={id}>{content}</div>))}
             </div>
           </SignedIn>
         </div>
