@@ -1,21 +1,28 @@
 import { SignIn, SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
+
 import { type NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
+import { motion } from "framer-motion";
 import { CornerUpRight, Heart, type Icon } from "react-feather";
 
 import { api } from "~/utils/api";
+import { useRef, useState } from "react";
+import { set } from "zod";
 
 const Home: NextPage = () => {
   const { user } = useUser();
-
   const { data } = api.posts.getAll.useQuery();
+
+  const [posts, setPosts] = useState(data);
+  const [rotateDeg, setRotateDeg] = useState(0);
 
   const styles = {
     backgroundColor: "#002fff",
     backgroundImage: "radial-gradient(at 17% 30%, #be1879 0, transparent 73%), radial-gradient(at 14% 95%, #2563eb 0, transparent 26%), radial-gradient(at 60% 26%, #3721b6 0, transparent 37%), radial-gradient(at 33% 87%, #cc66ff 0, transparent 54%), radial-gradient(at 32% 65%, #6fabff 0, transparent 44%), radial-gradient(at 53% 68%, #a0c0ff 0, transparent 26%)",
   };
+
+  const cardRef = useRef<HTMLDivElement>(null);
 
   return (
     <>
@@ -35,17 +42,49 @@ const Home: NextPage = () => {
               <UserButton />
             </div>
           </div>
-          <div className="bg-white text-black rounded-md">
-            {data?.map(({ id, content }) => {
+          <div>
+            {posts?.map(({ id, content }) => {
               return (
-                <div key={id} className="flex flex-col items-center justify-evenly gap-6 p-4">
-                  <Image src={`https://i.redd.it/t6whec2wt6qa1.jpg`} width={446} height={594} alt="" className="rounded-t-md" />
-                  <p className="text-current font-bold text-lg">{content}</p>
-                  <div className="flex items-center justify-evenly gap-12">
-                    <ActionButton Icon={Heart} className="text-red-500" />
-                    <ActionButton Icon={CornerUpRight} className="text-blue-500" />
-                  </div>
-                </div>
+                <motion.div key={id} ref={cardRef}>
+                  <motion.div
+                    drag
+                    dragConstraints={cardRef}
+                    dragElastic={0.1}
+                    dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    animate={{ rotate: rotateDeg }}
+                    onDrag={(event, info) => {
+                      if (info.offset.x > 100) {
+                        setRotateDeg(10);
+                      } else if (info.offset.x < -100) {
+                        setRotateDeg(-10);
+                      } else {
+                        setRotateDeg(0);
+                      }
+                    }}
+                    onDragEnd={(event, info) => {
+                      setRotateDeg(0);
+                      if (info.offset.x > 100) {
+                        // Swiped to the right
+                        // Remove card and load next
+                      } else if (info.offset.x < -100) {
+                        // Swiped to the left
+                        // Remove card and load next
+                      }
+                    }}
+                    className="flex flex-col items-center justify-evenly gap-6 p-4 bg-white text-black rounded-md"
+                  >
+                    <div className="flex flex-col items-center">
+                      <Image src={`https://i.redd.it/t6whec2wt6qa1.jpg`} width={446} height={594} alt="" className="rounded-t-md pointer-events-none" />
+                      <p className="text-current font-bold text-lg">{content}</p>
+                    </div>
+                    <div className="flex items-center justify-evenly gap-12">
+                      <ActionButton Icon={Heart} className="text-red-500" />
+                      <ActionButton Icon={CornerUpRight} className="text-blue-500" />
+                    </div>
+                  </motion.div>
+                </motion.div>
               );
             })}
           </div>
@@ -57,15 +96,17 @@ const Home: NextPage = () => {
 
 const ActionButton: React.FC<{ Icon: Icon; className: string; }> = ({ Icon, className }) => {
   return (
-    <button
-      className={`
-        p-4 bg-white text-5xl rounded-full shadow-lg border ${className}
-        hover:scale-110 transform transition-all duration-200
-        active:scale-95
-      `}
+    <motion.button
+      whileHover={{ scale: 1.2, rotate: 10 }}
+      whileTap={{
+        scale: 0.8,
+        rotate: -10,
+        borderRadius: "100%"
+      }}
+      className={`p-4 bg-white text-5xl rounded-full shadow-lg border ${className}`}
     >
       <Icon className="w-[1em] h-[1em]" />
-    </button>
+    </motion.button>
   );
 };
 
