@@ -25,31 +25,31 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center" style={styles}>
-        <div className="fixed top-0 w-screen flex items-center px-4 py-2">
-          <h1 className="text-4xl font-bold text-white pointer-events-none select-none">HOE<span className="text-[#cc66ff]">4</span>HILA</h1>
-          <SignedOut>
-            <SignIn />
-          </SignedOut>
-          <SignedIn>
+        <SignedOut>
+          <SignIn />
+        </SignedOut>
+        <SignedIn>
+          <div className="fixed top-0 w-screen flex items-center px-4 py-2">
+            <h1 className="text-4xl font-bold text-white pointer-events-none select-none">HOE<span className="text-[#cc66ff]">4</span>HILA</h1>
             <div className="ml-auto">
               <UserButton />
             </div>
-          </SignedIn>
-        </div>
-        <div className="bg-white text-black rounded-md">
-          {data?.map(({ id, content }) => {
-            return (
-              <div key={id} className="flex flex-col items-center justify-evenly gap-6 p-4">
-                <Image src={`https://i.redd.it/t6whec2wt6qa1.jpg`} width={446} height={594} alt="" className="rounded-t-md" />
-                <p className="text-current font-bold text-lg">{content}</p>
-                <div className="flex items-center justify-evenly gap-12">
-                  <ActionButton Icon={Heart} className="text-red-500" />
-                  <ActionButton Icon={CornerUpRight} className="text-blue-500" />
+          </div>
+          <div className="bg-white text-black rounded-md">
+            {data?.map(({ id, content }) => {
+              return (
+                <div key={id} className="flex flex-col items-center justify-evenly gap-6 p-4">
+                  <Image src={`https://i.redd.it/t6whec2wt6qa1.jpg`} width={446} height={594} alt="" className="rounded-t-md" />
+                  <p className="text-current font-bold text-lg">{content}</p>
+                  <div className="flex items-center justify-evenly gap-12">
+                    <ActionButton Icon={Heart} className="text-red-500" />
+                    <ActionButton Icon={CornerUpRight} className="text-blue-500" />
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        </SignedIn>
       </main >
     </>
   );
