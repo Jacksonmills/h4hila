@@ -1,15 +1,7 @@
-import { SignIn, SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
-
+import { useUser } from "@clerk/nextjs";
 import { type NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { CornerUpRight, Heart, Instagram, type Icon, PlusSquare } from "react-feather";
-
 import { api } from "~/utils/api";
-import { useRef, useState } from "react";
-import { set } from "zod";
-import Link from "next/link";
+import { useState } from "react";
 import Layout from "~/components/Layout";
 import Card from "~/components/Card";
 

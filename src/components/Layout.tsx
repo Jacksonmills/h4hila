@@ -33,7 +33,7 @@ const Header = () => {
   return (
     <div className="fixed top-0 w-screen flex items-center px-4 py-2">
       <Link href="/">
-        <h1 className="text-4xl font-bold text-white pointer-events-none select-none">HOE<span className="text-[#cc66ff]">4</span>HILA</h1>
+        <h1 className="text-4xl font-bold text-white pointer-events-none select-none">HOE<span className="text-secondary">4</span>HILA</h1>
       </Link>
       <div className="ml-auto flex items-center gap-6 text-white">
         <Link href="/create"><PlusSquare /></Link>
