@@ -38,12 +38,11 @@ export default function Card({ data, callback }: CardProps) {
       >
         <div className="flex flex-col items-center">
           <Image src={data.post.imageUrl} width={446} height={594} alt="" className="rounded-t-md pointer-events-none object-cover object-top w-[90vw] h-[calc(594px/1.2)] md:w-[446px] md:h-[594px]" />
-          <div className='flex w-full bg-slate-300 px-2 py-4 rounded-b-md'>
+          <div className='flex flex-col w-full bg-slate-300 px-6 py-4 rounded-b-md'>
             <div className='flex gap-2 items-center mr-auto'>
-              <Image src={data.author?.profileImageUrl as string} width={60} height={60} alt="Profile image" className="rounded-full w-[1.6em] h-[1.6em]" />
-              <p className="text-current font-bold text-lg">{data.author?.username}</p>
+              <p className="text-current font-bold text-2xl">{data.author?.username}</p>
             </div>
-            <p className="text-current font-bold text-lg">{data.post.content}</p>
+            <p className="text-current text-lg">{data.post.content}</p>
           </div>
         </div>
         <div className="flex items-center justify-evenly gap-12">

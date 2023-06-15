@@ -2,8 +2,6 @@ import { SignIn, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
-import { FilePlus } from 'react-feather';
-import { motion } from 'framer-motion';
 
 export default function Layout({ children }: { children: React.ReactNode; }) {
   const styles = {
@@ -17,12 +15,13 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
         <meta name="description" content="Tinder-like app for the H3Podcast fanbase" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex min-h-screen flex-col items-center justify-center overflow-hidden" style={styles}>
+      <main className="flex min-h-screen flex-col items-center overflow-hidden" style={styles}>
         <SignedOut>
           <SignIn />
         </SignedOut>
         <SignedIn>
           <Header />
+          <div className="block h-[80px]" />
           {children}
         </SignedIn>
       </main>
@@ -37,13 +36,6 @@ const Header = () => {
         <h1 className="text-4xl font-bold text-white pointer-events-none select-none">HOE<span className="text-secondary">4</span>HILA</h1>
       </Link>
       <div className="ml-auto flex items-center gap-6 text-white">
-        <motion.div
-          className="flex items-center"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <Link href="/create" className='px-2 py-1 bg-black/50 rounded-lg'><FilePlus /></Link>
-        </motion.div>
         <UserButton />
       </div>
     </div>
