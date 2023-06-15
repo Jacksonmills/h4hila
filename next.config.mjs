@@ -19,7 +19,7 @@ const config = {
     defaultLocale: "en",
   },
   images: {
-    domains: ["i.redd.it", "preview.redd.it"],
+    domains: ["i.redd.it", "preview.redd.it", "images.clerk.dev"],
   },
 };
 export default config;

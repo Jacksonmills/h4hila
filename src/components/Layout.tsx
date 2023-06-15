@@ -2,7 +2,8 @@ import { SignIn, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
-import { PlusSquare } from 'react-feather';
+import { FilePlus } from 'react-feather';
+import { motion } from 'framer-motion';
 
 export default function Layout({ children }: { children: React.ReactNode; }) {
   const styles = {
@@ -36,7 +37,13 @@ const Header = () => {
         <h1 className="text-4xl font-bold text-white pointer-events-none select-none">HOE<span className="text-secondary">4</span>HILA</h1>
       </Link>
       <div className="ml-auto flex items-center gap-6 text-white">
-        <Link href="/create"><PlusSquare /></Link>
+        <motion.div
+          className="flex items-center"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          <Link href="/create" className='px-2 py-1 bg-black/50 rounded-lg'><FilePlus /></Link>
+        </motion.div>
         <UserButton />
       </div>
     </div>
