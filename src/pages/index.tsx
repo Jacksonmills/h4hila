@@ -4,7 +4,6 @@ import { type RouterOutputs, api } from "~/utils/api";
 import { useState } from "react";
 import Layout from "~/components/Layout";
 import Card from "~/components/Card";
-import { type Post } from "@prisma/client";
 
 export type PostWithUser = RouterOutputs["posts"]["getAll"][number];
 
@@ -31,11 +30,8 @@ const Home: NextPage = () => {
         {data && data.length > 0 && (
           <div key={data[currentIndex]?.post.id}>
             <Card
-              author={data[currentIndex]?.author}
-              imageUrl={data[currentIndex]?.post.imageUrl as string}
-              content={data[currentIndex]?.post.content as string}
+              data={data[currentIndex] as PostWithUser}
               callback={nextCard}
-              post={...data[currentIndex]?.post as any}
             />
           </div>
         )}

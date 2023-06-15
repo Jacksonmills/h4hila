@@ -5,9 +5,9 @@ import { motion } from 'framer-motion';
 import { get } from 'http';
 import { type PostWithUser } from '~/pages';
 
-interface CardProps extends PostWithUser { imageUrl: string; content: string; callback: () => void; }
+interface CardProps { data: PostWithUser; callback: () => void; }
 
-export default function Card({ author, imageUrl, content, callback }: CardProps) {
+export default function Card({ data, callback }: CardProps) {
   const [rotateDeg, setRotateDeg] = useState(0);
 
   const cardRef = useRef<HTMLDivElement>(null);
@@ -37,13 +37,13 @@ export default function Card({ author, imageUrl, content, callback }: CardProps)
         className="flex flex-col items-center justify-evenly gap-4 p-4 bg-white text-black rounded-md shadow-lg"
       >
         <div className="flex flex-col items-center">
-          <Image src={imageUrl} width={446} height={594} alt="" className="rounded-t-md pointer-events-none object-cover object-top w-[90vw] h-[calc(594px/1.2)] md:w-[446px] md:h-[594px]" />
+          <Image src={data.post.imageUrl} width={446} height={594} alt="" className="rounded-t-md pointer-events-none object-cover object-top w-[90vw] h-[calc(594px/1.2)] md:w-[446px] md:h-[594px]" />
           <div className='flex w-full bg-slate-300 px-2 py-4 rounded-b-md'>
             <div className='flex gap-2 items-center mr-auto'>
-              <Image src={author?.profileImageUrl as string} width={60} height={60} alt="Profile image" className="rounded-full w-[1.6em] h-[1.6em]" />
-              <p className="text-current font-bold text-lg">{author?.username}</p>
+              <Image src={data.author?.profileImageUrl as string} width={60} height={60} alt="Profile image" className="rounded-full w-[1.6em] h-[1.6em]" />
+              <p className="text-current font-bold text-lg">{data.author?.username}</p>
             </div>
-            <p className="text-current font-bold text-lg">{content}</p>
+            <p className="text-current font-bold text-lg">{data.post.content}</p>
           </div>
         </div>
         <div className="flex items-center justify-evenly gap-12">
