@@ -3,7 +3,13 @@ import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
-const filterUserForClient = (user: any) => {
+export type User = {
+  id: string;
+  username: string;
+  profileImageUrl: string;
+};
+
+const filterUserForClient = (user: User) => {
   return {
     id: user.id,
     username: user.username,

@@ -61,12 +61,10 @@ const ActionButton: React.FC<{
   Icon: Icon;
   className: string;
   callback: () => void;
-  fillIcon?: boolean;
 }> = ({
   Icon,
   className,
   callback,
-  fillIcon = false
 }) => {
     const [rotateDeg, setRotateDeg] = useState(0);
 
@@ -86,7 +84,7 @@ const ActionButton: React.FC<{
           rotate: rotateDeg,
           borderRadius: "100%"
         }}
-        className={`p-4 bg-white text-white text-3xl rounded-full shadow-lg ${className} md:text-5xl relative`}
+        className={`p-4 text-white text-3xl rounded-full shadow-lg ${className} md:text-5xl relative`}
         onClick={callback}
       >
         <Icon className={`w-[1em] h-[1em] fill-white`} />
