@@ -4,30 +4,39 @@ import { CornerUpRight, FastForward, Heart, type Icon } from 'react-feather';
 import { motion } from 'framer-motion';
 import { get } from 'http';
 import { type PostWithUser } from '~/pages';
+import { set } from 'zod';
 
 interface CardProps { data: PostWithUser; callback: () => void; }
 
 export default function Card({ data, callback }: CardProps) {
   const [rotateDeg, setRotateDeg] = useState(0);
+  const [opacity, setOpacity] = useState(1);
 
   const cardRef = useRef<HTMLDivElement>(null);
 
   return (
-    <motion.div ref={cardRef}>
+    <motion.div ref={cardRef} className='transition-opacity duration-100'>
       <motion.div
         drag
         dragConstraints={cardRef}
-        dragElastic={0.1}
-        dragTransition={{ bounceStiffness: 100, bounceDamping: 40 }}
-        whileHover={{ scale: 1.05 }}
-        animate={{ rotate: rotateDeg }}
+        dragElastic={0.25}
+        dragTransition={{ bounceStiffness: 400, bounceDamping: 40 }}
+        whileHover={{ scale: 1.025 }}
+        animate={{ rotate: rotateDeg, opacity: opacity }}
         onDrag={(_, info) => {
           if (info.offset.x > 10) {
             setRotateDeg(4);
+            setOpacity(0.8);
           } else if (info.offset.x < -10) {
             setRotateDeg(-4);
+            setOpacity(0.8);
           } else {
             setRotateDeg(0);
+          }
+
+          // basically this checks if the card is dragged off the screen
+          if (info.offset.x > window.innerWidth / 2 || info.offset.x < -window.innerWidth / 2) {
+            setOpacity(0);
           }
         }}
         onDragEnd={(_, info) => {
