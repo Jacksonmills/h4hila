@@ -8,28 +8,28 @@ export const usersRouter = createTRPCRouter({
     return users;
   }),
 
-  createUser: publicProcedure.mutation({
-    input: z.object({
-      clerkId: z.string(),
-      bio: z.string().optional(),
-    }),
-    resolve: async ({ input }, { ctx }) => {
-      const match = await ctx.prisma.user.findUnique({
-        where: {
-          clerkId: input.clerkId,
-        }
-      });
+  // createUser: publicProcedure.mutation({
+  //   input: z.object({
+  //     clerkId: z.string(),
+  //     bio: z.string().optional(),
+  //   }),
+  //   resolve: async ({ input }, { ctx }) => {
+  //     const match = await ctx.prisma.user.findUnique({
+  //       where: {
+  //         clerkId: input.clerkId,
+  //       }
+  //     });
 
-      if (!match) {
-        await ctx.prisma.user.create({
-          data: {
-            clerkId: input.clerkId,
-            bio: input.bio,
-          }
-        });
-      }
+  //     if (!match) {
+  //       await ctx.prisma.user.create({
+  //         data: {
+  //           clerkId: input.clerkId,
+  //           bio: input.bio,
+  //         }
+  //       });
+  //     }
 
-      return { status: 'success' };
-    },
-  }),
+  //     return { status: 'success' };
+  //   },
+  // }),
 });
