@@ -5,10 +5,6 @@ import { Settings, Smile, User } from 'react-feather';
 
 export default function Layout({ children }: { children: React.ReactNode; }) {
   const { isSignedIn } = useUser();
-  const styles = {
-    backgroundColor: "#002fff",
-    backgroundImage: "radial-gradient(at 17% 30%, #be1879 0, transparent 73%), radial-gradient(at 14% 95%, #2563eb 0, transparent 26%), radial-gradient(at 60% 26%, #3721b6 0, transparent 37%), radial-gradient(at 33% 87%, #cc66ff 0, transparent 54%), radial-gradient(at 32% 65%, #6fabff 0, transparent 44%), radial-gradient(at 53% 68%, #a0c0ff 0, transparent 26%)",
-  };
 
   return (
     <>
@@ -33,9 +29,13 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
 }
 
 const Header = ({ isSignedIn }: { isSignedIn?: boolean; }) => {
+  const logoStyle = {
+    [`-webkit-text-stroke` as string]: `0.75px #000000`,
+  };
+
   return (
     <div className="w-screen flex items-center px-4 py-2">
-      <h1 className="text-2xl font-bold text-white pointer-events-none select-none md:text-4xl">[h4h]</h1>
+      <h1 className="text-2xl font-bold text-white pointer-events-none select-none md:text-4xl" style={logoStyle}>[h4h]</h1>
       <div className="ml-auto flex items-center gap-2 text-white">
         {isSignedIn ? <UserButton /> : <Smile />}
       </div>

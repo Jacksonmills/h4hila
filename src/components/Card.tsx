@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
-import { FastForward, Heart, Zap, type Icon } from 'react-feather';
+import { FastForward, Heart, Zap, type Icon, VolumeX } from 'react-feather';
 import { motion } from 'framer-motion';
 
 import { type PostWithUser } from '~/pages';
@@ -24,13 +24,15 @@ export default function Card({ data, callback }: CardProps) {
     'https://cdn.glitch.com/3b576859-bca3-4031-ae39-117a4ffdc779%2Fvin%20talk.mp3?v=1620459443481'
   ];
 
-  const [playActive] = useSound(
+  const [play] = useSound(
     audioUrls[randomAudioFile] as string,
-    { volume: 0.5 }
+    {
+      volume: 0.5,
+    }
   );
 
   const handlePlayAudio = () => {
-    playActive();
+    play();
     setRandomAudioFile(Math.floor(Math.random() * audioUrls.length));
   };
 
@@ -54,15 +56,34 @@ export default function Card({ data, callback }: CardProps) {
         whileHover={{ scale: 1.025 }}
         animate={{ rotate: rotateDeg, opacity: opacity }}
         onDrag={(_, info) => {
+          // opacity
           if (info.offset.x > 200) {
-            setRotateDeg(4);
             setOpacity(0.8);
           } else if (info.offset.x < -200) {
-            setRotateDeg(-4);
             setOpacity(0.8);
           } else {
-            setRotateDeg(0);
             setOpacity(1);
+          }
+
+          // rotate
+          if (info.offset.x > 50) {
+            setRotateDeg(6);
+            if (info.offset.x > 100) {
+              setRotateDeg(12);
+            }
+            if (info.offset.x > 200) {
+              setRotateDeg(24);
+            }
+          } else if (info.offset.x < -50) {
+            setRotateDeg(-6);
+            if (info.offset.x < -100) {
+              setRotateDeg(-12);
+            }
+            if (info.offset.x < -200) {
+              setRotateDeg(-24);
+            }
+          } else {
+            setRotateDeg(0);
           }
 
           // basically this checks if the card is dragged off the screen
