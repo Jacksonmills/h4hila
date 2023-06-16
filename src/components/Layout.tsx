@@ -17,7 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
         <meta name="description" content="Tinder-like app for the H3Podcast fan base" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex min-h-screen flex-col items-center overflow-hidden" style={styles}>
+      <main className="flex min-h-screen flex-col items-center overflow-hidden" style={{ backgroundImage: `url('/img/bg.png')`, backgroundPosition: 'center' }}>
         <Header isSignedIn={isSignedIn} />
         <SignedOut>
           <div className='w-full h-screen grid place-content-center'>

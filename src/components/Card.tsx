@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 
 import { type PostWithUser } from '~/pages';
 import useSound from 'use-sound';
+import { colorContrast } from '~/utils/colorContrast';
 
 
 interface CardProps { data: PostWithUser; callback: () => void; }
@@ -12,6 +13,7 @@ interface CardProps { data: PostWithUser; callback: () => void; }
 export default function Card({ data, callback }: CardProps) {
   const [rotateDeg, setRotateDeg] = useState(0);
   const [opacity, setOpacity] = useState(1);
+  const [randomBrandColor, setRandomBrandColor] = useState('');
   const [randomAudioFile, setRandomAudioFile] = useState(0);
 
   const cardRef = useRef<HTMLDivElement>(null);
@@ -32,6 +34,16 @@ export default function Card({ data, callback }: CardProps) {
     setRandomAudioFile(Math.floor(Math.random() * audioUrls.length));
   };
 
+  const pickBrandColor = () => {
+    const colors = ['#cc66ff', '#2563eb', '#7ed9f8', '#734eab'];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    return randomColor;
+  };
+
+  useEffect(() => {
+    setRandomBrandColor(pickBrandColor() as string);
+  }, []);
+
   return (
     <motion.div ref={cardRef} className='transition-opacity duration-100'>
       <motion.div
@@ -42,14 +54,15 @@ export default function Card({ data, callback }: CardProps) {
         whileHover={{ scale: 1.025 }}
         animate={{ rotate: rotateDeg, opacity: opacity }}
         onDrag={(_, info) => {
-          if (info.offset.x > 10) {
+          if (info.offset.x > 200) {
             setRotateDeg(4);
             setOpacity(0.8);
-          } else if (info.offset.x < -10) {
+          } else if (info.offset.x < -200) {
             setRotateDeg(-4);
             setOpacity(0.8);
           } else {
             setRotateDeg(0);
+            setOpacity(1);
           }
 
           // basically this checks if the card is dragged off the screen
@@ -61,16 +74,22 @@ export default function Card({ data, callback }: CardProps) {
           setRotateDeg(0);
           callback();
         }}
-        className="flex flex-col items-center justify-evenly gap-4 p-4 bg-white text-black rounded-md shadow-lg"
+        className="flex flex-col items-center justify-evenly gap-4 p-4 bg-white text-black rounded-md shadow-lg cursor-grab active:cursor-grabbing"
       >
         <div className="flex flex-col items-center">
           <div className='relative'>
             <Image src={data.author?.profileImageUrl as string} width={446} height={446} alt="" className="rounded-t-md pointer-events-none object-cover object-top mw-[90vw] w-[446px]" />
             <code
-              className='bg-black text-white font-bold rounded-bl-2xl rounded-tl-2xl rounded-tr-md px-4 py-1 ml-auto absolute top-0 right-0'
-            >#hoe4hila</code>
+              className="font-bold rounded-bl-2xl rounded-tl-2xl rounded-tr-md px-4 py-1 ml-auto absolute top-0 right-0"
+              style={{
+                backgroundColor: randomBrandColor,
+                color: colorContrast(randomBrandColor),
+              }}
+            >
+              #hoe4hila
+            </code>
           </div>
-          <div className='flex flex-col w-full bg-secondary/20 px-6 py-4 rounded-b-md relative'>
+          <div className="flex flex-col w-full bg-h3Purple/20 px-6 py-4 rounded-b-md relative">
             <div className='flex gap-2 items-center'>
               <p className="text-current font-bold text-xl md:text-2xl">{data.author?.username}</p>
             </div>
@@ -78,12 +97,12 @@ export default function Card({ data, callback }: CardProps) {
           </div>
         </div>
         <div className="flex items-center justify-evenly gap-4 py-1 md:py-6">
-          <ActionButton Icon={Heart} className="bg-primary" callback={callback} />
-          <ActionButton Icon={Zap} className="bg-gradient-to-bl from-primary to-secondary p-8 shadow-md" callback={handlePlayAudio} />
-          <ActionButton Icon={FastForward} className="bg-secondary" callback={callback} />
+          <ActionButton Icon={Heart} className="bg-h3Pink" callback={callback} />
+          <ActionButton Icon={Zap} className="bg-h3Purple p-8 shadow-md" callback={handlePlayAudio} />
+          <ActionButton Icon={FastForward} className="bg-h3Blue" callback={callback} />
         </div>
       </motion.div>
-    </motion.div>
+    </motion.div >
   );
 }
 

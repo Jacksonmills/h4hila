@@ -57,7 +57,7 @@ const Home: NextPage = () => {
                   value={bio}
                   onChange={(e) => setBio(e.target.value)}
                 />
-                <button className="mt-[var(--spacing)] w-full bg-secondary text-lg text-white rounded-lg p-2">
+                <button className="mt-[var(--spacing)] w-full bg-h3Blue text-lg text-white rounded-lg p-2">
                   Save
                 </button>
               </form>
