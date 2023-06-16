@@ -16,7 +16,10 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
       <main className="flex min-h-screen flex-col items-center overflow-hidden" style={{ backgroundImage: `url('/img/bg.png')`, backgroundPosition: 'center' }}>
         <Header isSignedIn={isSignedIn} />
         <SignedOut>
-          <div className='w-full h-screen grid place-content-center'>
+          <div
+            className='w-full h-screen grid place-content-center'
+            style={{ height: "calc(100vh - var(--header-height))" }}
+          >
             <SignIn />
           </div>
         </SignedOut>
@@ -34,7 +37,7 @@ const Header = ({ isSignedIn }: { isSignedIn?: boolean; }) => {
     <div className="w-screen flex items-center px-4 py-2">
       <h1 className="flex items-center justify-center text-2xl font-bold text-white bg-h3Pink px-4 pb-1 md:pb-2 rounded-full pointer-events-none select-none md:text-4xl">[h4h]</h1>
       <div className="ml-auto flex items-center gap-2 text-white">
-        {isSignedIn ? <UserButton /> : <Smile />}
+        {isSignedIn ? <UserButton afterSignOutUrl="/" /> : <Smile />}
       </div>
     </div>
   );
