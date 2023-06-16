@@ -17,6 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
       <main className="flex min-h-screen flex-col items-center overflow-hidden" style={styles}>
         <SignedOut>
           <SignIn />
+          <h1>TEST</h1>
         </SignedOut>
         <SignedIn>
           <Header />
