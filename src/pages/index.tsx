@@ -4,6 +4,7 @@ import { type RouterOutputs, api } from "~/utils/api";
 import { type SyntheticEvent, useState } from "react";
 import Layout from "~/components/Layout";
 import Card from "~/components/Card";
+import LoadingSpinner from "~/components/LoadingSpinner";
 
 export type PostWithUser = RouterOutputs["posts"]["getAll"][number];
 
@@ -12,11 +13,17 @@ const Home: NextPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const { data } = api.posts.getAll.useQuery();
+  const { user } = useUser();
 
   if (!data) return (
     <Layout>
-      <div className="flex items-center justify-center h-full">
-        <h1 className="text-4xl font-bold text-white">No posts!</h1>
+      <div
+        className="grid place-content-center w-full"
+        style={{ height: "calc(100vh - var(--header-height))" }}
+      >
+        <div className="bg-white p-6 rounded-full">
+          <LoadingSpinner size={100} />
+        </div>
       </div>
     </Layout>
   );
@@ -32,7 +39,10 @@ const Home: NextPage = () => {
 
   return (
     <Layout>
-      <div className="px-4">
+      <div
+        className="px-4 md:flex md:flex-col md:items-center md:justify-center"
+        style={{ height: "calc(100vh - var(--header-height))" }}
+      >
         {data && data.length > 0 && (
           <div key={data[currentIndex]?.post.id}>
             <Card

@@ -3,5 +3,13 @@
 @tailwind utilities;
 
 @layer base {
-  :root {}
+  :root {
+    --header-height: 52px;
+  }
+
+  @media (min-width: 768px) {
+    :root {
+      --header-height: 64px;
+    }
+  }
 }
