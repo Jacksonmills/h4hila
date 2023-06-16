@@ -1,7 +1,7 @@
 import { useUser } from "@clerk/nextjs";
 import { type NextPage } from "next";
 import { type RouterOutputs, api } from "~/utils/api";
-import { type SyntheticEvent, useState, use, useEffect } from "react";
+import { type SyntheticEvent, useState } from "react";
 import Layout from "~/components/Layout";
 import Card from "~/components/Card";
 
@@ -14,18 +14,7 @@ const Home: NextPage = () => {
   const { user } = useUser();
   const { data } = api.posts.getAll.useQuery();
 
-  useEffect(() => {
-    if (!user?.publicMetadata.bio) {
-      setShowModal(true);
-    }
-  }, []);
-
   if (!user) return null;
-
-  function handleNewUser(e: SyntheticEvent) {
-    e.preventDefault();
-    setShowModal(false);
-  }
 
   if (!data) return (
     <Layout>
@@ -37,6 +26,11 @@ const Home: NextPage = () => {
 
   const nextCard = () => {
     setCurrentIndex((currentIndex + 1) % data.length);
+  };
+
+  const handleSubmit = (e: SyntheticEvent) => {
+    e.preventDefault();
+    setShowModal(false);
   };
 
   return (
@@ -51,17 +45,22 @@ const Home: NextPage = () => {
           </div>
         )}
         {showModal && (
-          <div className="fixed inset-0 z-10 flex items-center justify-center">
+          <div
+            className="fixed inset-0 z-10 flex items-center justify-center"
+            style={{ ['--spacing' as string]: '12px' }}
+          >
             <div className="absolute inset-0 bg-black opacity-50" />
-            <div className="relative bg-white rounded-lg p-4">
+            <div className="relative bg-white rounded-lg p-[var(--spacing)]">
               <h1 className="text-2xl font-bold text-center">Set your bio</h1>
-              <form className="mt-4" onSubmit={handleNewUser}>
-                <textarea
-                  className="w-full h-32 p-2 border rounded-lg"
+              <form className="mt-[var(--spacing)]" onSubmit={handleSubmit}>
+                <input
+                  className="w-full p-2 border rounded-lg"
+                  type="text"
+                  placeholder="Write something about yourself..."
                   value={bio}
                   onChange={(e) => setBio(e.target.value)}
                 />
-                <button className="mt-4 w-full bg-secondary text-lg text-white rounded-lg p-2">
+                <button className="mt-[var(--spacing)] w-full bg-secondary text-lg text-white rounded-lg p-2">
                   Save
                 </button>
               </form>
@@ -69,7 +68,7 @@ const Home: NextPage = () => {
           </div>
         )}
       </div>
-    </Layout>
+    </Layout >
   );
 };
 

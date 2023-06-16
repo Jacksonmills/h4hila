@@ -1,6 +1,5 @@
 import { SignIn, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import Head from 'next/head';
-import Link from 'next/link';
 import React from 'react';
 
 export default function Layout({ children }: { children: React.ReactNode; }) {
@@ -11,8 +10,8 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
   return (
     <>
       <Head>
-        <title>HOE4HILA</title>
-        <meta name="description" content="Tinder-like app for the H3Podcast fanbase" />
+        <title>hoe4hila</title>
+        <meta name="description" content="Tinder-like app for the H3Podcast fan base" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center overflow-hidden" style={styles}>
@@ -32,9 +31,7 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
 const Header = () => {
   return (
     <div className="fixed top-0 w-screen flex items-center px-4 py-2">
-      <Link href="/">
-        <h1 className="text-4xl font-bold text-white pointer-events-none select-none">HOE<span className="text-secondary">4</span>HILA</h1>
-      </Link>
+      <h1 className="text-4xl font-bold text-white pointer-events-none select-none">[h4h]</h1>
       <div className="ml-auto flex items-center gap-6 text-white">
         <UserButton />
       </div>
