@@ -99,7 +99,7 @@ export default function Card({ data, callback }: CardProps) {
       >
         <div className="flex flex-col items-center">
           <div className='relative'>
-            <Image src={data.author?.profileImageUrl as string} width={446} height={446} alt="" className="rounded-t-md pointer-events-none object-cover object-top md:h-[446px] mw-[90vw] w-[446px]" />
+            <Image src={data.author?.profileImageUrl as string} width={446} height={446} alt="" className="rounded-t-md pointer-events-none object-cover object-top h-[332px] md:h-[446px] mw-[90vw] w-[446px]" />
             <code
               className="font-bold rounded-bl-2xl rounded-tl-2xl rounded-tr-md px-4 py-1 ml-auto absolute top-0 right-0"
               style={{
