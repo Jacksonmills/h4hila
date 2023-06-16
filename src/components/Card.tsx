@@ -74,7 +74,7 @@ export default function Card({ data, callback }: CardProps) {
             <div className='flex gap-2 items-center'>
               <p className="text-current font-bold text-xl md:text-2xl">{data.author?.username}</p>
             </div>
-            <p className="text-current text-md md:text-lg overflow-scroll">{data.post.content}</p>
+            <p className="text-current text-md md:text-lg">{data.post.content}</p>
           </div>
         </div>
         <div className="flex items-center justify-evenly gap-4 py-1 md:py-6">
