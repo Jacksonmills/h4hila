@@ -11,10 +11,7 @@ const Home: NextPage = () => {
   const [bio, setBio] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { user } = useUser();
   const { data } = api.posts.getAll.useQuery();
-
-  if (!user) return null;
 
   if (!data) return (
     <Layout>

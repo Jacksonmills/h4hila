@@ -1,12 +1,15 @@
-import { SignIn, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
+import { SignIn, SignedIn, SignedOut, UserButton, useUser } from '@clerk/nextjs';
 import Head from 'next/head';
 import React from 'react';
+import { Smile, User } from 'react-feather';
 
 export default function Layout({ children }: { children: React.ReactNode; }) {
+  const { isSignedIn } = useUser();
   const styles = {
     backgroundColor: "#002fff",
     backgroundImage: "radial-gradient(at 17% 30%, #be1879 0, transparent 73%), radial-gradient(at 14% 95%, #2563eb 0, transparent 26%), radial-gradient(at 60% 26%, #3721b6 0, transparent 37%), radial-gradient(at 33% 87%, #cc66ff 0, transparent 54%), radial-gradient(at 32% 65%, #6fabff 0, transparent 44%), radial-gradient(at 53% 68%, #a0c0ff 0, transparent 26%)",
   };
+
   return (
     <>
       <Head>
@@ -15,12 +18,13 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center overflow-hidden" style={styles}>
+        <Header isSignedIn={isSignedIn} />
         <SignedOut>
-          <SignIn />
-          <h1>TEST</h1>
+          <div className='w-full h-screen grid place-content-center'>
+            <SignIn />
+          </div>
         </SignedOut>
         <SignedIn>
-          <Header />
           <div className="block h-[80px]" />
           {children}
         </SignedIn>
@@ -29,12 +33,12 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
   );
 }
 
-const Header = () => {
+const Header = ({ isSignedIn }: { isSignedIn?: boolean; }) => {
   return (
     <div className="fixed top-0 w-screen flex items-center px-4 py-2">
       <h1 className="text-4xl font-bold text-white pointer-events-none select-none">[h4h]</h1>
       <div className="ml-auto flex items-center gap-6 text-white">
-        <UserButton />
+        {isSignedIn ? <UserButton /> : <Smile />}
       </div>
     </div>
   );
