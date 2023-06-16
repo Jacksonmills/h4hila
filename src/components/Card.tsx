@@ -95,11 +95,12 @@ export default function Card({ data, callback }: CardProps) {
           setRotateDeg(0);
           callback();
         }}
-        className="flex flex-col items-center justify-evenly gap-4 p-4 bg-white text-black rounded-md shadow-lg cursor-grab active:cursor-grabbing"
+        className="flex flex-col items-center justify-start gap-4 p-4 bg-white text-black rounded-md shadow-lg cursor-grab active:cursor-grabbing md:h-auto"
+        style={{ height: "calc(96vh - var(--header-height))" }}
       >
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center grow md:grow-0">
           <div className='relative'>
-            <Image src={data.author?.profileImageUrl as string} width={446} height={446} alt="" className="rounded-t-md pointer-events-none object-cover object-top h-[332px] md:h-[446px] mw-[90vw] w-[446px]" />
+            <Image src={data.author?.profileImageUrl as string} width={446} height={446} alt="" className="rounded-t-md pointer-events-none object-cover object-top h-[332px] md:h-[446px] w-[446px]" />
             <code
               className="font-bold rounded-bl-2xl rounded-tl-2xl rounded-tr-md px-4 py-1 ml-auto absolute top-0 right-0"
               style={{
@@ -110,16 +111,14 @@ export default function Card({ data, callback }: CardProps) {
               #hoe4hila
             </code>
           </div>
-          <div className="flex flex-col w-full bg-h3Purple/20 px-6 py-4 rounded-b-md relative">
-            <div className='flex gap-2 items-center'>
-              <p className="text-current font-bold text-xl md:text-2xl">{data.author?.username}</p>
-            </div>
+          <div className="flex flex-col gap-2 grow w-full bg-h3Purple/20 px-6 py-4 rounded-b-md relative">
+            <p className="text-current font-bold text-2xl md:text-2xl">{data.author?.username}</p>
             <p className="text-current text-md md:text-lg">{data.post.content}</p>
           </div>
         </div>
-        <div className="flex items-center justify-evenly gap-4 py-1 md:py-6">
+        <div className="flex items-center justify-evenly gap-4 py-1 my-auto">
           <ActionButton Icon={Heart} className="bg-h3Pink" callback={callback} />
-          <ActionButton Icon={Zap} className="bg-h3Purple p-8 shadow-md" callback={handlePlayAudio} />
+          <ActionButton Icon={Zap} className="bg-h3Purple p-6 sm:p-8 shadow-md text-4xl md:text-6xl" callback={handlePlayAudio} />
           <ActionButton Icon={FastForward} className="bg-h3Blue" callback={callback} />
         </div>
       </motion.div>
@@ -154,7 +153,7 @@ const ActionButton: React.FC<{
           rotate: rotateDeg,
           borderRadius: "100%"
         }}
-        className={`p-4 text-white text-3xl rounded-full shadow-md shadow-black/30 ${className} md:text-5xl relative`}
+        className={`${className} p-4 text-white text-2xl rounded-full shadow-md shadow-black/30 sm:text-3xl md:text-5xl relative`}
         onPointerUp={callback}
       >
         <Icon className={`w-[1em] h-[1em] fill-white`} />
