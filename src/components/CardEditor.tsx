@@ -1,7 +1,7 @@
 import { UserProfile, useUser } from '@clerk/nextjs';
 import Image from 'next/image';
 import React, { type Dispatch, useEffect, useState, type SetStateAction } from 'react';
-import { ArrowDown, Save } from 'react-feather';
+import { ArrowDown, Save, XCircle } from 'react-feather';
 import { set } from 'zod';
 
 import { type PostWithUser } from '~/pages';
@@ -13,6 +13,7 @@ export default function CardEditor({ data, toggleModal }: CardEditorProps) {
   const { user } = useUser();
   const [inputValue, setInputValue] = useState(data?.post?.content || '');
   const [imageUrl, setImageUrl] = useState(user?.profileImageUrl);
+  const disabled = inputValue.length > 140;
 
   const ctx = api.useContext();
 
@@ -35,6 +36,7 @@ export default function CardEditor({ data, toggleModal }: CardEditorProps) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (data?.post.id) {
       updatePost({ content: inputValue });
       toggleModal(false);
@@ -59,8 +61,22 @@ export default function CardEditor({ data, toggleModal }: CardEditorProps) {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
             />
-            <button type="submit" className='bg-h3Purple text-white font-bold text-xl inline-flex items-center justify-center p-2 rounded-md'>
-              <Save /><span className='sr-only'>Save</span>
+            <div className="flex justify-between">
+              <p className="text-sm text-gray-400">140 characters max</p>
+              <p className="text-sm text-gray-400 aria-disabled:text-red-500" aria-disabled={disabled}>{inputValue.length}/140</p>
+            </div>
+            <button type="submit" disabled={disabled} className='bg-h3Purple text-white font-bold text-xl inline-flex items-center justify-center p-2 rounded-md disabled:bg-gray-400'>
+              {disabled ? (
+                <>
+                  <XCircle />
+                  <span className='sr-only'>Too long!</span>
+                </>
+              ) : (
+                <>
+                  <Save />
+                  <span className='sr-only'>Save</span>
+                </>
+              )}
             </button>
           </form>
         </div>
