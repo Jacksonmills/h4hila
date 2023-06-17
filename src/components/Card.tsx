@@ -22,6 +22,7 @@ export default function Card({ data, callback }: CardProps) {
   const [opacity, setOpacity] = useState(1);
   const [randomBrandColor, setRandomBrandColor] = useState('');
   const [randomAudioFile, setRandomAudioFile] = useState(0);
+  const windowHeight = window.innerHeight;
 
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -107,8 +108,7 @@ export default function Card({ data, callback }: CardProps) {
           setRotateDeg(0);
           callback && callback();
         }}
-        className="flex flex-col items-center justify-start gap-4 p-4 bg-white text-black rounded-md shadow-lg cursor-grab active:cursor-grabbing md:h-auto"
-        style={{ height: "calc(100vh - var(--header-height) - 12px)" }}
+        className={`flex flex-col items-center justify-start gap-4 p-4 bg-white text-black rounded-md shadow-lg cursor-grab active:cursor-grabbing h-[calc(${windowHeight} - var(--header-height) - 12px)]`}
       >
         <div className="flex flex-col items-center grow md:grow-0">
           <div className='relative'>
