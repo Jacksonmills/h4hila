@@ -13,6 +13,17 @@ const filterUserForClient = (user: User) => {
 };
 
 export const postsRouter = createTRPCRouter({
+  getOneByUserId: privateProcedure.query(async ({ ctx }) => {
+    const authorId = ctx.userId;
+
+    const post = await ctx.prisma.post.findFirst({
+      where: {
+        authorId,
+      },
+    });
+
+    return post;
+  }),
   getAll: publicProcedure.query(async ({ ctx }) => {
     const posts = await ctx.prisma.post.findMany({
       take: 100,
@@ -46,5 +57,36 @@ export const postsRouter = createTRPCRouter({
       });
 
       return post;
-    })
+    }),
+
+  update: privateProcedure
+    .input(
+      z.object({
+        content: z.string().min(1).max(280),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const authorId = ctx.userId;
+
+      const post = await ctx.prisma.post.findFirst({
+        where: {
+          authorId,
+        },
+      });
+
+      if (!post) throw new Error("Post not found");
+
+      const updatedPost = await ctx.prisma.post.update({
+        where: {
+          id: post.id,
+        },
+        data: {
+          authorId,
+          content: input.content,
+        }
+      });
+
+      return updatedPost;
+    }
+    ),
 });

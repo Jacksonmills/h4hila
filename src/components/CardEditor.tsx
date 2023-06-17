@@ -23,12 +23,19 @@ export default function CardEditor({ data, toggleModal }: CardEditorProps) {
     },
   });
 
+  const { mutate: updatePost } = api.posts.update.useMutation();
+
   useEffect(() => {
     setImageUrl(user?.profileImageUrl as string);
   }, [user?.profileImageUrl]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (data?.post.id) {
+      updatePost({ content: inputValue });
+      toggleModal(false);
+      return;
+    }
     mutate({ content: inputValue });
     toggleModal(false);
   };
