@@ -69,29 +69,29 @@ export default function Card({ data, callback }: CardProps) {
         animate={{ rotate: rotateDeg, opacity: opacity }}
         onDrag={(_, info) => {
           // opacity
-          if (info.offset.x > 200) {
+          if (info.offset.x > 20) {
             setOpacity(0.8);
-          } else if (info.offset.x < -200) {
+          } else if (info.offset.x < -20) {
             setOpacity(0.8);
           } else {
             setOpacity(1);
           }
 
           // rotate
-          if (info.offset.x > 50) {
+          if (info.offset.x > 5) {
             setRotateDeg(6);
-            if (info.offset.x > 100) {
+            if (info.offset.x > 10) {
               setRotateDeg(12);
             }
-            if (info.offset.x > 200) {
+            if (info.offset.x > 20) {
               setRotateDeg(24);
             }
-          } else if (info.offset.x < -50) {
+          } else if (info.offset.x < -5) {
             setRotateDeg(-6);
-            if (info.offset.x < -100) {
+            if (info.offset.x < -10) {
               setRotateDeg(-12);
             }
-            if (info.offset.x < -200) {
+            if (info.offset.x < -20) {
               setRotateDeg(-24);
             }
           } else {
@@ -108,7 +108,7 @@ export default function Card({ data, callback }: CardProps) {
           callback && callback();
         }}
         className="flex flex-col items-center justify-start gap-4 p-4 bg-white text-black rounded-md shadow-lg cursor-grab active:cursor-grabbing md:h-auto"
-        style={{ height: "calc(90vh - var(--header-height))" }}
+        style={{ height: "calc(100vh - var(--header-height) - 12px)" }}
       >
         <div className="flex flex-col items-center grow md:grow-0">
           <div className='relative'>
@@ -123,7 +123,7 @@ export default function Card({ data, callback }: CardProps) {
               #hoe4hila
             </code>
           </div>
-          <div className="flex flex-col gap-2 w-full bg-h3Purple/20 px-6 py-4 rounded-b-md relative">
+          <div className="flex flex-col gap-2 grow w-full bg-h3Purple/20 px-6 py-4 rounded-b-md relative">
             <p className="text-current font-bold text-2xl md:text-2xl">{data.author?.username ? data.author?.username : pickRandomUsername()}</p>
             <p className="text-current text-md md:text-lg max-w-[400px]">{data.post.content}</p>
           </div>
