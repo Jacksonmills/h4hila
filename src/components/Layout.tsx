@@ -32,7 +32,7 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
             className='w-full h-screen grid place-content-center'
             style={{ height: "calc(100vh - var(--header-height))" }}
           >
-            <SignIn afterSignInUrl={'/new-user'} />
+            <SignIn />
           </div>
         </SignedOut>
         <SignedIn>
