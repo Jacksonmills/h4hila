@@ -55,7 +55,7 @@ const Header = ({ isSignedIn, currentUserCardData }: { isSignedIn?: boolean; cur
       <h1 className="flex items-center justify-center text-2xl font-bold text-white bg-black px-2 pb-1 md:pb-2 pointer-events-none select-none md:text-4xl">[h4h]</h1>
       <div className="ml-auto flex items-center gap-4 text-white">
         {isSignedIn && (
-          <div>
+          <>
             <button
               className='bg-h3Pink rounded-full p-1'
               onClick={toggleTooltip}
@@ -65,12 +65,12 @@ const Header = ({ isSignedIn, currentUserCardData }: { isSignedIn?: boolean; cur
               </div>
             </button>
             {(showSettingsModal && isSignedIn) && (
-              <div className="absolute z-10 top-0 right-0 bg-white text-black p-4 w-screen h-screen">
-                <CardEditor data={currentUserCardData} />
+              <div className="absolute z-10 top-0 right-0 bg-white text-black p-4 w-screen">
+                <CardEditor data={currentUserCardData} toggleModal={setShowSettingsModal} />
                 <button className="absolute top-5 left-5 md:top-1 md:left-5 bg-h3Pink text-white p-2 rounded-full" onClick={toggleTooltip}><X /></button>
               </div>
             )}
-          </div>
+          </>
         )}
       </div>
     </div>
