@@ -1,57 +1,17 @@
-hoe4hila
+# hoe4hila
 
-Banner Image
+**A playful web application for fans of the H3 podcast to create and browse through joke dating profiles.**
 
-A playful web application for fans of the H3 podcast to create and browse through joke dating profiles.
-Table of Contents
-
-    Introduction
-    Features
-    Technologies Used
-    Getting Started
-    Contribution Guidelines
-    License
-
-Introduction
+## Introduction
 
 hoe4hila is a webapp built for H3 podcast fans to interact, share their humor, and engage with the community in a fun and lighthearted way. Users can create joke dating profiles with real or meme-like images and bios. Unlike traditional dating apps, users can swipe or tap their way through all the posts with no real consequence, creating a fun, stress-free environment for all H3 fans.
-Features
 
-    User Authentication: Register and log in to your account to create, view, and interact with profiles.
-    Profile Creation: Create your unique joke dating profile using real images or meme-inspired ones and write hilarious bios.
-    Interactive Browsing: Swipe or tap through profiles, enjoying the humor and creativity of the H3 community.
+## Features
 
-Technologies Used
-
-    Frontend: [technology]
-    Backend: [technology]
-    Database: [technology]
-    Authentication: [technology]
-
-(Please replace [technology] with the actual technologies you've used.)
-Getting Started
-
-Clone the repository and install dependencies:
-
-bash
-
-git clone [your-repository-url]
-cd [repository-name]
-npm install
-
-Start the development server:
-
-bash
-
-npm start
-
-Open http://localhost:3000 to view it in the browser.
-Contribution Guidelines
-
-We welcome contributions from the community. Whether you want to fix bugs, propose new features, or improve documentation, every contribution is appreciated. Please read our Contributing Guide for more information on how to get started.
-License
-
-This project is licensed under the MIT License.
+- **User Authentication:** Register and log in to your account to create, view, and interact with profiles.
+- **Profile Creation:** Create your unique joke dating profile using real images or meme-inspired ones and write hilarious bios.
+- **Interactive Browsing:** Swipe or tap through profiles, enjoying the humor and creativity of the H3 community.
+- **Soundbite Fun:** Hit the soundbite button to play random dating-related H3 soundbites, adding an extra layer of fun and interactivity to your browsing experience.
 
 ## Create T3 App
 
