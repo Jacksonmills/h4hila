@@ -23,7 +23,11 @@ export default function CardEditor({ data, toggleModal }: CardEditorProps) {
     },
   });
 
-  const { mutate: updatePost } = api.posts.update.useMutation();
+  const { mutate: updatePost } = api.posts.update.useMutation({
+    onSuccess: () => {
+      void ctx.posts.getAll.invalidate();
+    },
+  });
 
   useEffect(() => {
     setImageUrl(user?.profileImageUrl as string);
