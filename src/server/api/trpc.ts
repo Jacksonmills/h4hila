@@ -30,11 +30,9 @@ type CreateContextOptions = Record<string, never>;
  *
  * @see https://create.t3.gg/en/usage/trpc#-serverapitrpcts
  */
-const createInnerTRPCContext = (_opts: CreateContextOptions) => {
-  return {
-    prisma,
-  };
-};
+// const createInnerTRPCContext = (_opts: CreateContextOptions) => {
+// useful for testing
+// };
 
 /**
  * This is the actual context you will use in your router. It will be used to process every request
@@ -43,7 +41,15 @@ const createInnerTRPCContext = (_opts: CreateContextOptions) => {
  * @see https://trpc.io/docs/context
  */
 export const createTRPCContext = (_opts: CreateNextContextOptions) => {
-  return createInnerTRPCContext({});
+  // get user info at this point
+  const { req } = _opts;
+  const sesh = getAuth(req);
+  const userId = sesh.userId;
+
+  return {
+    prisma,
+    userId,
+  };
 };
 
 /**
@@ -53,9 +59,10 @@ export const createTRPCContext = (_opts: CreateNextContextOptions) => {
  * ZodErrors so that you get typesafety on the frontend if your procedure fails due to validation
  * errors on the backend.
  */
-import { initTRPC } from "@trpc/server";
+import { TRPCError, initTRPC } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
+import { getAuth } from "@clerk/nextjs/dist/server-helpers.server";
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,
@@ -93,3 +100,20 @@ export const createTRPCRouter = t.router;
  * are logged in.
  */
 export const publicProcedure = t.procedure;
+
+const enforceUserIsAuthenticated = t.middleware(async ({ ctx, next }) => {
+  if (!ctx.userId) {
+    throw new TRPCError({
+      code: "UNAUTHORIZED",
+      message: "You must be logged in to perform this action.",
+    });
+  }
+
+  return next({
+    ctx: {
+      userId: ctx.userId,
+    }
+  });
+});
+
+export const privateProcedure = t.procedure.use(enforceUserIsAuthenticated);

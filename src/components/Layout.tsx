@@ -1,7 +1,7 @@
-import { SignIn, SignedIn, SignedOut, UserButton, useUser } from '@clerk/nextjs';
+import { SignIn, SignedIn, SignedOut, useUser } from '@clerk/nextjs';
 import Head from 'next/head';
 import React from 'react';
-import { Settings, Smile, X } from 'react-feather';
+import { Settings, X } from 'react-feather';
 import { type PostWithUser } from '~/pages';
 import { api } from '~/utils/api';
 import CardEditor from './CardEditor';
@@ -26,7 +26,7 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center overflow-hidden" style={{ backgroundImage: `url('/img/bg.png')`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
-        <Header isSignedIn={isSignedIn} currentUserCardData={currentUserCardData!} />
+        <Header isSignedIn={isSignedIn} currentUserCardData={currentUserCardData} />
         <SignedOut>
           <div
             className='w-full h-screen grid place-content-center'
@@ -43,7 +43,8 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
   );
 }
 
-const Header = ({ isSignedIn, currentUserCardData }: { isSignedIn?: boolean; currentUserCardData: PostWithUser; }) => {
+const Header = ({ isSignedIn, currentUserCardData }: { isSignedIn?: boolean; currentUserCardData?: PostWithUser; }) => {
+  const { user } = useUser();
   const [showSettingsModal, setShowSettingsModal] = React.useState(false);
 
   const toggleTooltip = () => {
@@ -60,9 +61,15 @@ const Header = ({ isSignedIn, currentUserCardData }: { isSignedIn?: boolean; cur
               className='bg-h3Pink rounded-full p-1'
               onClick={toggleTooltip}
             >
-              <div className='flex w-[30px] h-[30px]'>
-                <Image src={currentUserCardData.author?.profileImageUrl as string} width={30} height={30} alt="profile picture" className="rounded-full object-cover" />
-              </div>
+              {currentUserCardData ? (
+                <div className='flex w-[30px] h-[30px]'>
+                  <Image src={currentUserCardData.author?.profileImageUrl as string} width={30} height={30} alt="profile picture" className="rounded-full object-cover" />
+                </div>
+              ) : (
+                <div className='flex items-center justify-center w-[30px] h-[30px]'>
+                  <Settings />
+                </div>
+              )}
             </button>
             {(showSettingsModal && isSignedIn) && (
               <div className="absolute z-10 top-0 right-0 bg-white text-black p-4 w-screen">
