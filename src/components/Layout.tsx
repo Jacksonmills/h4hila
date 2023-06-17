@@ -1,11 +1,12 @@
-import { SignIn, SignedIn, SignedOut, useClerk, useUser } from '@clerk/nextjs';
+import { SignIn, SignedIn, SignedOut, UserProfile, useClerk, useUser } from '@clerk/nextjs';
 import Head from 'next/head';
 import React from 'react';
-import { LogOut, Settings, X } from 'react-feather';
+import { ArrowDown, LogOut, Settings, X } from 'react-feather';
 import { type PostWithUser } from '~/pages';
 import { api } from '~/utils/api';
 import CardEditor from './CardEditor';
 import Image from 'next/image';
+import Portal from './Portal';
 
 export default function Layout({ children }: { children: React.ReactNode; }) {
   const { user, isSignedIn } = useUser();
@@ -30,7 +31,6 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
         <SignedOut>
           <div
             className='w-full h-screen grid place-content-center'
-            style={{ height: "calc(100vh - var(--header-height))" }}
           >
             <SignIn />
           </div>
@@ -76,16 +76,24 @@ const Header = ({ isSignedIn, currentUserCardData }: { isSignedIn?: boolean; cur
               )}
             </button>
             {(showSettingsModal && isSignedIn) && (
-              <div className="absolute z-10 top-0 right-0 bg-white text-black p-4 w-screen">
-                <CardEditor data={currentUserCardData} toggleModal={setShowSettingsModal} />
-                <button className="absolute top-5 left-5 md:top-1 md:left-5 bg-h3Pink text-white p-2 rounded-full" onClick={toggleModal}><X /></button>
-                <button
-                  className="absolute top-5 right-5 md:top-1 md:right-1 bg-h3Pink text-white px-4 py-2 rounded-full flex gap-2 items-center"
-                  onClick={handleSignOut}
-                >
-                  Sign Out <LogOut />
-                </button>
-              </div>
+              <Portal>
+                <div className="absolute top-0 left-0 bg-white text-black p-4 w-full h-auto flex flex-col items-center justify-start gap-2">
+                  <button className="absolute top-5 left-5 md:top-1 md:left-5 bg-h3Pink text-white p-2 rounded-full" onClick={toggleModal}><X /></button>
+                  <button
+                    className="absolute top-5 right-5 md:top-1 md:right-1 bg-h3Pink text-white px-4 py-2 rounded-full flex gap-2 items-center"
+                    onClick={handleSignOut}
+                  >
+                    Sign Out <LogOut />
+                  </button>
+
+                  <CardEditor data={currentUserCardData} toggleModal={setShowSettingsModal} />
+
+                  <h2 className='text-2xl flex flex-col items-center justify-center'>Change profile image below <ArrowDown /></h2>
+                  <div className=''>
+                    <UserProfile />
+                  </div>
+                </div>
+              </Portal>
             )}
           </>
         )}

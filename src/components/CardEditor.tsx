@@ -47,7 +47,7 @@ export default function CardEditor({ data, toggleModal }: CardEditorProps) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start gap-4 bg-white text-black rounded-md h-screen">
+    <div className="flex flex-col items-center justify-start gap-4 bg-white text-black rounded-md">
       <div className="flex flex-col md:flex-row w=[55rem]">
         <div className='relative'>
           {imageUrl && <Image src={imageUrl} width={446} height={446} alt="" className="rounded-t-md md:rounded-l-md md:rounded-tr-none pointer-events-none object-cover object-top h-[332px] md:h-[446px] w-[446px]" />}
@@ -56,7 +56,7 @@ export default function CardEditor({ data, toggleModal }: CardEditorProps) {
           <p className="text-current font-bold text-2xl md:text-2xl">{user?.username ? user?.username : 'H3H3 Enjoyer'}</p>
           <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
             <textarea
-              className="bg-white rounded-md shadow-md p-2"
+              className="bg-white rounded-md shadow-md p-2 resize-none h-[100px] md:h-[200px]"
               placeholder="Write something about yourself..."
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
@@ -80,10 +80,6 @@ export default function CardEditor({ data, toggleModal }: CardEditorProps) {
             </button>
           </form>
         </div>
-      </div>
-      <h2 className='text-2xl flex flex-col items-center justify-center'>Change profile image below <ArrowDown /></h2>
-      <div className=''>
-        <UserProfile />
       </div>
     </div>
   );

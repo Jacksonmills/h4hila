@@ -17,7 +17,6 @@ const Home: NextPage = () => {
     <Layout>
       <div
         className="grid place-content-center w-full"
-        style={{ height: "calc(100vh - var(--header-height))" }}
       >
         <div className="bg-white p-6 rounded-full">
           <LoadingSpinner size={100} />
@@ -39,7 +38,6 @@ const Home: NextPage = () => {
     <Layout>
       <div
         className="px-4 md:flex md:flex-col md:items-center md:justify-center"
-        style={{ height: "calc(100vh - var(--header-height))" }}
       >
         {data && data.length > 0 && (
           <div key={data[currentIndex]?.post.id}>

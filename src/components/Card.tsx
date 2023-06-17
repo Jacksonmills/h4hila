@@ -22,9 +22,11 @@ export default function Card({ data, callback }: CardProps) {
   const [opacity, setOpacity] = useState(1);
   const [randomBrandColor, setRandomBrandColor] = useState('');
   const [randomAudioFile, setRandomAudioFile] = useState(0);
-  const windowHeight = window.innerHeight;
+  const [randomUsername, setRandomUsername] = useState('');
 
   const cardRef = useRef<HTMLDivElement>(null);
+
+  console.log(data);
 
   const audioUrls = [
     'https://cdn.glitch.me/3b576859-bca3-4031-ae39-117a4ffdc779%2Fvin%20beautiful.mp3',
@@ -57,10 +59,11 @@ export default function Card({ data, callback }: CardProps) {
 
   useEffect(() => {
     setRandomBrandColor(pickBrandColor() as string);
+    setRandomUsername(pickRandomUsername() as string);
   }, []);
 
   return (
-    <motion.div ref={cardRef} className='transition-opacity duration-100'>
+    <motion.div ref={cardRef} className='transition-opacity duration-100 md:h-auto'>
       <motion.div
         drag
         dragConstraints={cardRef}
@@ -108,27 +111,25 @@ export default function Card({ data, callback }: CardProps) {
           setRotateDeg(0);
           callback && callback();
         }}
-        className={`flex flex-col items-center justify-start gap-4 p-4 bg-white text-black rounded-md shadow-lg cursor-grab active:cursor-grabbing h-[calc(${windowHeight} - var(--header-height) - 12px)]`}
+        className="flex flex-col items-center justify-start gap-4 p-2 md:p-4 h-[90%] bg-white text-black rounded-md shadow-lg cursor-grab active:cursor-grabbing"
       >
-        <div className="flex flex-col items-center grow md:grow-0">
-          <div className='relative'>
-            <Image src={data.author?.profileImageUrl as string} width={446} height={446} alt="" className="rounded-t-md pointer-events-none object-cover object-top h-[332px] md:h-[446px] w-[446px]" />
-            <code
-              className="font-bold rounded-bl-2xl rounded-tl-2xl rounded-tr-md px-4 py-1 ml-auto absolute top-0 right-0"
-              style={{
-                backgroundColor: randomBrandColor,
-                color: colorContrast(randomBrandColor),
-              }}
-            >
-              #hoe4hila
-            </code>
-          </div>
-          <div className="flex flex-col gap-2 grow w-full bg-h3Purple/20 px-6 py-4 rounded-b-md relative">
-            <p className="text-current font-bold text-2xl md:text-2xl">{data.author?.username ? data.author?.username : pickRandomUsername()}</p>
+        <div className="flex flex-col items-center shrink relative">
+          <Image src={data.author?.profileImageUrl as string} width={446} height={446} alt="" className="rounded-t-md pointer-events-none object-cover object-top h-[296px] md:h-[446px] w-[446px]" />
+          <code
+            className="font-bold rounded-bl-2xl rounded-tl-2xl rounded-tr-md px-4 py-1 ml-auto absolute top-0 right-0"
+            style={{
+              backgroundColor: randomBrandColor,
+              color: colorContrast(randomBrandColor),
+            }}
+          >
+            #hoe4hila
+          </code>
+          <div className="flex flex-col gap-2 w-full bg-h3Purple/20 px-4 md:px-6 py-2 md:py-4 rounded-b-md relative">
+            <p className="text-current font-bold text-xl md:text-2xl">{data.author?.username ? data.author?.username : randomUsername}</p>
             <p className="text-current text-md md:text-lg max-w-[400px] break-all">{data.post.content}</p>
           </div>
         </div>
-        <div className="flex items-center justify-evenly gap-4 m-auto">
+        <div className="flex items-center justify-evenly gap-4 grow m-auto">
           <ActionButton Icon={Heart} className="bg-h3Pink" callback={callback} />
           <ActionButton Icon={Zap} className="bg-h3Purple p-6 sm:p-8 shadow-md text-4xl md:text-6xl" callback={handlePlayAudio} />
           <ActionButton Icon={FastForward} className="bg-h3Blue" callback={callback} />
