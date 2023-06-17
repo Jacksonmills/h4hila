@@ -12,6 +12,7 @@ export default function CardEditor({ data }: CardEditorProps) {
   const [imageUrl, setImageUrl] = useState(data.author?.profileImageUrl);
 
   useEffect(() => {
+    console.log('data', data);
     setImageUrl(data.author?.profileImageUrl as string);
   }, [data]);
 

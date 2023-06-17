@@ -44,10 +44,10 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
 }
 
 const Header = ({ isSignedIn, currentUserCardData }: { isSignedIn?: boolean; currentUserCardData: PostWithUser; }) => {
-  const [tooltip, setTooltip] = React.useState(false);
+  const [showSettingsModal, setShowSettingsModal] = React.useState(false);
 
   const toggleTooltip = () => {
-    setTooltip(!tooltip);
+    setShowSettingsModal(!showSettingsModal);
   };
 
   return (
@@ -60,9 +60,11 @@ const Header = ({ isSignedIn, currentUserCardData }: { isSignedIn?: boolean; cur
               className='bg-h3Pink rounded-full p-1'
               onClick={toggleTooltip}
             >
-              <Image src={currentUserCardData.author?.profileImageUrl as string} width={30} height={30} alt="profile picture" className="rounded-full" />
+              <div className='flex w-[30px] h-[30px]'>
+                <Image src={currentUserCardData.author?.profileImageUrl as string} width={30} height={30} alt="profile picture" className="rounded-full object-cover" />
+              </div>
             </button>
-            {(tooltip && isSignedIn) && (
+            {(showSettingsModal && isSignedIn) && (
               <div className="absolute z-10 top-0 right-0 bg-white text-black p-4 w-screen h-screen">
                 <CardEditor data={currentUserCardData} />
                 <button className="absolute top-5 left-5 md:top-1 md:left-5 bg-h3Pink text-white p-2 rounded-full" onClick={toggleTooltip}><X /></button>

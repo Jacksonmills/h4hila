@@ -96,7 +96,7 @@ export default function Card({ data, callback }: CardProps) {
           callback && callback();
         }}
         className="flex flex-col items-center justify-start gap-4 p-4 bg-white text-black rounded-md shadow-lg cursor-grab active:cursor-grabbing md:h-auto"
-        style={{ height: "calc(96vh - var(--header-height))" }}
+        style={{ height: "calc(90vh - var(--header-height))" }}
       >
         <div className="flex flex-col items-center grow md:grow-0">
           <div className='relative'>
