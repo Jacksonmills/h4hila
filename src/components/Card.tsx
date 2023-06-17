@@ -7,7 +7,6 @@ import { type PostWithUser } from '~/pages';
 import useSound from 'use-sound';
 import { colorContrast } from '~/utils/colorContrast';
 
-
 interface CardProps { data: PostWithUser; callback?: () => void; }
 
 export default function Card({ data, callback }: CardProps) {
@@ -111,12 +110,12 @@ export default function Card({ data, callback }: CardProps) {
               #hoe4hila
             </code>
           </div>
-          <div className="flex flex-col gap-2 grow w-full bg-h3Purple/20 px-6 py-4 rounded-b-md relative">
+          <div className="flex flex-col gap-2 w-full bg-h3Purple/20 px-6 py-4 rounded-b-md relative">
             <p className="text-current font-bold text-2xl md:text-2xl">{data.author?.username}</p>
             <p className="text-current text-md md:text-lg">{data.post.content}</p>
           </div>
         </div>
-        <div className="flex items-center justify-evenly gap-4 py-1 my-auto">
+        <div className="flex items-center grow justify-evenly gap-4 py-1 my-auto">
           <ActionButton Icon={Heart} className="bg-h3Pink" callback={callback} />
           <ActionButton Icon={Zap} className="bg-h3Purple p-6 sm:p-8 shadow-md text-4xl md:text-6xl" callback={handlePlayAudio} />
           <ActionButton Icon={FastForward} className="bg-h3Blue" callback={callback} />

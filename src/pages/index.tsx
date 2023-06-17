@@ -1,4 +1,3 @@
-import { useUser } from "@clerk/nextjs";
 import { type NextPage } from "next";
 import { type RouterOutputs, api } from "~/utils/api";
 import { type SyntheticEvent, useState } from "react";
@@ -13,7 +12,6 @@ const Home: NextPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const { data } = api.posts.getAll.useQuery();
-  const { user } = useUser();
 
   if (!data) return (
     <Layout>
