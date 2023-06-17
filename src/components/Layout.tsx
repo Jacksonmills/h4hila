@@ -1,7 +1,7 @@
-import { SignIn, SignedIn, SignedOut, useUser } from '@clerk/nextjs';
+import { SignIn, SignedIn, SignedOut, useClerk, useUser } from '@clerk/nextjs';
 import Head from 'next/head';
 import React from 'react';
-import { Settings, X } from 'react-feather';
+import { LogOut, Settings, X } from 'react-feather';
 import { type PostWithUser } from '~/pages';
 import { api } from '~/utils/api';
 import CardEditor from './CardEditor';
@@ -44,11 +44,15 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
 }
 
 const Header = ({ isSignedIn, currentUserCardData }: { isSignedIn?: boolean; currentUserCardData?: PostWithUser; }) => {
-  const { user } = useUser();
+  const { signOut } = useClerk();
   const [showSettingsModal, setShowSettingsModal] = React.useState(false);
 
-  const toggleTooltip = () => {
+  const toggleModal = () => {
     setShowSettingsModal(!showSettingsModal);
+  };
+
+  const handleSignOut = () => {
+    void signOut();
   };
 
   return (
@@ -59,7 +63,7 @@ const Header = ({ isSignedIn, currentUserCardData }: { isSignedIn?: boolean; cur
           <>
             <button
               className='bg-h3Pink rounded-full p-1'
-              onClick={toggleTooltip}
+              onClick={toggleModal}
             >
               {currentUserCardData ? (
                 <div className='flex w-[30px] h-[30px]'>
@@ -74,7 +78,13 @@ const Header = ({ isSignedIn, currentUserCardData }: { isSignedIn?: boolean; cur
             {(showSettingsModal && isSignedIn) && (
               <div className="absolute z-10 top-0 right-0 bg-white text-black p-4 w-screen">
                 <CardEditor data={currentUserCardData} toggleModal={setShowSettingsModal} />
-                <button className="absolute top-5 left-5 md:top-1 md:left-5 bg-h3Pink text-white p-2 rounded-full" onClick={toggleTooltip}><X /></button>
+                <button className="absolute top-5 left-5 md:top-1 md:left-5 bg-h3Pink text-white p-2 rounded-full" onClick={toggleModal}><X /></button>
+                <button
+                  className="absolute top-5 right-5 md:top-1 md:right-1 bg-h3Pink text-white px-4 py-2 rounded-full flex gap-2 items-center"
+                  onClick={handleSignOut}
+                >
+                  Sign Out <LogOut />
+                </button>
               </div>
             )}
           </>

@@ -9,6 +9,14 @@ import { colorContrast } from '~/utils/colorContrast';
 
 interface CardProps { data: PostWithUser; callback?: () => void; }
 
+const h3h3Usernames = [
+  'Fupa Trooper',
+  'Ethan Klein',
+  'Hila Klein',
+  'Papa Bless',
+  'H3H3 Enjoyer',
+];
+
 export default function Card({ data, callback }: CardProps) {
   const [rotateDeg, setRotateDeg] = useState(0);
   const [opacity, setOpacity] = useState(1);
@@ -39,6 +47,11 @@ export default function Card({ data, callback }: CardProps) {
     const colors = ['#cc66ff', '#2563eb', '#7ed9f8', '#734eab'];
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     return randomColor;
+  };
+
+  const pickRandomUsername = () => {
+    const randomUsername = h3h3Usernames[Math.floor(Math.random() * h3h3Usernames.length)];
+    return randomUsername;
   };
 
   useEffect(() => {
@@ -111,8 +124,8 @@ export default function Card({ data, callback }: CardProps) {
             </code>
           </div>
           <div className="flex flex-col gap-2 w-full bg-h3Purple/20 px-6 py-4 rounded-b-md relative">
-            <p className="text-current font-bold text-2xl md:text-2xl">{data.author?.username}</p>
-            <p className="text-current text-md md:text-lg">{data.post.content}</p>
+            <p className="text-current font-bold text-2xl md:text-2xl">{data.author?.username ? data.author?.username : pickRandomUsername()}</p>
+            <p className="text-current text-md md:text-lg max-w-[400px]">{data.post.content}</p>
           </div>
         </div>
         <div className="flex items-center grow justify-evenly gap-4 py-1 my-auto">
