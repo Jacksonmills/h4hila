@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
-import { FastForward, Heart, Zap, type Icon, VolumeX } from 'react-feather';
+import { FastForward, Heart, Zap, type Icon } from 'react-feather';
 import { motion } from 'framer-motion';
 
 import { type PostWithUser } from '~/pages';
@@ -8,7 +8,7 @@ import useSound from 'use-sound';
 import { colorContrast } from '~/utils/colorContrast';
 
 
-interface CardProps { data: PostWithUser; callback: () => void; }
+interface CardProps { data: PostWithUser; callback?: () => void; }
 
 export default function Card({ data, callback }: CardProps) {
   const [rotateDeg, setRotateDeg] = useState(0);
@@ -93,7 +93,7 @@ export default function Card({ data, callback }: CardProps) {
         }}
         onDragEnd={() => {
           setRotateDeg(0);
-          callback();
+          callback && callback();
         }}
         className="flex flex-col items-center justify-start gap-4 p-4 bg-white text-black rounded-md shadow-lg cursor-grab active:cursor-grabbing md:h-auto"
         style={{ height: "calc(96vh - var(--header-height))" }}
