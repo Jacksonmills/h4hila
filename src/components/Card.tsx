@@ -128,7 +128,7 @@ export default function Card({ data, callback }: CardProps) {
             <p className="text-current text-md md:text-lg max-w-[400px]">{data.post.content}</p>
           </div>
         </div>
-        <div className="flex items-center grow justify-evenly gap-4 py-1 my-auto">
+        <div className="flex items-center justify-evenly gap-4 m-auto">
           <ActionButton Icon={Heart} className="bg-h3Pink" callback={callback} />
           <ActionButton Icon={Zap} className="bg-h3Purple p-6 sm:p-8 shadow-md text-4xl md:text-6xl" callback={handlePlayAudio} />
           <ActionButton Icon={FastForward} className="bg-h3Blue" callback={callback} />
