@@ -1,6 +1,5 @@
-import { UserProfile } from "@clerk/nextjs";
 import Image from "next/image";
-import { ArrowDown, Settings } from "react-feather";
+import { Settings } from "react-feather";
 import { type PostWithUser } from "~/pages";
 import Portal from "./Portal";
 import CardEditor from "./CardEditor";

@@ -43,6 +43,7 @@ export const postsRouter = createTRPCRouter({
   create: privateProcedure
     .input(
       z.object({
+        username: z.string().min(2).max(32),
         content: z.string().min(1).max(140),
       })
     )
@@ -52,6 +53,7 @@ export const postsRouter = createTRPCRouter({
       const post = await ctx.prisma.post.create({
         data: {
           authorId,
+          username: input.username,
           content: input.content,
         }
       });
@@ -62,6 +64,7 @@ export const postsRouter = createTRPCRouter({
   update: privateProcedure
     .input(
       z.object({
+        username: z.string().min(2).max(32),
         content: z.string().min(1).max(140),
       })
     )
@@ -82,6 +85,7 @@ export const postsRouter = createTRPCRouter({
         },
         data: {
           authorId,
+          username: input.username,
           content: input.content,
         }
       });

@@ -9,20 +9,11 @@ import { colorContrast } from '~/utils/colorContrast';
 
 interface CardProps { data: PostWithUser; callback?: () => void; }
 
-const h3h3Usernames = [
-  'Fupa Trooper',
-  'Ethan Klein',
-  'Hila Klein',
-  'Papa Bless',
-  'H3H3 Enjoyer',
-];
-
 export default function Card({ data, callback }: CardProps) {
   const [rotateDeg, setRotateDeg] = useState(0);
   const [opacity, setOpacity] = useState(1);
   const [randomBrandColor, setRandomBrandColor] = useState('');
   const [randomAudioFile, setRandomAudioFile] = useState(0);
-  const [randomUsername, setRandomUsername] = useState('');
 
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -50,14 +41,13 @@ export default function Card({ data, callback }: CardProps) {
     return randomColor;
   };
 
-  const pickRandomUsername = () => {
-    const randomUsername = h3h3Usernames[Math.floor(Math.random() * h3h3Usernames.length)];
-    return randomUsername;
+  const getAvailableUsername = () => {
+    const username = data?.post?.username as string || data?.author?.username as string || "Fupa Trooper";
+    return username;
   };
 
   useEffect(() => {
     setRandomBrandColor(pickBrandColor() as string);
-    setRandomUsername(pickRandomUsername() as string);
   }, []);
 
   return (
@@ -123,11 +113,11 @@ export default function Card({ data, callback }: CardProps) {
             #hoe4hila
           </code>
           <div className="flex flex-col gap-2 w-full bg-h3Purple/20 px-4 md:px-6 py-2 md:py-4 rounded-b-md relative">
-            <p className="text-current font-bold text-xl md:text-2xl">{data.author?.username ? data.author?.username : randomUsername}</p>
+            <p className="text-current font-bold text-xl md:text-2xl">{getAvailableUsername()}</p>
             <p className="text-current text-md md:text-lg max-w-[400px] min-h-[115px] break-words">{data.post.content}</p>
           </div>
         </div>
-        <div className="flex items-center justify-evenly gap-4 grow m-auto">
+        <div className="flex items-center justify-evenly gap-4 grow m-auto py-4">
           <ActionButton Icon={Heart} className="bg-h3Pink" callback={callback} />
           <ActionButton Icon={Zap} className="bg-h3Purple p-6 sm:p-8 shadow-md text-4xl md:text-6xl" callback={handlePlayAudio} />
           <ActionButton Icon={FastForward} className="bg-h3Blue" callback={callback} />
