@@ -1,8 +1,7 @@
-import { UserProfile, useUser } from '@clerk/nextjs';
+import { useClerk, useUser } from '@clerk/nextjs';
 import Image from 'next/image';
 import React, { type Dispatch, useEffect, useState, type SetStateAction } from 'react';
-import { ArrowDown, Save, XCircle } from 'react-feather';
-import { set } from 'zod';
+import { LogOut, Save, X, XCircle } from 'react-feather';
 
 import { type PostWithUser } from '~/pages';
 import { api } from '~/utils/api';
@@ -10,6 +9,7 @@ import { api } from '~/utils/api';
 interface CardEditorProps { data?: PostWithUser; toggleModal: Dispatch<SetStateAction<boolean>>; }
 
 export default function CardEditor({ data, toggleModal }: CardEditorProps) {
+  const { signOut } = useClerk();
   const { user } = useUser();
   const [inputValue, setInputValue] = useState(data?.post?.content || '');
   const [imageUrl, setImageUrl] = useState(user?.profileImageUrl);
@@ -46,10 +46,23 @@ export default function CardEditor({ data, toggleModal }: CardEditorProps) {
     toggleModal(false);
   };
 
+  const handleSignOut = () => {
+    void signOut();
+  };
+
   return (
     <div className="flex flex-col items-center justify-start gap-4 bg-white text-black rounded-md">
       <div className="flex flex-col md:flex-row w=[55rem]">
         <div className='relative'>
+          <div className="absolute flex gap-4 justify-between w-full p-2">
+            <button className="bg-black text-white p-2 rounded-full shadow-sm" onClick={() => toggleModal(false)}><X /></button>
+            <button
+              className="bg-h3Pink text-white px-4 py-2 rounded-full shadow-sm flex gap-2 items-center"
+              onClick={handleSignOut}
+            >
+              Sign Out <LogOut />
+            </button>
+          </div>
           {imageUrl && <Image src={imageUrl} width={446} height={446} alt="" className="rounded-t-md md:rounded-l-md md:rounded-tr-none pointer-events-none object-cover object-top h-[332px] md:h-[446px] w-[446px]" />}
         </div>
         <div className="flex flex-col gap-2 grow w-full bg-h3Purple/20 px-6 py-4 rounded-b-md md:rounded-r-md md:rounded-bl-none relative">

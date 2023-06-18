@@ -114,7 +114,7 @@ export default function Card({ data, callback }: CardProps) {
         className="flex flex-col items-center justify-start gap-4 p-2 md:p-4 h-[90%] bg-white text-black rounded-md shadow-lg cursor-grab active:cursor-grabbing"
       >
         <div className="flex flex-col items-center shrink relative">
-          <Image src={data.author?.profileImageUrl as string} width={446} height={446} alt="" className="rounded-t-md pointer-events-none object-cover object-top h-[296px] md:h-[446px] w-[446px]" />
+          <Image src={data.author?.profileImageUrl as string} width={446} height={446} alt="" className="rounded-t-md pointer-events-none object-cover object-center h-[296px] md:h-[446px] w-[446px]" />
           <code
             className="font-bold rounded-bl-2xl rounded-tl-2xl rounded-tr-md px-4 py-1 ml-auto absolute top-0 right-0"
             style={{
@@ -126,7 +126,7 @@ export default function Card({ data, callback }: CardProps) {
           </code>
           <div className="flex flex-col gap-2 w-full bg-h3Purple/20 px-4 md:px-6 py-2 md:py-4 rounded-b-md relative">
             <p className="text-current font-bold text-xl md:text-2xl">{data.author?.username ? data.author?.username : randomUsername}</p>
-            <p className="text-current text-md md:text-lg max-w-[400px] break-all">{data.post.content}</p>
+            <p className="text-current text-md md:text-lg max-w-[400px] break-words">{data.post.content}</p>
           </div>
         </div>
         <div className="flex items-center justify-evenly gap-4 grow m-auto">
