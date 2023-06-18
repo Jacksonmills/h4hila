@@ -124,7 +124,7 @@ export default function Card({ data, callback }: CardProps) {
           </code>
           <div className="flex flex-col gap-2 w-full bg-h3Purple/20 px-4 md:px-6 py-2 md:py-4 rounded-b-md relative">
             <p className="text-current font-bold text-xl md:text-2xl">{data.author?.username ? data.author?.username : randomUsername}</p>
-            <p className="text-current text-md md:text-lg max-w-[400px] break-words">{data.post.content}</p>
+            <p className="text-current text-md md:text-lg max-w-[400px] min-h-[115px] break-words">{data.post.content}</p>
           </div>
         </div>
         <div className="flex items-center justify-evenly gap-4 grow m-auto">

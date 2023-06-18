@@ -38,10 +38,6 @@ export default function Header({ isSignedIn, currentUserCardData }: { isSignedIn
                 <div className="absolute top-0 left-0 bg-white text-black p-2 w-full h-auto">
                   <div className="relative  flex flex-col items-center justify-start gap-2">
                     <CardEditor data={currentUserCardData} toggleModal={setShowSettingsModal} />
-                    <h2 className='text-2xl flex flex-col items-center justify-center'>
-                      Change profile image below <ArrowDown />
-                    </h2>
-                    <UserProfile />
                   </div>
                 </div>
               </Portal>
