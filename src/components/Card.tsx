@@ -26,8 +26,6 @@ export default function Card({ data, callback }: CardProps) {
 
   const cardRef = useRef<HTMLDivElement>(null);
 
-  console.log(data);
-
   const audioUrls = [
     'https://cdn.glitch.me/3b576859-bca3-4031-ae39-117a4ffdc779%2Fvin%20beautiful.mp3',
     'https://cdn.glitch.com/3b576859-bca3-4031-ae39-117a4ffdc779%2Fvin_diesel_wow_man.mp3?v=1620189329726',
