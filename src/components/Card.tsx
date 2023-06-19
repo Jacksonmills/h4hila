@@ -102,7 +102,7 @@ export default function Card({ data, callback }: CardProps) {
         className="flex flex-col items-center justify-start gap-4 p-2 md:p-4 h-[90%] bg-white text-black rounded-md shadow-lg cursor-grab active:cursor-grabbing"
       >
         <div className="flex flex-col items-center shrink relative">
-          <Image src={data.author?.profileImageUrl as string} width={446} height={446} alt="" className="rounded-t-md pointer-events-none object-cover object-center h-[296px] md:h-[446px] w-[446px]" priority />
+          <Image src={data.author?.profileImageUrl as string} width={446} height={446} alt="" className="rounded-t-md pointer-events-none object-cover object-center h-[296px] md:h-[446px] w-[446px]" />
           <code
             className="font-bold rounded-bl-2xl rounded-tl-2xl rounded-tr-md px-4 py-1 ml-auto absolute top-0 right-0"
             style={{

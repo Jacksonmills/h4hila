@@ -38,8 +38,8 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
           {children}
         </SignedIn>
 
-        <div className='absolute top-0 left-0 z-[-1] h-screen w-screen'>
-          <Image src={bgImage} alt="background image" className='object-cover w-full h-full' priority />
+        <div className='absolute top-0 left-0 z-[-1] h-screen w-screen bg-h3Purple'>
+          <Image src={bgImage} alt="background image" className='object-cover w-full h-full' unoptimized />
         </div>
       </main>
     </>
