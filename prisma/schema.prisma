@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
     provider = "prisma-client-js"
 }
@@ -21,3 +18,72 @@ model Post {
 
     @@index([authorId])
 }
+
+// model User {
+//     id        String   @id @default(cuid())
+//     createdAt DateTime @default(now())
+
+//     username        String?
+//     email           String  @unique
+//     password        String
+//     discordUsername String?
+//     bio             String?
+//     age             Int?
+//     location        String?
+//     likes           Like[]
+//     matchesAsUser1  Match[] @relation("User1")
+//     matchesAsUser2  Match[] @relation("User2")
+//     posts           Post[]
+//     photos          Photo[]
+// }
+
+// model FuturePost {
+//     id        String   @id @default(cuid())
+//     createdAt DateTime @default(now())
+
+//     content  String @db.VarChar(255)
+//     author   User   @relation(fields: [authorId], references: [id])
+//     authorId String
+//     Like     Like[]
+
+//     @@index([authorId])
+// }
+
+// model Like {
+//     id        String   @id @default(cuid())
+//     createdAt DateTime @default(now())
+
+//     post     Post   @relation(fields: [postId], references: [id])
+//     postId   String
+//     author   User   @relation(fields: [authorId], references: [id])
+//     authorId String
+
+//     @@index([postId])
+//     @@index([authorId])
+// }
+
+// model Match {
+//     id        String   @id @default(cuid())
+//     createdAt DateTime @default(now())
+
+//     user1   User   @relation(name: "User1", fields: [user1Id], references: [id])
+//     user1Id String
+
+//     user2   User   @relation(name: "User2", fields: [user2Id], references: [id])
+//     user2Id String
+
+//     @@unique([user1Id, user2Id])
+//     @@index([user1Id])
+//     @@index([user2Id])
+// }
+
+// model Photo {
+//     id        String   @id @default(cuid())
+//     createdAt DateTime @default(now())
+
+//     url    String
+//     user   User   @relation(fields: [userId], references: [id])
+//     userId String
+
+//     @@index([userId])
+// }
