@@ -1,4 +1,4 @@
-import { Home, RefreshCcw, RefreshCw, Settings } from "react-feather";
+import { Home, RefreshCw, Settings } from "react-feather";
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 

@@ -2,7 +2,7 @@ import { UserProfile, useClerk, useUser } from '@clerk/nextjs';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { ArrowDown, LogOut, Save, X, XCircle } from 'react-feather';
+import { ArrowDown, LogOut, Save, XCircle } from 'react-feather';
 
 import { type PostWithUser } from '~/pages';
 import { api } from '~/utils/api';

@@ -6,7 +6,7 @@ import SettingsPanel from "~/components/SettingsPanel";
 import { api } from "~/utils/api";
 
 const Settings: NextPage = () => {
-  const { user, isSignedIn } = useUser();
+  const { user } = useUser();
   const { data } = api.posts.getAll.useQuery();
   if (!data) return null;
 
