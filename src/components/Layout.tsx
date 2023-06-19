@@ -4,6 +4,8 @@ import React from 'react';
 import { api } from '~/utils/api';
 
 import Header from './Header';
+import Image from 'next/image';
+import bgImage from '../../public/img/bg.webp';
 
 export default function Layout({ children }: { children: React.ReactNode; }) {
   const { user, isSignedIn } = useUser();
@@ -23,7 +25,7 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
         <meta name="description" content="Tinder-like app for the H3Podcast fan base" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex min-h-screen flex-col items-center overflow-hidden" style={{ backgroundImage: `url('/img/bg.png')`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
+      <main className="flex min-h-screen flex-col items-center overflow-hidden relative">
         <Header isSignedIn={isSignedIn} currentUserCardData={currentUserCardData} />
         <SignedOut>
           <div
@@ -35,6 +37,10 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
         <SignedIn>
           {children}
         </SignedIn>
+
+        <div className='absolute top-0 left-0 z-[-1]'>
+          <Image src={bgImage} alt="background image" sizes='100vw' className='object-cover' priority />
+        </div>
       </main>
     </>
   );

@@ -34,7 +34,7 @@ export default function Header({ isSignedIn, currentUserCardData }: { isSignedIn
             </button>
             {(showSettingsModal && isSignedIn) && (
               <Portal>
-                <div className="absolute top-0 left-0 bg-white text-black p-2 w-full h-auto">
+                <div className="absolute top-0 left-0 bg-white text-black p-2 w-full h-screen">
                   <div className="relative  flex flex-col items-center justify-start gap-2">
                     <CardEditor data={currentUserCardData} toggleModal={setShowSettingsModal} />
                   </div>

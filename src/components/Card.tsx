@@ -62,28 +62,28 @@ export default function Card({ data, callback }: CardProps) {
         onDrag={(_, info) => {
           // opacity
           if (info.offset.x > 20) {
-            setOpacity(0.8);
+            setOpacity(0.75);
           } else if (info.offset.x < -20) {
-            setOpacity(0.8);
+            setOpacity(0.75);
           } else {
             setOpacity(1);
           }
 
           // rotate
-          if (info.offset.x > 5) {
+          if (info.offset.x > 10) {
             setRotateDeg(6);
-            if (info.offset.x > 10) {
+            if (info.offset.x > 20) {
               setRotateDeg(12);
             }
-            if (info.offset.x > 20) {
+            if (info.offset.x > 40) {
               setRotateDeg(24);
             }
-          } else if (info.offset.x < -5) {
+          } else if (info.offset.x < -10) {
             setRotateDeg(-6);
-            if (info.offset.x < -10) {
+            if (info.offset.x < -20) {
               setRotateDeg(-12);
             }
-            if (info.offset.x < -20) {
+            if (info.offset.x < -40) {
               setRotateDeg(-24);
             }
           } else {
@@ -92,7 +92,7 @@ export default function Card({ data, callback }: CardProps) {
 
           // basically this checks if the card is dragged off the screen
           if (info.offset.x > window.innerWidth / 2 || info.offset.x < -window.innerWidth / 2) {
-            setOpacity(0);
+            setOpacity(0.1);
           }
         }}
         onDragEnd={() => {
@@ -102,7 +102,7 @@ export default function Card({ data, callback }: CardProps) {
         className="flex flex-col items-center justify-start gap-4 p-2 md:p-4 h-[90%] bg-white text-black rounded-md shadow-lg cursor-grab active:cursor-grabbing"
       >
         <div className="flex flex-col items-center shrink relative">
-          <Image src={data.author?.profileImageUrl as string} width={446} height={446} alt="" className="rounded-t-md pointer-events-none object-cover object-center h-[296px] md:h-[446px] w-[446px]" />
+          <Image src={data.author?.profileImageUrl as string} width={446} height={446} alt="" className="rounded-t-md pointer-events-none object-cover object-center h-[296px] md:h-[446px] w-[446px]" priority />
           <code
             className="font-bold rounded-bl-2xl rounded-tl-2xl rounded-tr-md px-4 py-1 ml-auto absolute top-0 right-0"
             style={{
