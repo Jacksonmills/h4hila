@@ -15,11 +15,7 @@ const Home: NextPage = () => {
 
   if (!data) return (
     <Layout>
-      <div
-        className="grid place-content-center w-full"
-      >
-        <LoadingSpinner size={100} />
-      </div>
+      <LoadingSpinner size={100} />
     </Layout>
   );
 
@@ -34,9 +30,7 @@ const Home: NextPage = () => {
 
   return (
     <Layout>
-      <div
-        className="px-4 md:flex md:flex-col md:items-center md:justify-center"
-      >
+      <div className="px-4 md:flex md:flex-col md:items-center md:justify-center">
         {data && data.length > 0 && (
           <div key={data[currentIndex]?.post.id}>
             <Card

@@ -5,9 +5,7 @@ import LoadingSpinner from "~/components/LoadingSpinner";
 const Settings: NextPage = () => {
   return (
     <Layout>
-      <div className="grid place-content-center w-full h-full">
-        <LoadingSpinner size={100} />
-      </div>
+      <LoadingSpinner size={100} />
     </Layout>
   );
 };

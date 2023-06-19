@@ -26,18 +26,15 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
       </Head>
       <main className="flex min-h-screen flex-col items-center overflow-hidden relative">
         <Header isSignedIn={isSignedIn} currentUserCardData={currentUserCardData} />
-        <SignedOut>
-          <div
-            className='w-full h-screen grid place-content-center'
-          >
+        <div className='grid place-content-center w-full h-full grow'>
+          <SignedOut>
             <SignIn />
-          </div>
-        </SignedOut>
-        <SignedIn>
-          {children}
-        </SignedIn>
-
-        <Background />
+          </SignedOut>
+          <SignedIn>
+            {children}
+          </SignedIn>
+          <Background />
+        </div>
       </main>
     </>
   );
