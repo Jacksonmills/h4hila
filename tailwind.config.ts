@@ -5,10 +5,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        h3Pink: '#cc66ff',
+        h3Pink: '#cf6cfa',
+        h3HotPink: '#b136cc',
         h3Blue: '#2563eb',
-        h3LightBlue: '#7ed9f8',
-        h3Purple: '#734eab',
+        h3LightBlue: '#7cdaf4',
+        h3Purple: '#694293',
       }
     },
   },

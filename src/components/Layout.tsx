@@ -5,7 +5,7 @@ import { api } from '~/utils/api';
 
 import Header from './Header';
 import Image from 'next/image';
-import bgImage from '../../public/img/bg.webp';
+import Background from './Background';
 
 export default function Layout({ children }: { children: React.ReactNode; }) {
   const { user, isSignedIn } = useUser();
@@ -21,7 +21,7 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
   return (
     <>
       <Head>
-        <title>hoe4hila</title>
+        <title>[hoe4hila]</title>
         <meta name="description" content="Tinder-like app for the H3Podcast fan base" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -38,9 +38,7 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
           {children}
         </SignedIn>
 
-        <div className='absolute top-0 left-0 z-[-1] h-screen w-screen bg-h3Purple'>
-          <Image src={bgImage} alt="background image" className='object-cover w-full h-full' unoptimized />
-        </div>
+        <Background />
       </main>
     </>
   );

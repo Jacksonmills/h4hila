@@ -4,7 +4,7 @@ export default function LoadingSpinner({ size = 32 }: { size?: number; }) {
   const sizeStr = `${size}`;
 
   return (
-    <div role="status">
+    <div className="bg-white p-6 rounded-full" role="status">
       <svg
         aria-hidden="true"
         className="text-gray-200 animate-spin dark:text-h3Purple fill-h3LightBlue"

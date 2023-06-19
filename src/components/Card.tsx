@@ -99,7 +99,7 @@ export default function Card({ data, callback }: CardProps) {
           setRotateDeg(0);
           callback && callback();
         }}
-        className="flex flex-col items-center justify-start gap-4 p-2 md:p-4 h-[90%] bg-white text-black rounded-md shadow-lg cursor-grab active:cursor-grabbing"
+        className="flex flex-col items-center justify-start gap-4 p-2 md:p-4 h-[90%] bg-white text-black  shadow-lg cursor-grab active:cursor-grabbing"
       >
         <div className="flex flex-col items-center shrink relative">
           <Image src={data.author?.profileImageUrl as string} width={446} height={446} alt="" className="rounded-t-md pointer-events-none object-cover object-center h-[296px] md:h-[446px] w-[446px]" />

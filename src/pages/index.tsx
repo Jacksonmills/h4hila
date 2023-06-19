@@ -18,9 +18,7 @@ const Home: NextPage = () => {
       <div
         className="grid place-content-center w-full"
       >
-        <div className="bg-white p-6 rounded-full">
-          <LoadingSpinner size={100} />
-        </div>
+        <LoadingSpinner size={100} />
       </div>
     </Layout>
   );

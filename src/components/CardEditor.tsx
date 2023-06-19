@@ -3,6 +3,8 @@ import Image from 'next/image';
 import React, { type Dispatch, useEffect, useState, type SetStateAction } from 'react';
 import { ArrowDown, LogOut, Save, X, XCircle } from 'react-feather';
 
+import { motion } from 'framer-motion';
+
 import { type PostWithUser } from '~/pages';
 import { api } from '~/utils/api';
 
@@ -73,13 +75,22 @@ export default function CardEditor({ data, toggleModal }: CardEditorProps) {
       <div className="flex flex-col md:flex-row w=[55rem]">
         <div className='relative'>
           <div className="absolute flex gap-4 justify-between w-full p-2">
-            <button className="bg-black text-white p-2 rounded-full shadow-sm" onClick={() => toggleModal(false)}><X /></button>
-            <button
-              className="bg-h3Pink text-white px-4 py-2 rounded-full shadow-sm flex gap-2 items-center"
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="bg-black text-white p-2 rounded-full shadow-sm"
+              onClick={() => toggleModal(false)}
+            >
+              <X />
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="bg-h3Pink text-white font-bold px-4 py-2 rounded-full shadow-sm flex gap-2 items-center"
               onClick={handleSignOut}
             >
-              Sign Out <LogOut />
-            </button>
+              Sign Out <LogOut className='w-[1.6em] h-[1.6em]' />
+            </motion.button>
           </div>
           {imageUrl && <Image src={imageUrl} width={446} height={446} alt="" className="rounded-t-md md:rounded-l-md md:rounded-tr-none pointer-events-none object-cover object-center h-[332px] md:h-[446px] w-[446px]" />}
         </div>
@@ -109,7 +120,7 @@ export default function CardEditor({ data, toggleModal }: CardEditorProps) {
               <p className="text-sm text-gray-400">140 characters max</p>
               <p className="text-sm text-gray-400 aria-disabled:text-red-500" aria-disabled={disabled}>{bio.length}/140</p>
             </div>
-            <button type="submit" disabled={disabled} className='bg-h3Purple text-white font-bold text-xl inline-flex items-center justify-center p-2 rounded-md disabled:bg-gray-400'>
+            <AnimatedButton type="submit" disabled={disabled} className='bg-h3Purple text-white font-bold text-xl inline-flex items-center justify-center p-2 rounded-md disabled:bg-gray-400'>
               {disabled ? (
                 <>
                   <XCircle />
@@ -121,7 +132,7 @@ export default function CardEditor({ data, toggleModal }: CardEditorProps) {
                   <span className='sr-only'>Save</span>
                 </>
               )}
-            </button>
+            </AnimatedButton>
           </form>
         </div>
       </div>
