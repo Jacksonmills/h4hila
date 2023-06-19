@@ -1,16 +1,16 @@
 import { UserProfile, useClerk, useUser } from '@clerk/nextjs';
 import Image from 'next/image';
-import React, { type Dispatch, useEffect, useState, type SetStateAction } from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import { ArrowDown, LogOut, Save, X, XCircle } from 'react-feather';
-
-import { motion } from 'framer-motion';
 
 import { type PostWithUser } from '~/pages';
 import { api } from '~/utils/api';
 
-interface CardEditorProps { data?: PostWithUser; toggleModal: Dispatch<SetStateAction<boolean>>; }
+interface SettingsPanelProps { data?: PostWithUser; }
 
-export default function CardEditor({ data, toggleModal }: CardEditorProps) {
+export default function SettingsPanel({ data }: SettingsPanelProps) {
+  const router = useRouter();
   const { signOut } = useClerk();
   const { user } = useUser();
   const [username, setUsername] = useState(getAvailableUsername());
@@ -49,15 +49,16 @@ export default function CardEditor({ data, toggleModal }: CardEditorProps) {
         username: nextUsername,
         content: bio
       });
-      toggleModal(false);
-      return;
+
+      return void router.push('/');
     }
 
     mutate({
       username: nextUsername,
       content: bio
     });
-    toggleModal(false);
+
+    return void router.push('/');
   };
 
   const handleSignOut = () => {
@@ -70,29 +71,18 @@ export default function CardEditor({ data, toggleModal }: CardEditorProps) {
   }
 
   return (
-    <div className="flex flex-col items-center justify-start gap-12 bg-white h-screen text-black rounded-md">
-
-      <div className="flex flex-col md:flex-row w=[55rem]">
+    <div className='flex flex-col gap-6'>
+      <div className="flex flex-col md:flex-row mx-[0.75rem] sm:mx-[1.75rem] bg-white rounded-2xl">
         <div className='relative'>
           <div className="absolute flex gap-4 justify-between w-full p-2">
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className="bg-black text-white p-2 rounded-full shadow-sm"
-              onClick={() => toggleModal(false)}
-            >
-              <X />
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className="bg-h3Pink text-white font-bold px-4 py-2 rounded-full shadow-sm flex gap-2 items-center"
+            <button
+              className="bg-h3Pink text-white font-bold px-4 py-2 rounded-full shadow-sm flex gap-2 items-center hover:bg-h3HotPink transition-colors duration-200 ease-in-out"
               onClick={handleSignOut}
             >
               Sign Out <LogOut className='w-[1.6em] h-[1.6em]' />
-            </motion.button>
+            </button>
           </div>
-          {imageUrl && <Image src={imageUrl} width={446} height={446} alt="" className="rounded-t-md md:rounded-l-md md:rounded-tr-none pointer-events-none object-cover object-center h-[332px] md:h-[446px] w-[446px]" />}
+          {imageUrl && <Image src={imageUrl} width={446} height={446} alt="" className="rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none pointer-events-none object-cover object-center w-full h-full" />}
         </div>
         <div className="flex flex-col gap-2 grow w-full bg-h3Purple/20 px-6 py-4 rounded-b-md md:rounded-r-md md:rounded-bl-none relative">
           <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
@@ -120,12 +110,10 @@ export default function CardEditor({ data, toggleModal }: CardEditorProps) {
               <p className="text-sm text-gray-400">140 characters max</p>
               <p className="text-sm text-gray-400 aria-disabled:text-red-500" aria-disabled={disabled}>{bio.length}/140</p>
             </div>
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+            <button
               type="submit"
               disabled={disabled}
-              className='bg-h3Purple text-white font-bold text-xl inline-flex items-center justify-center p-2 rounded-md disabled:bg-gray-400'
+              className='bg-h3Purple text-white font-bold text-xl inline-flex items-center justify-center p-2 rounded-md disabled:bg-gray-400 hover:bg-h3DarkPurple transition-colors duration-200 ease-in-out'
             >
               {disabled ? (
                 <>
@@ -138,15 +126,14 @@ export default function CardEditor({ data, toggleModal }: CardEditorProps) {
                   <span className='sr-only'>Save</span>
                 </>
               )}
-            </motion.button>
+            </button>
           </form>
         </div>
       </div>
-      <h2 className='text-2xl flex flex-col items-center justify-center'>
+      <h2 className='text-2xl font-bold flex flex-col items-center justify-center'>
         Change profile image below <ArrowDown />
       </h2>
       <UserProfile />
-
     </div>
   );
 }

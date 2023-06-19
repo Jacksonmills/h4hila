@@ -1,21 +1,12 @@
 import { SignIn, SignedIn, SignedOut, useUser } from '@clerk/nextjs';
 import Head from 'next/head';
 import React from 'react';
-import { api } from '~/utils/api';
 
 import Header from './Header';
 import Background from './Background';
 
 export default function Layout({ children }: { children: React.ReactNode; }) {
-  const { user, isSignedIn } = useUser();
-  const { data } = api.posts.getAll.useQuery();
-  if (!data) return null;
-
-  const dataForCurrentUser = data?.filter((post) => {
-    return post.post.authorId === user?.id;
-  });
-
-  const currentUserCardData = dataForCurrentUser?.[0];
+  const { isSignedIn } = useUser();
 
   return (
     <>
@@ -25,10 +16,12 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center overflow-hidden relative">
-        <Header isSignedIn={isSignedIn} currentUserCardData={currentUserCardData} />
-        <div className='grid place-content-center w-full h-full grow'>
+        <Header isSignedIn={isSignedIn} />
+        <div className='flex flex-col items-center justify-start w-full h-full grow'>
           <SignedOut>
-            <SignIn />
+            <div className='flex items-center justify-center grow'>
+              <SignIn />
+            </div>
           </SignedOut>
           <SignedIn>
             {children}

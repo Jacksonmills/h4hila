@@ -10,6 +10,7 @@ export default {
         h3Blue: '#2563eb',
         h3LightBlue: '#7cdaf4',
         h3Purple: '#694293',
+        h3DarkPurple: '#4e2a7a',
       }
     },
   },
