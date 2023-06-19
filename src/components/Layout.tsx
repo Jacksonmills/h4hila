@@ -4,7 +4,6 @@ import React from 'react';
 import { api } from '~/utils/api';
 
 import Header from './Header';
-import Image from 'next/image';
 import Background from './Background';
 
 export default function Layout({ children }: { children: React.ReactNode; }) {

@@ -120,7 +120,13 @@ export default function CardEditor({ data, toggleModal }: CardEditorProps) {
               <p className="text-sm text-gray-400">140 characters max</p>
               <p className="text-sm text-gray-400 aria-disabled:text-red-500" aria-disabled={disabled}>{bio.length}/140</p>
             </div>
-            <AnimatedButton type="submit" disabled={disabled} className='bg-h3Purple text-white font-bold text-xl inline-flex items-center justify-center p-2 rounded-md disabled:bg-gray-400'>
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              type="submit"
+              disabled={disabled}
+              className='bg-h3Purple text-white font-bold text-xl inline-flex items-center justify-center p-2 rounded-md disabled:bg-gray-400'
+            >
               {disabled ? (
                 <>
                   <XCircle />
@@ -132,7 +138,7 @@ export default function CardEditor({ data, toggleModal }: CardEditorProps) {
                   <span className='sr-only'>Save</span>
                 </>
               )}
-            </AnimatedButton>
+            </motion.button>
           </form>
         </div>
       </div>
