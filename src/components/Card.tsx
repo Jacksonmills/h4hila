@@ -54,7 +54,7 @@ export default function Card({ data, callback }: CardProps) {
   return (
     <motion.div
       ref={cardRef}
-      className="transition-opacity duration-100 md:h-auto"
+      className='transition-opacity duration-100 md:h-auto'
     >
       <motion.div
         drag
@@ -106,19 +106,19 @@ export default function Card({ data, callback }: CardProps) {
           setRotateDeg(0);
           callback && callback();
         }}
-        className="flex h-[90%] cursor-grab flex-col items-center justify-start gap-4 rounded-2xl bg-white p-2 text-black  shadow-lg active:cursor-grabbing md:p-4"
+        className='flex h-[90%] cursor-grab flex-col items-center justify-start gap-4 rounded-2xl bg-white p-2 text-black  shadow-lg active:cursor-grabbing md:p-4'
       >
-        <div className="relative flex shrink flex-col items-center">
+        <div className='relative flex shrink flex-col items-center'>
           <Image
             src={data.author?.profileImageUrl as string}
             width={446}
             height={446}
             priority
-            alt=""
-            className="pointer-events-none h-[296px] w-[446px] rounded-t-xl object-cover object-center md:h-[446px]"
+            alt=''
+            className='pointer-events-none h-[296px] w-[446px] rounded-t-xl object-cover object-center md:h-[446px]'
           />
           <code
-            className="absolute right-0 top-0 ml-auto rounded-bl-2xl rounded-tl-2xl rounded-tr-xl px-4 py-1 font-bold"
+            className='absolute right-0 top-0 ml-auto rounded-bl-2xl rounded-tl-2xl rounded-tr-xl px-4 py-1 font-bold'
             style={{
               backgroundColor: randomBrandColor,
               color: colorContrast(randomBrandColor),
@@ -126,25 +126,25 @@ export default function Card({ data, callback }: CardProps) {
           >
             #HOE4HILA
           </code>
-          <div className="relative flex w-full flex-col gap-2 rounded-b-xl bg-h3Purple/20 px-4 py-2 md:px-6 md:py-4">
-            <p className="text-xl font-bold text-current md:text-2xl">
+          <div className='relative flex w-full flex-col gap-2 rounded-b-xl bg-h3Purple/20 px-4 py-2 md:px-6 md:py-4'>
+            <p className='text-xl font-bold text-current md:text-2xl'>
               {getAvailableUsername()}
             </p>
-            <p className="text-md min-h-[115px] max-w-[400px] break-words text-current md:text-lg">
+            <p className='text-md min-h-[115px] max-w-[400px] break-words text-current md:text-lg'>
               {data.post.content}
             </p>
           </div>
         </div>
-        <div className="m-auto flex grow items-center justify-evenly gap-4 py-4">
+        <div className='m-auto flex grow items-center justify-evenly gap-4 py-4'>
           <ActionButton
             Icon={Heart}
-            className="bg-h3Pink"
+            className='bg-h3Pink'
             callback={callback}
-            label="Like and go to next profile card"
+            label='Like and go to next profile card'
           />
           <ActionButton
             Icon={Zap}
-            className="bg-h3Purple p-6 text-4xl shadow-md sm:p-8 md:text-6xl"
+            className='bg-h3Purple p-6 text-4xl shadow-md sm:p-8 md:text-6xl'
             callback={soundEnabled ? handlePlayAudio : callback}
             label={
               soundEnabled
@@ -154,9 +154,9 @@ export default function Card({ data, callback }: CardProps) {
           />
           <ActionButton
             Icon={FastForward}
-            className="bg-h3Blue"
+            className='bg-h3Blue'
             callback={callback}
-            label="go to next profile card"
+            label='go to next profile card'
           />
         </div>
       </motion.div>
@@ -192,7 +192,7 @@ const ActionButton: React.FC<{
       onPointerUp={callback}
     >
       <Icon className={`h-[1em] w-[1em] fill-white`} />
-      <span className="sr-only">{label}</span>
+      <span className='sr-only'>{label}</span>
     </motion.button>
   );
 };

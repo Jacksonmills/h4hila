@@ -77,75 +77,75 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
   }
 
   return (
-    <div className="flex flex-col gap-2 md:gap-6">
-      <div className="flex flex-col rounded-2xl bg-white md:flex-row">
+    <div className='flex flex-col gap-2 md:gap-6'>
+      <div className='flex flex-col rounded-2xl bg-white md:flex-row'>
         <div>
           <Image
             src={imageUrl}
             width={446}
             height={446}
             alt={`${username}'s Profile Image`}
-            className="pointer-events-none h-full w-full rounded-t-2xl object-cover object-center md:rounded-l-2xl md:rounded-tr-none"
+            className='pointer-events-none h-full w-full rounded-t-2xl object-cover object-center md:rounded-l-2xl md:rounded-tr-none'
             style={{ backgroundColor: randomBackgroundColor }}
           />
         </div>
-        <div className="relative flex w-full grow flex-col gap-2 rounded-b-2xl bg-h3Purple/20 p-2 md:rounded-r-2xl md:rounded-bl-none md:p-4">
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <div className="flex flex-col gap-1">
-              <label htmlFor="name" className="font-bold">
+        <div className='relative flex w-full grow flex-col gap-2 rounded-b-2xl bg-h3Purple/20 p-2 md:rounded-r-2xl md:rounded-bl-none md:p-4'>
+          <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+            <div className='flex flex-col gap-1'>
+              <label htmlFor='name' className='font-bold'>
                 Username
               </label>
               <input
-                type="text"
-                className="rounded-xl bg-white p-2 shadow-md"
-                placeholder="Pick a display name"
+                type='text'
+                className='rounded-xl bg-white p-2 shadow-md'
+                placeholder='Pick a display name'
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
-            <div className="flex flex-col gap-1">
-              <label htmlFor="bio" className="font-bold">
+            <div className='flex flex-col gap-1'>
+              <label htmlFor='bio' className='font-bold'>
                 Bio
               </label>
               <textarea
-                id="bio"
-                className="h-[100px] resize-none rounded-xl bg-white p-2 shadow-md md:h-[200px]"
-                placeholder="Write a bio..."
+                id='bio'
+                className='h-[100px] resize-none rounded-xl bg-white p-2 shadow-md md:h-[200px]'
+                placeholder='Write a bio...'
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
               />
             </div>
-            <div className="flex justify-between">
-              <p className="text-sm text-gray-400">140 characters max</p>
+            <div className='flex justify-between'>
+              <p className='text-sm text-gray-400'>140 characters max</p>
               <p
-                className="text-sm text-gray-400 aria-disabled:text-red-500"
+                className='text-sm text-gray-400 aria-disabled:text-red-500'
                 aria-disabled={disabled}
               >
                 {bio.length}/140
               </p>
             </div>
             <button
-              type="submit"
+              type='submit'
               disabled={disabled}
-              className="inline-flex items-center justify-center rounded-xl bg-h3Purple p-2 text-xl font-bold text-white transition-colors duration-200 ease-in-out hover:bg-h3DarkPurple disabled:bg-gray-400"
+              className='inline-flex items-center justify-center rounded-xl bg-h3Purple p-2 text-xl font-bold text-white transition-colors duration-200 ease-in-out hover:bg-h3DarkPurple disabled:bg-gray-400'
             >
               {disabled ? (
                 <>
                   <XCircle />
-                  <span className="sr-only">Too long!</span>
+                  <span className='sr-only'>Too long!</span>
                 </>
               ) : (
                 <>
                   <Save />
-                  <span className="sr-only">Save</span>
+                  <span className='sr-only'>Save</span>
                 </>
               )}
             </button>
           </form>
         </div>
       </div>
-      <h2 className="flex items-center justify-center gap-2 rounded-xl bg-white p-4 text-xl font-bold md:text-2xl">
-        <ArrowDown className="h-auto w-[1.6em]" /> Change Profile Image
+      <h2 className='flex items-center justify-center gap-2 rounded-xl bg-white p-4 text-xl font-bold md:text-2xl'>
+        <ArrowDown className='h-auto w-[1.6em]' /> Change Profile Image
       </h2>
       <UserProfile
         appearance={{
