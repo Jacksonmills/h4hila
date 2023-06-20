@@ -113,6 +113,7 @@ export default function Card({ data, callback }: CardProps) {
             src={data.author?.profileImageUrl as string}
             width={446}
             height={446}
+            priority
             alt=""
             className="pointer-events-none h-[296px] w-[446px] rounded-t-xl object-cover object-center md:h-[446px]"
           />
