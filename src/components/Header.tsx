@@ -11,7 +11,7 @@ export default function Header({ isSignedIn }: { isSignedIn?: boolean }) {
   return (
     <div className="flex w-full items-center justify-center py-2">
       <div className="w-[0.75rem] sm:w-[1.75rem]" />
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 mr-auto">
         <Link href="/">
           <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
             <Logo />
@@ -25,7 +25,7 @@ export default function Header({ isSignedIn }: { isSignedIn?: boolean }) {
         </button> */}
       </div>
       {isSignedIn && (
-        <div className="ml-auto flex items-center gap-2 text-white md:gap-4">
+        <div className="flex items-center gap-2 text-white md:gap-4">
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
