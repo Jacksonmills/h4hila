@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { useSoundEnabledContext } from "~/pages/SoundEnabledContext";
 
 export default function Header({ isSignedIn }: { isSignedIn?: boolean; }) {
-  const { soundEnabled, setSoundEnabled } = useSoundEnabledContext();
+  const { soundEnabled, toggleSoundEnabled } = useSoundEnabledContext();
 
   return (
     <div className="flex w-full items-center justify-center py-2">
@@ -30,7 +30,7 @@ export default function Header({ isSignedIn }: { isSignedIn?: boolean; }) {
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          onClick={() => setSoundEnabled(!soundEnabled)}
+          onClick={toggleSoundEnabled}
         >
           <div className='flex items-center justify-center p-[8px] rounded-full bg-h3LightBlue transition-colors duration-200 ease-in-out'>
             {soundEnabled ? <Volume2 className="text-black" /> : <VolumeX className="text-black" />}
