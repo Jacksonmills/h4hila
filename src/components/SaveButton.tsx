@@ -30,7 +30,7 @@ export default function SaveButton({
   `;
 
   return (
-    <button className={classNames} {...rest}>
+    <button className={classNames.trimEnd()} {...rest}>
       {children}
     </button>
   );
