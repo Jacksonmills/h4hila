@@ -2,13 +2,14 @@ import { createContext, useContext, useState } from "react";
 
 interface SoundEnabledContextInterface {
   soundEnabled: boolean;
-  setSoundEnabled: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleSoundEnabled: () => void;
 }
 
 const SoundEnabledContext = createContext<SoundEnabledContextInterface>({
   soundEnabled: true,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  setSoundEnabled: () => { },
+  toggleSoundEnabled: () => {
+    throw new Error("toggleSoundEnabled() not implemented");
+  },
 });
 
 export function useSoundEnabledContext() {
@@ -22,8 +23,12 @@ export function SoundEnabledProvider({
 }) {
   const [soundEnabled, setSoundEnabled] = useState(true);
 
+  const toggleSoundEnabled = () => {
+    setSoundEnabled(!soundEnabled);
+  };
+
   return (
-    <SoundEnabledContext.Provider value={{ soundEnabled, setSoundEnabled }}>
+    <SoundEnabledContext.Provider value={{ soundEnabled, toggleSoundEnabled }}>
       {children}
     </SoundEnabledContext.Provider>
   );
