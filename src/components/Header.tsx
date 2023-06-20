@@ -1,10 +1,8 @@
-import { Home, RefreshCw, Settings, Volume2, VolumeX } from "react-feather";
+import { Settings, Volume2, VolumeX } from "react-feather";
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import Logo from "./Logo";
 import { motion } from 'framer-motion';
-import { useState } from "react";
-import useSound from "use-sound";
 import { useSoundEnabledContext } from "~/pages/SoundEnabledContext";
 
 export default function Header({ isSignedIn }: { isSignedIn?: boolean; }) {

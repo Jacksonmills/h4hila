@@ -1,9 +1,8 @@
-import { UserProfile, useClerk, useUser } from '@clerk/nextjs';
+import { UserProfile, useUser } from '@clerk/nextjs';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { use, useEffect, useState } from 'react';
-import { ArrowDown, LogOut, Save, XCircle } from 'react-feather';
-import { set } from 'zod';
+import React, { useEffect, useState } from 'react';
+import { ArrowDown, Save, XCircle } from 'react-feather';
 
 import { type PostWithUser } from '~/pages';
 import { api } from '~/utils/api';

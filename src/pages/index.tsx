@@ -1,11 +1,9 @@
 import { type NextPage } from "next";
 import { type RouterOutputs, api } from "~/utils/api";
-import { type SyntheticEvent, useState } from "react";
+import { useState } from "react";
 import Layout from "~/components/Layout";
 import Card from "~/components/Card";
 import LoadingSpinner from "~/components/LoadingSpinner";
-import { get } from "http";
-import { useUser } from "@clerk/nextjs";
 
 export type PostWithUser = RouterOutputs["posts"]["getAll"][number];
 
