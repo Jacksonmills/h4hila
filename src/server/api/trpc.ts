@@ -18,7 +18,7 @@ import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 
 import { prisma } from "~/server/db";
 
-type CreateContextOptions = Record<string, never>;
+// type CreateContextOptions = Record<string, never>; // used in createInnerTRPCContext
 
 /**
  * This helper generates the "internals" for a tRPC context. If you need to use it, you can export
@@ -31,7 +31,7 @@ type CreateContextOptions = Record<string, never>;
  * @see https://create.t3.gg/en/usage/trpc#-serverapitrpcts
  */
 // const createInnerTRPCContext = (_opts: CreateContextOptions) => {
-// useful for testing
+// useful for testing moved return to createTRPCContext
 // };
 
 /**
