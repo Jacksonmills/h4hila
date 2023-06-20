@@ -7,6 +7,7 @@ import Background from './Background';
 
 export default function Layout({ children }: { children: React.ReactNode; }) {
   const { isSignedIn } = useUser();
+  const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000';
 
   return (
     <>
@@ -14,13 +15,13 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
         <title>HOE4HILA</title>
         <meta name="description" content="Tinder-like app for the H3Podcast fan base" />
 
-        <meta property="og:image" content="image/meta.png" />
+        <meta property="og:image" content={`${baseUrl}/image/meta.png`} />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="512" />
         <meta property="og:image:height" content="512" />
         <meta property="og:image:alt" content="HOE4HILA Logo" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="image/meta.png" />
+        <meta name="twitter:image" content={`${baseUrl}/image/meta.png`} />
         <meta name="twitter:image:alt" content="HOE4HILA Logo" />
 
         <link rel="icon" href="/favicon.ico" />
