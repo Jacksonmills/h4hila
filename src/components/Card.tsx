@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { type PostWithUser } from '~/pages';
 import useSound from 'use-sound';
 import { colorContrast } from '~/utils/colorContrast';
+import { getRandomBrandColor } from '~/utils/getRandomBrandColor';
 
 interface CardProps { data: PostWithUser; callback?: () => void; }
 
@@ -35,19 +36,13 @@ export default function Card({ data, callback }: CardProps) {
     setRandomAudioFile(Math.floor(Math.random() * audioUrls.length));
   };
 
-  const pickBrandColor = () => {
-    const colors = ['#cc66ff', '#2563eb', '#7ed9f8', '#734eab'];
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
-    return randomColor;
-  };
-
   const getAvailableUsername = () => {
     const username = data?.post?.username as string || data?.author?.username as string || "Fupa Trooper";
     return username;
   };
 
   useEffect(() => {
-    setRandomBrandColor(pickBrandColor() as string);
+    setRandomBrandColor(getRandomBrandColor);
   }, []);
 
   return (

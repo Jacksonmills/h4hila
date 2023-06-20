@@ -1,21 +1,23 @@
 import { UserProfile, useClerk, useUser } from '@clerk/nextjs';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { ArrowDown, LogOut, Save, XCircle } from 'react-feather';
+import { set } from 'zod';
 
 import { type PostWithUser } from '~/pages';
 import { api } from '~/utils/api';
+import { getRandomBrandColor } from '~/utils/getRandomBrandColor';
 
 interface SettingsPanelProps { data?: PostWithUser; }
 
 export default function SettingsPanel({ data }: SettingsPanelProps) {
   const router = useRouter();
-  const { signOut } = useClerk();
   const { user } = useUser();
   const [username, setUsername] = useState(getAvailableUsername());
   const [bio, setBio] = useState(data?.post?.content || '');
   const [imageUrl, setImageUrl] = useState(user?.profileImageUrl || '');
+  const [randomBackgroundColor, setRandomBackgroundColor] = useState('#ff0000');
   const disabled = bio.length > 140;
 
   const ctx = api.useContext();
@@ -35,6 +37,10 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
   useEffect(() => {
     setImageUrl(user?.profileImageUrl as string);
   }, [user?.profileImageUrl]);
+
+  useEffect(() => {
+    setRandomBackgroundColor(getRandomBrandColor);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -61,36 +67,24 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
     return void router.push('/');
   };
 
-  const handleSignOut = () => {
-    void signOut();
-  };
-
   function getAvailableUsername() {
     const username = data?.post?.username as string || data?.author?.username as string || "Fupa Trooper";
     return username;
   }
 
   return (
-    <div className='flex flex-col gap-6'>
+    <div className='flex flex-col gap-2 md:gap-6'>
       <div className="flex flex-col md:flex-row mx-[0.75rem] sm:mx-[1.75rem] bg-white rounded-2xl">
-        <div className='relative'>
-          <div className="absolute flex gap-4 justify-between w-full p-2">
-            <button
-              className="bg-h3Pink text-white font-bold px-4 py-2 rounded-full shadow-sm flex gap-2 items-center hover:bg-h3HotPink transition-colors duration-200 ease-in-out"
-              onClick={handleSignOut}
-            >
-              Sign Out <LogOut className='w-[1.6em] h-[1.6em]' />
-            </button>
-          </div>
-          {imageUrl && <Image src={imageUrl} width={446} height={446} alt="" className="rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none pointer-events-none object-cover object-center w-full h-full" />}
+        <div>
+          <Image src={imageUrl} width={446} height={446} alt="" className="rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none pointer-events-none object-cover object-center w-full h-full" style={{ backgroundColor: randomBackgroundColor }} />
         </div>
-        <div className="flex flex-col gap-2 grow w-full bg-h3Purple/20 px-6 py-4 rounded-b-md md:rounded-r-md md:rounded-bl-none relative">
+        <div className="flex flex-col gap-2 grow w-full bg-h3Purple/20 p-2 md:p-4 rounded-b-2xl md:rounded-r-2xl md:rounded-bl-none relative">
           <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
             <div className='flex flex-col gap-1'>
               <label htmlFor="name" className="font-bold">Username</label>
               <input
                 type="text"
-                className="bg-white rounded-md shadow-md p-2"
+                className="bg-white rounded-xl shadow-md p-2"
                 placeholder="Pick a display name"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -100,7 +94,7 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
               <label htmlFor="bio" className="font-bold">Bio</label>
               <textarea
                 id="bio"
-                className="bg-white rounded-md shadow-md p-2 resize-none h-[100px] md:h-[200px]"
+                className="bg-white rounded-xl shadow-md p-2 resize-none h-[100px] md:h-[200px]"
                 placeholder="Write a bio..."
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
@@ -113,7 +107,7 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
             <button
               type="submit"
               disabled={disabled}
-              className='bg-h3Purple text-white font-bold text-xl inline-flex items-center justify-center p-2 rounded-md disabled:bg-gray-400 hover:bg-h3DarkPurple transition-colors duration-200 ease-in-out'
+              className='bg-h3Purple text-white font-bold text-xl inline-flex items-center justify-center p-2 rounded-xl disabled:bg-gray-400 hover:bg-h3DarkPurple transition-colors duration-200 ease-in-out'
             >
               {disabled ? (
                 <>
@@ -130,10 +124,28 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
           </form>
         </div>
       </div>
-      <h2 className='text-2xl font-bold flex flex-col items-center justify-center'>
-        Change profile image below <ArrowDown />
+      <h2 className='text-xl md:text-2xl font-bold flex gap-2 items-center justify-center p-4 bg-white rounded-xl mx-[0.75rem] sm:mx-[1.75rem]'>
+        <ArrowDown className='w-[1.6em] h-auto' /> Change Profile Image
       </h2>
-      <UserProfile />
+      <UserProfile appearance={{
+        layout: {
+          logoPlacement: "inside",
+        },
+        elements: {
+          header: 'hidden',
+          navbar: 'hidden',
+          navbarMobileMenuRow: 'hidden',
+          profileSectionTitle: 'hidden',
+          profileSection__connectedAccounts: 'hidden',
+          profileSection__password: 'hidden',
+          profileSection__activeDevices: 'hidden',
+          profilePage__security: 'hidden',
+          pageScrollBox: 'p-2 md:min-h-[220px] flex gap-2 items-start justify-center',
+          page: 'w-full',
+          rootBox: 'm-0 w-full flex items-center justify-center',
+          card: 'rounded-2xl mx-[0.75rem] sm:mx-[1.75rem] bg-white',
+        }
+      }} />
     </div>
   );
 }
