@@ -7,6 +7,7 @@ import { ArrowDown, Save, XCircle } from 'react-feather';
 import { type PostWithUser } from '~/pages';
 import { api } from '~/utils/api';
 import { getRandomBrandColor } from '~/utils/getRandomBrandColor';
+import SaveButton from './SaveButton';
 
 interface SettingsPanelProps {
   data?: PostWithUser;
@@ -124,11 +125,7 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
                 {bio.length}/140
               </p>
             </div>
-            <button
-              type='submit'
-              disabled={disabled}
-              className='inline-flex items-center justify-center rounded-xl bg-h3Purple p-2 text-xl font-bold text-white transition-colors duration-200 ease-in-out hover:bg-h3DarkPurple disabled:bg-gray-400'
-            >
+            <SaveButton type='submit' disabled={disabled}>
               {disabled ? (
                 <>
                   <XCircle />
@@ -140,7 +137,7 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
                   <span className='sr-only'>Save</span>
                 </>
               )}
-            </button>
+            </SaveButton>
           </form>
         </div>
       </div>
