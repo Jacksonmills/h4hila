@@ -30,7 +30,7 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
       </Head>
       <main className="flex min-h-screen flex-col items-center overflow-hidden relative">
         <Header isSignedIn={isSignedIn} />
-        <div className='flex flex-col items-center justify-start w-full h-full grow'>
+        <div className='flex flex-col items-center justify-start w-full h-full grow px-[0.75rem] sm:px-[1.75rem]'>
           <SignedOut>
             <div className='flex items-center justify-center grow'>
               <SignIn />

@@ -47,7 +47,7 @@ const Home: NextPage = () => {
 
   return (
     <Layout>
-      <div className="md:flex md:flex-col md:items-center md:justify-center mx-[0.75rem] sm:mx-[1.75rem] pt-2">
+      <div className="md:flex md:flex-col md:items-center md:justify-center pt-2">
         {dataWithoutCurrentUser && dataWithoutCurrentUser.length > 0 && (
           <div key={dataWithoutCurrentUser[currentIndex]?.post.id}>
             <Card

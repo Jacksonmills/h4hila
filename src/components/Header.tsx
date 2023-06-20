@@ -28,23 +28,23 @@ export default function Header({ isSignedIn }: { isSignedIn?: boolean; }) {
           </div>
         </button> */}
       </div>
-      <div className="ml-auto flex items-center gap-4 text-white">
+      <div className="ml-auto flex items-center gap-2 md:gap-4 text-white">
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => setSoundEnabled(!soundEnabled)}
         >
-          <div className='flex items-center justify-center p-[5px] rounded-full bg-h3LightBlue transition-colors duration-200 ease-in-out'>
+          <div className='flex items-center justify-center p-[8px] rounded-full bg-h3LightBlue transition-colors duration-200 ease-in-out'>
             {soundEnabled ? <Volume2 className="text-black" /> : <VolumeX className="text-black" />}
           </div>
         </motion.button>
         {isSignedIn && (
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 md:gap-4">
             <motion.div
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              <Link href="/settings" className='flex items-center justify-center p-[5px] rounded-full bg-h3LightBlue transition-colors duration-200 ease-in-out'>
+              <Link href="/settings" className='flex items-center justify-center p-[8px] rounded-full bg-h3LightBlue transition-colors duration-200 ease-in-out'>
                 <Settings className="text-black" />
               </Link>
             </motion.div>
@@ -52,7 +52,14 @@ export default function Header({ isSignedIn }: { isSignedIn?: boolean; }) {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              <UserButton afterSignOutUrl="/" />
+              <UserButton
+                afterSignOutUrl="/"
+                appearance={{
+                  elements: {
+                    userButtonBox: "bg-h3LightBlue rounded-full p-1",
+                  }
+                }}
+              />
             </motion.div>
           </div>
         )}

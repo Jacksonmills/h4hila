@@ -74,9 +74,9 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
 
   return (
     <div className='flex flex-col gap-2 md:gap-6'>
-      <div className="flex flex-col md:flex-row mx-[0.75rem] sm:mx-[1.75rem] bg-white rounded-2xl">
+      <div className="flex flex-col md:flex-row bg-white rounded-2xl">
         <div>
-          <Image src={imageUrl} width={446} height={446} alt="" className="rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none pointer-events-none object-cover object-center w-full h-full" style={{ backgroundColor: randomBackgroundColor }} />
+          <Image src={imageUrl} width={446} height={446} alt={`${username}'s Profile Image`} className="rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none pointer-events-none object-cover object-center w-full h-full" style={{ backgroundColor: randomBackgroundColor }} />
         </div>
         <div className="flex flex-col gap-2 grow w-full bg-h3Purple/20 p-2 md:p-4 rounded-b-2xl md:rounded-r-2xl md:rounded-bl-none relative">
           <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
@@ -124,7 +124,7 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
           </form>
         </div>
       </div>
-      <h2 className='text-xl md:text-2xl font-bold flex gap-2 items-center justify-center p-4 bg-white rounded-xl mx-[0.75rem] sm:mx-[1.75rem]'>
+      <h2 className='text-xl md:text-2xl font-bold flex gap-2 items-center justify-center p-4 bg-white rounded-xl'>
         <ArrowDown className='w-[1.6em] h-auto' /> Change Profile Image
       </h2>
       <UserProfile appearance={{
@@ -143,7 +143,7 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
           pageScrollBox: 'p-2 md:min-h-[220px] flex gap-2 items-start justify-center',
           page: 'w-full',
           rootBox: 'm-0 w-full flex items-center justify-center',
-          card: 'rounded-2xl mx-[0.75rem] sm:mx-[1.75rem] bg-white',
+          card: 'rounded-2xl m-0 bg-white',
         }
       }} />
     </div>
