@@ -13,7 +13,20 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
       <Head>
         <title>HOE4HILA</title>
         <meta name="description" content="Tinder-like app for the H3Podcast fan base" />
+
+        <meta property="og:image" content="/apple-touch-icon.png" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="180" />
+        <meta property="og:image:height" content="180" />
+        <meta property="og:image:alt" content="HOE4HILA Logo" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="/apple-touch-icon.png" />
+        <meta name="twitter:image:alt" content="HOE4HILA Logo" />
+
         <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+
+        <meta name="theme-color" content="#7ed9f8" />
       </Head>
       <main className="flex min-h-screen flex-col items-center overflow-hidden relative">
         <Header isSignedIn={isSignedIn} />
