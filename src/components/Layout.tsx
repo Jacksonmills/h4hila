@@ -5,7 +5,7 @@ import React from 'react';
 import Header from './Header';
 import Background from './Background';
 
-export default function Layout({ children }: { children: React.ReactNode; }) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   const { isSignedIn } = useUser();
   const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000';
 
@@ -13,7 +13,10 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
     <>
       <Head>
         <title>HOE4HILA</title>
-        <meta name="description" content="Tinder-like app for the H3Podcast fan base" />
+        <meta
+          name="description"
+          content="Tinder-like dating app for the H3Podcast fan base"
+        />
 
         <meta property="og:image" content={`${baseUrl}/image/meta.png`} />
         <meta property="og:image:type" content="image/png" />
@@ -25,21 +28,23 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
         <meta name="twitter:image:alt" content="HOE4HILA Logo" />
 
         <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+        <link
+          rel="apple-touch-icon"
+          href="/apple-touch-icon.png"
+          sizes="180x180"
+        />
 
         <meta name="theme-color" content="#7ed9f8" />
       </Head>
-      <main className="flex min-h-screen flex-col items-center overflow-hidden relative">
+      <main className="relative flex min-h-screen flex-col items-center overflow-hidden">
         <Header isSignedIn={isSignedIn} />
-        <div className='flex flex-col items-center justify-start w-full h-full grow px-[0.75rem] sm:px-[1.75rem]'>
+        <div className="flex h-full w-full grow flex-col items-center justify-start px-[0.75rem] sm:px-[1.75rem]">
           <SignedOut>
-            <div className='flex items-center justify-center grow'>
+            <div className="flex grow items-center justify-center">
               <SignIn />
             </div>
           </SignedOut>
-          <SignedIn>
-            {children}
-          </SignedIn>
+          <SignedIn>{children}</SignedIn>
           <Background />
         </div>
       </main>

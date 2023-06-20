@@ -1,9 +1,9 @@
-import { useUser } from "@clerk/nextjs";
-import { type NextPage } from "next";
-import Layout from "~/components/Layout";
-import LoadingSpinner from "~/components/LoadingSpinner";
-import SettingsPanel from "~/components/SettingsPanel";
-import { api } from "~/utils/api";
+import { useUser } from '@clerk/nextjs';
+import { type NextPage } from 'next';
+import Layout from '~/components/Layout';
+import LoadingSpinner from '~/components/LoadingSpinner';
+import SettingsPanel from '~/components/SettingsPanel';
+import { api } from '~/utils/api';
 
 const Settings: NextPage = () => {
   const { user } = useUser();
@@ -16,11 +16,13 @@ const Settings: NextPage = () => {
 
   const currentUserCardData = dataForCurrentUser?.[0];
 
-  if (!data) return (
-    <Layout>
-      <LoadingSpinner size={100} />
-    </Layout>
-  );
+  if (!data) {
+    return (
+      <Layout>
+        <LoadingSpinner size={100} />
+      </Layout>
+    );
+  }
 
   return (
     <Layout>

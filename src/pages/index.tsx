@@ -1,11 +1,11 @@
-import { type NextPage } from "next";
-import { type RouterOutputs, api } from "~/utils/api";
-import { useState } from "react";
-import Layout from "~/components/Layout";
-import Card from "~/components/Card";
-import LoadingSpinner from "~/components/LoadingSpinner";
+import { type NextPage } from 'next';
+import { type RouterOutputs, api } from '~/utils/api';
+import { useState } from 'react';
+import Layout from '~/components/Layout';
+import Card from '~/components/Card';
+import LoadingSpinner from '~/components/LoadingSpinner';
 
-export type PostWithUser = RouterOutputs["posts"]["getAll"][number];
+export type PostWithUser = RouterOutputs['posts']['getAll'][number];
 
 const Home: NextPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -13,11 +13,13 @@ const Home: NextPage = () => {
   // const { user } = useUser();
   const { data } = api.posts.getAll.useQuery();
 
-  if (!data) return (
-    <Layout>
-      <LoadingSpinner size={100} />
-    </Layout>
-  );
+  if (!data) {
+    return (
+      <Layout>
+        <LoadingSpinner size={100} />
+      </Layout>
+    );
+  }
 
   // const dataWithoutCurrentUser = data?.filter((post) => {
   //   return post.post.authorId !== user?.id;
@@ -41,11 +43,12 @@ const Home: NextPage = () => {
     return nextIndex;
   };
 
-  const getRandomIndex = () => Math.floor(Math.random() * dataWithoutCurrentUser.length);
+  const getRandomIndex = () =>
+    Math.floor(Math.random() * dataWithoutCurrentUser.length);
 
   return (
     <Layout>
-      <div className="md:flex md:flex-col md:items-center md:justify-center pt-2">
+      <div className="pt-2 md:flex md:flex-col md:items-center md:justify-center">
         {dataWithoutCurrentUser && dataWithoutCurrentUser.length > 0 && (
           <div key={dataWithoutCurrentUser[currentIndex]?.post.id}>
             <Card
@@ -55,7 +58,7 @@ const Home: NextPage = () => {
           </div>
         )}
       </div>
-    </Layout >
+    </Layout>
   );
 };
 

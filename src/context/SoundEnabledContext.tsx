@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState } from 'react';
 
 interface SoundEnabledContextInterface {
   soundEnabled: boolean;
@@ -8,7 +8,7 @@ interface SoundEnabledContextInterface {
 const SoundEnabledContext = createContext<SoundEnabledContextInterface>({
   soundEnabled: true,
   toggleSoundEnabled: () => {
-    throw new Error("toggleSoundEnabled() not implemented");
+    throw new Error('toggleSoundEnabled() not implemented');
   },
 });
 
