@@ -4,10 +4,13 @@ import React from 'react';
 
 import Header from './Header';
 import Background from './Background';
+import { useRouter } from 'next/router';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { isSignedIn } = useUser();
   const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000';
+
+  const router = useRouter();
 
   return (
     <>
@@ -39,7 +42,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <main className="relative flex min-h-screen flex-col items-center overflow-hidden">
         <Header isSignedIn={isSignedIn} />
         <div className="flex h-full w-full grow flex-col items-center justify-start px-[0.75rem] sm:px-[1.75rem]">
-          {window.location.pathname === '/lighthouse' ? (
+          {router.route.includes('lighthouse') ? (
             <>{children}</>
           ) : (
             <>
