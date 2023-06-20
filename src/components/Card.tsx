@@ -7,7 +7,7 @@ import { type PostWithUser } from '~/pages';
 import useSound from 'use-sound';
 import { colorContrast } from '~/utils/colorContrast';
 import { getRandomBrandColor } from '~/utils/getRandomBrandColor';
-import { useSoundEnabledContext } from '~/pages/SoundEnabledContext';
+import { useSoundEnabledContext } from '~/context/SoundEnabledContext';
 
 interface CardProps { data: PostWithUser; callback?: () => void; }
 

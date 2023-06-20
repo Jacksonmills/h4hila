@@ -3,7 +3,7 @@ import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import Logo from "./Logo";
 import { motion } from 'framer-motion';
-import { useSoundEnabledContext } from "~/pages/SoundEnabledContext";
+import { useSoundEnabledContext } from "~/context/SoundEnabledContext";
 
 export default function Header({ isSignedIn }: { isSignedIn?: boolean; }) {
   const { soundEnabled, toggleSoundEnabled } = useSoundEnabledContext();
