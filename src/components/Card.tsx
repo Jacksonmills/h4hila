@@ -7,10 +7,12 @@ import { type PostWithUser } from '~/pages';
 import useSound from 'use-sound';
 import { colorContrast } from '~/utils/colorContrast';
 import { getRandomBrandColor } from '~/utils/getRandomBrandColor';
+import { useSoundEnabledContext } from '~/pages/SoundEnabledContext';
 
 interface CardProps { data: PostWithUser; callback?: () => void; }
 
 export default function Card({ data, callback }: CardProps) {
+  const { soundEnabled } = useSoundEnabledContext();
   const [rotateDeg, setRotateDeg] = useState(0);
   const [opacity, setOpacity] = useState(1);
   const [randomBrandColor, setRandomBrandColor] = useState('');
@@ -28,7 +30,8 @@ export default function Card({ data, callback }: CardProps) {
     audioUrls[randomAudioFile] as string,
     {
       volume: 0.5,
-    }
+      soundEnabled,
+    },
   );
 
   const handlePlayAudio = () => {
@@ -114,7 +117,7 @@ export default function Card({ data, callback }: CardProps) {
         </div>
         <div className="flex items-center justify-evenly gap-4 grow m-auto py-4">
           <ActionButton Icon={Heart} className="bg-h3Pink" callback={callback} />
-          <ActionButton Icon={Zap} className="bg-h3Purple p-6 sm:p-8 shadow-md text-4xl md:text-6xl" callback={handlePlayAudio} />
+          <ActionButton Icon={Zap} className="bg-h3Purple p-6 sm:p-8 shadow-md text-4xl md:text-6xl" callback={soundEnabled ? handlePlayAudio : callback} />
           <ActionButton Icon={FastForward} className="bg-h3Blue" callback={callback} />
         </div>
       </motion.div>

@@ -5,12 +5,15 @@ import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import { SoundEnabledProvider } from "./SoundEnabledContext";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <ClerkProvider {...pageProps}>
-      <Component {...pageProps} />
-      <Analytics />
+      <SoundEnabledProvider>
+        <Component {...pageProps} />
+        <Analytics />
+      </SoundEnabledProvider>
     </ClerkProvider>
   );
 };
