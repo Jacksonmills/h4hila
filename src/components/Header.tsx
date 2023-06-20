@@ -38,7 +38,7 @@ export default function Header({ isSignedIn }: { isSignedIn?: boolean; }) {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              <UserButton />
+              <UserButton afterSignOutUrl="/" />
             </motion.div>
           </div>
         )}
