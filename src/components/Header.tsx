@@ -24,44 +24,43 @@ export default function Header({ isSignedIn }: { isSignedIn?: boolean }) {
           </div>
         </button> */}
       </div>
-      <div className="ml-auto flex items-center gap-2 text-white md:gap-4">
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={toggleSoundEnabled}
-        >
-          <div className="flex items-center justify-center rounded-full bg-h3LightBlue p-[8px] transition-colors duration-200 ease-in-out">
-            {soundEnabled ? (
-              <Volume2 className="text-black" />
-            ) : (
-              <VolumeX className="text-black" />
-            )}
-          </div>
-        </motion.button>
-        {isSignedIn && (
-          <div className="flex items-center gap-2 md:gap-4">
-            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-              <Link
-                href="/settings"
-                className="flex items-center justify-center rounded-full bg-h3LightBlue p-[8px] transition-colors duration-200 ease-in-out"
-              >
-                <Settings className="text-black" />
-                <span className="sr-only">Settings page Link</span>
-              </Link>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-              <UserButton
-                afterSignOutUrl="/"
-                appearance={{
-                  elements: {
-                    userButtonBox: 'bg-h3LightBlue rounded-full p-1',
-                  },
-                }}
-              />
-            </motion.div>
-          </div>
-        )}
-      </div>
+      {isSignedIn && (
+        <div className="ml-auto flex items-center gap-2 text-white md:gap-4">
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={toggleSoundEnabled}
+          >
+            <div className="flex items-center justify-center rounded-full bg-h3LightBlue p-[8px] transition-colors duration-200 ease-in-out">
+              {soundEnabled ? (
+                <Volume2 className="text-black" />
+              ) : (
+                <VolumeX className="text-black" />
+              )}
+              <span className="sr-only">Toggle sound</span>
+            </div>
+          </motion.button>
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <Link
+              href="/settings"
+              className="flex items-center justify-center rounded-full bg-h3LightBlue p-[8px] transition-colors duration-200 ease-in-out"
+            >
+              <Settings className="text-black" />
+              <span className="sr-only">Settings page Link</span>
+            </Link>
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <UserButton
+              afterSignOutUrl="/"
+              appearance={{
+                elements: {
+                  userButtonBox: 'bg-h3LightBlue rounded-full p-1',
+                },
+              }}
+            />
+          </motion.div>
+        </div>
+      )}
       <div className="w-[0.75rem] sm:w-[1.75rem]" />
     </div>
   );
