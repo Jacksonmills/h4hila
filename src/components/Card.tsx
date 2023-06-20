@@ -105,7 +105,7 @@ export default function Card({ data, callback }: CardProps) {
               color: colorContrast(randomBrandColor),
             }}
           >
-            #hoe4hila
+            #HOE4HILA
           </code>
           <div className="flex flex-col gap-2 w-full bg-h3Purple/20 px-4 md:px-6 py-2 md:py-4 rounded-b-xl relative">
             <p className="text-current font-bold text-xl md:text-2xl">{getAvailableUsername()}</p>
