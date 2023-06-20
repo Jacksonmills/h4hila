@@ -7,7 +7,8 @@ interface SoundEnabledContextInterface {
 
 const SoundEnabledContext = createContext<SoundEnabledContextInterface>({
   soundEnabled: true,
-  setSoundEnabled: () => { return; },
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  setSoundEnabled: () => { },
 });
 
 export function useSoundEnabledContext() {
