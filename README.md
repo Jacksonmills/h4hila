@@ -1,10 +1,10 @@
-# hoe4hila
+# HOE4HILA
 
 **A playful web application for fans of the H3 podcast to create and browse through joke dating profiles.**
 
 ## Introduction
 
-hoe4hila is a webapp built for H3 podcast fans to interact, share their humor, and engage with the community in a fun and lighthearted way. Users can create joke dating profiles with real or meme-like images and bios. Unlike traditional dating apps, users can swipe or tap their way through all the posts with no real consequence, creating a fun, stress-free environment for all H3 fans.
+HOE4HILA is a webapp built for H3 podcast fans to interact, share their humor, and engage with the community in a fun and lighthearted way. Users can create joke dating profiles with real or meme-like images and bios. Unlike traditional dating apps, users can swipe or tap their way through all the posts with no real consequence, creating a fun, stress-free environment for all H3 fans.
 
 ## Features
 
