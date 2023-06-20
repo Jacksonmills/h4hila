@@ -11,7 +11,7 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
   return (
     <>
       <Head>
-        <title>[hoe4hila]</title>
+        <title>HOE4HILA</title>
         <meta name="description" content="Tinder-like app for the H3Podcast fan base" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
