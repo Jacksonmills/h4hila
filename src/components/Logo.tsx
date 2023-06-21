@@ -3,7 +3,7 @@ import React from 'react';
 export default function Logo() {
   return (
     <svg
-      className='h-auto w-[192px]'
+      className='pointer-events-none h-auto w-[192px]'
       xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 1490.8 338.21'
     >

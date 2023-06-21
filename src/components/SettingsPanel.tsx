@@ -61,8 +61,8 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
     if (!isValid) {
       const usernameInvalid = !validateText(nextUsername);
       const bioInvalid = !validateText(bio);
-      usernameInvalid && setUsernameError('contains bad words');
-      bioInvalid && setBioError('contains bad words');
+      usernameInvalid && setUsernameError('Error: Contains bad words');
+      bioInvalid && setBioError('Error: Contains bad words');
       return;
     }
 

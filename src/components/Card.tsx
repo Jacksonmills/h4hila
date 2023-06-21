@@ -63,6 +63,7 @@ export default function Card({ data, callback }: CardProps) {
         dragTransition={{ bounceStiffness: 400, bounceDamping: 40 }}
         whileHover={{ scale: 1.025 }}
         animate={{ rotate: rotateDeg, opacity: opacity }}
+        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
         onDrag={(_, info) => {
           // opacity
           if (info.offset.x > 20) {
@@ -145,7 +146,7 @@ export default function Card({ data, callback }: CardProps) {
           />
           <ActionButton
             Icon={Zap}
-            className='bg-h3Purple p-6 text-4xl shadow-md sm:p-8 md:text-6xl'
+            className='bg-h3Purple p-6 text-4xl sm:p-8 md:text-6xl'
             callback={soundEnabled ? handlePlayAudio : callback}
             label={
               soundEnabled
@@ -168,7 +169,7 @@ export default function Card({ data, callback }: CardProps) {
 const ActionButton: React.FC<{
   label: string;
   Icon: Icon;
-  className: string;
+  className?: string;
   callback?: () => void;
 }> = ({ label, Icon, className, callback }) => {
   const [rotateDeg, setRotateDeg] = useState(0);
@@ -187,9 +188,11 @@ const ActionButton: React.FC<{
       whileTap={{
         scale: 0.8,
         rotate: rotateDeg,
-        borderRadius: '100%',
       }}
-      className={`${className} relative rounded-full border-2 border-black p-4 text-2xl text-white shadow-md shadow-black/30 sm:text-3xl md:text-5xl`}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      className={`relative rounded-full border-2 border-black p-4 text-2xl text-white sm:text-3xl md:text-5xl ${
+        className || ''
+      }`}
       onPointerUp={callback}
     >
       <Icon className={`h-[1em] w-[1em] fill-white`} />

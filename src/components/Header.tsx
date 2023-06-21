@@ -13,7 +13,11 @@ export default function Header({ isSignedIn }: { isSignedIn?: boolean }) {
     <div className='flex w-full items-center justify-center py-2'>
       <div className='w-[0.75rem] sm:w-[1.75rem]' />
       <div className='mr-auto flex items-center gap-2'>
-        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+        >
           <Link href='/'>
             <Logo />
             <span className='sr-only'>HOE4HILA Homepage Link</span>
@@ -22,7 +26,11 @@ export default function Header({ isSignedIn }: { isSignedIn?: boolean }) {
       </div>
       {isSignedIn && (
         <div className='flex items-center gap-2 text-white md:gap-4'>
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+          >
             <NavButton onClick={toggleSoundEnabled}>
               {soundEnabled ? (
                 <Volume2 className='text-black' />
@@ -32,7 +40,11 @@ export default function Header({ isSignedIn }: { isSignedIn?: boolean }) {
               <span className='sr-only'>Toggle sound</span>
             </NavButton>
           </motion.div>
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+          >
             <Link href='/settings'>
               <NavButton as='span'>
                 <Settings className='text-black' />
@@ -40,7 +52,11 @@ export default function Header({ isSignedIn }: { isSignedIn?: boolean }) {
               </NavButton>
             </Link>
           </motion.div>
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+          >
             <NavButton className='h-[44px] w-[44px] p-0'>
               <UserButton
                 afterSignOutUrl='/'
