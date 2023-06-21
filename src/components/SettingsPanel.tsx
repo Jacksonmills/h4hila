@@ -8,6 +8,7 @@ import { type PostWithUser } from '~/pages';
 import { api } from '~/utils/api';
 import { getRandomBrandColor } from '~/utils/getRandomBrandColor';
 import SaveButton from './SaveButton';
+import validateText from '~/utils/validateText';
 
 interface SettingsPanelProps {
   data?: PostWithUser;
@@ -20,6 +21,9 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
   const [bio, setBio] = useState(data?.post?.content || '');
   const [imageUrl, setImageUrl] = useState(user?.profileImageUrl || '');
   const [randomBackgroundColor, setRandomBackgroundColor] = useState('#ff0000');
+  const [usernameError, setUsernameError] = useState('');
+  const [bioError, setBioError] = useState('');
+
   const disabled = bio.length > 140;
 
   const ctx = api.useContext();
@@ -50,6 +54,16 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
 
     if (username === '') {
       nextUsername = 'Fupa Trooper';
+    }
+
+    const isValid = validateText(nextUsername) && validateText(bio);
+
+    if (!isValid) {
+      const usernameInvalid = !validateText(nextUsername);
+      const bioInvalid = !validateText(bio);
+      usernameInvalid && setUsernameError('contains bad words');
+      bioInvalid && setBioError('contains bad words');
+      return;
     }
 
     if (data?.post.id) {
@@ -93,8 +107,13 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
         <div className='relative flex w-full grow flex-col gap-2 rounded-b-2xl border-l-0 border-t-2 border-black bg-h3Purple/20 p-2 md:rounded-r-2xl md:rounded-bl-none md:border-l-2 md:border-t-0 md:p-4'>
           <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
             <div className='flex flex-col gap-1'>
-              <label htmlFor='name' className='font-bold'>
+              <label htmlFor='name' className='flex gap-2 font-bold'>
                 Username
+                {usernameError && (
+                  <p className='text-red-500' role='alert'>
+                    {usernameError}
+                  </p>
+                )}
               </label>
               <input
                 type='text'
@@ -105,8 +124,13 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
               />
             </div>
             <div className='flex flex-col gap-1'>
-              <label htmlFor='bio' className='font-bold'>
+              <label htmlFor='bio' className='flex gap-2 font-bold'>
                 Bio
+                {bioError && (
+                  <p className=' text-red-500' role='alert'>
+                    {bioError}
+                  </p>
+                )}
               </label>
               <textarea
                 id='bio'

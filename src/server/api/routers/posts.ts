@@ -2,6 +2,8 @@ import { clerkClient } from "@clerk/nextjs";
 import type { User } from "@clerk/nextjs/dist/server";
 import { z } from "zod";
 
+import validateText from "~/utils/validateText";
+
 import { createTRPCRouter, privateProcedure, publicProcedure } from "~/server/api/trpc";
 
 const filterUserForClient = (user: User) => {
@@ -50,6 +52,11 @@ export const postsRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const authorId = ctx.userId;
 
+      // both username and content must be valid text (no slurs, etc.) to be saved
+      const isValid = validateText(input.content) && validateText(input.username);
+
+      if (!isValid) throw new Error("Invalid content");
+
       const post = await ctx.prisma.post.create({
         data: {
           authorId,
@@ -70,6 +77,10 @@ export const postsRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const authorId = ctx.userId;
+
+      const isValid = validateText(input.content) && validateText(input.username);
+
+      if (!isValid) throw new Error("Invalid content");
 
       const post = await ctx.prisma.post.findFirst({
         where: {
