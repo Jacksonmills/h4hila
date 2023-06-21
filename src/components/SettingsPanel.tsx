@@ -1,14 +1,18 @@
-import { UserProfile, useUser } from '@clerk/nextjs';
+import { UserButton, UserProfile, useUser } from '@clerk/nextjs';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { ArrowDown, Save, XCircle } from 'react-feather';
+import { ArrowDown, Save, Image as ImageIcon, XCircle } from 'react-feather';
 
 import { api } from '~/utils/api';
 import { getRandomBrandColor } from '~/utils/getRandomBrandColor';
 import SaveButton from './SaveButton';
 import validateText from '~/utils/validateText';
 import { type OnePostWithUser } from '~/pages/settings';
+import Portal from './Portal';
+import Modal from './Modal';
+
+import { motion } from 'framer-motion';
 
 interface SettingsPanelProps {
   data?: OnePostWithUser;
@@ -23,6 +27,7 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
   const [randomBackgroundColor, setRandomBackgroundColor] = useState('#ff0000');
   const [usernameError, setUsernameError] = useState('');
   const [bioError, setBioError] = useState('');
+  const [modalOpen, setModalOpen] = useState(false);
 
   const disabled = bio.length > 140;
 
@@ -95,13 +100,26 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
     <>
       <div className='flex w-full max-w-[450px] flex-col gap-2 md:w-[705px] md:max-w-[705px] md:gap-6'>
         <div className='flex flex-col rounded-2xl bg-white md:flex-row'>
-          <div>
+          <div className='relative'>
+            <div className='absolute bottom-2 right-2 md:bottom-4 md:right-4'>
+              <motion.button
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.8 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                onClick={() => setModalOpen(!modalOpen)}
+                className='relative h-[50px] w-[50px] rounded-full border-2 border-black bg-h3LightBlue p-1 text-black'
+              >
+                <span className='pointer-events-none absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] text-current'>
+                  <ImageIcon />
+                </span>
+              </motion.button>
+            </div>
             <Image
               src={imageUrl}
               width={446}
               height={446}
               alt={`${username}'s Profile Image`}
-              className='pointer-events-none h-[284px] w-full rounded-t-2xl border-2 border-black object-cover object-center sm:h-[332px] md:h-[448px] md:rounded-l-2xl md:rounded-tr-none'
+              className='pointer-events-none h-[332px] w-full rounded-t-2xl border-2 border-black object-cover object-center md:h-[448px] md:min-w-[332px] md:rounded-l-2xl md:rounded-tr-none'
               style={{ backgroundColor: randomBackgroundColor }}
             />
           </div>
@@ -166,34 +184,36 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
             </form>
           </div>
         </div>
-        <h2 className='flex items-center justify-center gap-2 rounded-xl border-2 border-black bg-white p-4 text-xl font-bold md:text-2xl'>
-          <ArrowDown className='h-auto w-[1.6em]' /> Change Profile Image
-        </h2>
       </div>
-      <div className='mt-2 flex max-w-[450px] items-center justify-center md:mt-6 md:max-w-[705px]'>
-        <UserProfile
-          appearance={{
-            layout: {
-              logoPlacement: 'inside',
-            },
-            elements: {
-              header: 'hidden',
-              navbar: 'hidden',
-              navbarMobileMenuRow: 'hidden',
-              profileSectionTitle: 'hidden',
-              profileSection__connectedAccounts: 'hidden',
-              profileSection__password: 'hidden',
-              profileSection__activeDevices: 'hidden',
-              profilePage__security: 'hidden',
-              pageScrollBox:
-                'p-2 md:min-h-[220px] flex gap-2 items-start justify-center',
-              page: 'w-full',
-              rootBox: 'm-0 w-full flex items-center justify-center',
-              card: 'rounded-2xl m-0 bg-white border-2 border-black',
-            },
-          }}
-        />
-      </div>
+      {modalOpen && (
+        <Modal
+          title='Change your profile picture'
+          handleDismiss={() => setModalOpen(false)}
+        >
+          <UserProfile
+            appearance={{
+              layout: {
+                logoPlacement: 'inside',
+              },
+              elements: {
+                header: 'hidden',
+                navbar: 'hidden',
+                navbarMobileMenuRow: 'hidden',
+                profileSectionTitle: 'hidden',
+                profileSection__connectedAccounts: 'hidden',
+                profileSection__password: 'hidden',
+                profileSection__activeDevices: 'hidden',
+                profilePage__security: 'hidden',
+                pageScrollBox:
+                  'p-2 md:min-h-[220px] flex gap-2 items-start justify-center',
+                page: 'w-full',
+                rootBox: 'm-0 w-full flex items-center justify-center',
+                card: 'rounded-2xl m-0 bg-white border-2 border-black',
+              },
+            }}
+          />
+        </Modal>
+      )}
     </>
   );
 }

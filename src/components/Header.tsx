@@ -14,8 +14,8 @@ export default function Header({ isSignedIn }: { isSignedIn?: boolean }) {
       <div className='w-[0.75rem] sm:w-[1.75rem]' />
       <div className='mr-auto flex items-center gap-2'>
         <motion.div
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.2 }}
+          whileTap={{ scale: 0.8 }}
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
         >
           <Link href='/'>
@@ -27,8 +27,8 @@ export default function Header({ isSignedIn }: { isSignedIn?: boolean }) {
       {isSignedIn && (
         <div className='flex items-center gap-2 text-white md:gap-4'>
           <motion.div
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.8 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
           >
             <NavButton onClick={toggleSoundEnabled}>
@@ -41,8 +41,8 @@ export default function Header({ isSignedIn }: { isSignedIn?: boolean }) {
             </NavButton>
           </motion.div>
           <motion.div
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.8 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
           >
             <Link href='/settings'>
@@ -53,8 +53,8 @@ export default function Header({ isSignedIn }: { isSignedIn?: boolean }) {
             </Link>
           </motion.div>
           <motion.div
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.8 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
           >
             <NavButton className='h-[44px] w-[44px] p-0'>
