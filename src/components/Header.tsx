@@ -46,7 +46,7 @@ export default function Header({ isSignedIn }: { isSignedIn?: boolean }) {
                 afterSignOutUrl='/'
                 appearance={{
                   elements: {
-                    userButtonPopoverCard: 'border-2 border-black',
+                    userButtonPopoverCard: 'border-2 border-black mt-2',
                   },
                 }}
               />

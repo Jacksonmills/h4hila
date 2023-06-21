@@ -1,4 +1,3 @@
-import { useUser } from '@clerk/nextjs';
 import { type NextPage } from 'next';
 import LoadingSpinner from '~/components/LoadingSpinner';
 import SettingsPanel from '~/components/SettingsPanel';

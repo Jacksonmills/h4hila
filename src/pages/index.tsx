@@ -21,7 +21,7 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className='pt-2 md:flex md:flex-col md:items-center md:justify-center'>
+    <div className='md:flex md:flex-col md:items-center md:justify-center'>
       {data && data.length > 0 && (
         <div key={data[currentIndex]?.post.id}>
           <Card data={data[currentIndex] as PostWithUser} callback={nextCard} />

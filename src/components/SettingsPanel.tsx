@@ -100,7 +100,7 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
             width={446}
             height={446}
             alt={`${username}'s Profile Image`}
-            className='pointer-events-none h-full w-full rounded-t-2xl object-cover object-center md:rounded-l-2xl md:rounded-tr-none'
+            className='pointer-events-none h-[284px] w-full rounded-t-2xl object-cover object-center sm:h-[332px] md:h-[448px] md:rounded-l-2xl md:rounded-tr-none'
             style={{ backgroundColor: randomBackgroundColor }}
           />
         </div>
