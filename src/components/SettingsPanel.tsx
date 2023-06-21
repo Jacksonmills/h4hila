@@ -1,15 +1,14 @@
-import { UserButton, UserProfile, useUser } from '@clerk/nextjs';
+import { UserProfile, useUser } from '@clerk/nextjs';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { ArrowDown, Save, Image as ImageIcon, XCircle } from 'react-feather';
+import { Save, Image as ImageIcon, XCircle } from 'react-feather';
 
 import { api } from '~/utils/api';
 import { getRandomBrandColor } from '~/utils/getRandomBrandColor';
 import SaveButton from './SaveButton';
 import validateText from '~/utils/validateText';
 import { type OnePostWithUser } from '~/pages/settings';
-import Portal from './Portal';
 import Modal from './Modal';
 
 import { motion } from 'framer-motion';
@@ -111,6 +110,9 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
               >
                 <span className='pointer-events-none absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] text-current'>
                   <ImageIcon />
+                </span>
+                <span className='sr-only'>
+                  Change profile image, opens dialog
                 </span>
               </motion.button>
             </div>
