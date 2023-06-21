@@ -128,7 +128,7 @@ export default function Card({ data, callback }: CardProps) {
           >
             #HOE4HILA
           </code>
-          <div className='relative flex w-full flex-col gap-2 rounded-b-xl border-2 border-black bg-h3Purple/20 px-4 py-2 md:px-6 md:py-4'>
+          <div className='relative flex w-full flex-col gap-2 rounded-b-2xl border-2 border-black bg-h3Purple/20 px-4 py-2 md:px-6 md:py-4'>
             <p className='text-xl font-bold text-current md:text-2xl'>
               {getAvailableUsername()}
             </p>

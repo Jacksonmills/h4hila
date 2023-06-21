@@ -92,104 +92,108 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
   }
 
   return (
-    <div className='flex flex-col gap-2 md:gap-6'>
-      <div className='flex flex-col rounded-2xl border-2 border-black bg-white md:flex-row'>
-        <div>
-          <Image
-            src={imageUrl}
-            width={446}
-            height={446}
-            alt={`${username}'s Profile Image`}
-            className='pointer-events-none h-[284px] w-full rounded-t-2xl object-cover object-center sm:h-[332px] md:h-[448px] md:rounded-l-2xl md:rounded-tr-none'
-            style={{ backgroundColor: randomBackgroundColor }}
-          />
-        </div>
-        <div className='relative flex w-full grow flex-col gap-2 rounded-b-2xl border-l-0 border-t-2 border-black bg-h3Purple/20 p-2 md:rounded-r-2xl md:rounded-bl-none md:border-l-2 md:border-t-0 md:p-4'>
-          <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-            <div className='flex flex-col gap-1'>
-              <label htmlFor='name' className='flex gap-2 font-bold'>
-                Username
-                {usernameError && (
-                  <p className='text-red-500' role='alert'>
-                    {usernameError}
-                  </p>
+    <>
+      <div className='flex w-full max-w-[450px] flex-col gap-2 md:w-[705px] md:max-w-[705px] md:gap-6'>
+        <div className='flex flex-col rounded-2xl bg-white md:flex-row'>
+          <div>
+            <Image
+              src={imageUrl}
+              width={446}
+              height={446}
+              alt={`${username}'s Profile Image`}
+              className='pointer-events-none h-[284px] w-full rounded-t-2xl border-2 border-black object-cover object-center sm:h-[332px] md:h-[448px] md:rounded-l-2xl md:rounded-tr-none'
+              style={{ backgroundColor: randomBackgroundColor }}
+            />
+          </div>
+          <div className='relative flex w-full grow flex-col gap-2 rounded-b-2xl border-2 border-t-0 border-black bg-h3Purple/20 p-2 md:rounded-r-2xl md:rounded-bl-none md:border-l-0 md:border-t-2 md:p-4'>
+            <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+              <div className='flex flex-col gap-1'>
+                <label htmlFor='name' className='flex gap-2 font-bold'>
+                  Username
+                  {usernameError && (
+                    <p className='text-red-500' role='alert'>
+                      {usernameError}
+                    </p>
+                  )}
+                </label>
+                <input
+                  type='text'
+                  className='rounded-xl border-2 border-black bg-white p-2 shadow-md'
+                  placeholder='Pick a display name'
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+              <div className='flex flex-col gap-1'>
+                <label htmlFor='bio' className='flex gap-2 font-bold'>
+                  Bio
+                  {bioError && (
+                    <p className=' text-red-500' role='alert'>
+                      {bioError}
+                    </p>
+                  )}
+                </label>
+                <textarea
+                  id='bio'
+                  className='h-[100px] resize-none rounded-xl border-2 border-black bg-white p-2 shadow-md md:h-[200px]'
+                  placeholder='Write a bio...'
+                  value={bio}
+                  onChange={(e) => setBio(e.target.value)}
+                />
+              </div>
+              <div className='flex justify-between'>
+                <p className='text-sm text-gray-400'>140 characters max</p>
+                <p
+                  className='text-sm text-gray-400 aria-disabled:text-red-500'
+                  aria-disabled={disabled}
+                >
+                  {bio.length}/140
+                </p>
+              </div>
+              <SaveButton type='submit' disabled={disabled}>
+                {disabled ? (
+                  <>
+                    <XCircle />
+                    <span className='sr-only'>Too long!</span>
+                  </>
+                ) : (
+                  <>
+                    <Save />
+                    <span className='sr-only'>Save</span>
+                  </>
                 )}
-              </label>
-              <input
-                type='text'
-                className='rounded-xl border-2 border-black bg-white p-2 shadow-md'
-                placeholder='Pick a display name'
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </div>
-            <div className='flex flex-col gap-1'>
-              <label htmlFor='bio' className='flex gap-2 font-bold'>
-                Bio
-                {bioError && (
-                  <p className=' text-red-500' role='alert'>
-                    {bioError}
-                  </p>
-                )}
-              </label>
-              <textarea
-                id='bio'
-                className='h-[100px] resize-none rounded-xl border-2 border-black bg-white p-2 shadow-md md:h-[200px]'
-                placeholder='Write a bio...'
-                value={bio}
-                onChange={(e) => setBio(e.target.value)}
-              />
-            </div>
-            <div className='flex justify-between'>
-              <p className='text-sm text-gray-400'>140 characters max</p>
-              <p
-                className='text-sm text-gray-400 aria-disabled:text-red-500'
-                aria-disabled={disabled}
-              >
-                {bio.length}/140
-              </p>
-            </div>
-            <SaveButton type='submit' disabled={disabled}>
-              {disabled ? (
-                <>
-                  <XCircle />
-                  <span className='sr-only'>Too long!</span>
-                </>
-              ) : (
-                <>
-                  <Save />
-                  <span className='sr-only'>Save</span>
-                </>
-              )}
-            </SaveButton>
-          </form>
+              </SaveButton>
+            </form>
+          </div>
         </div>
+        <h2 className='flex items-center justify-center gap-2 rounded-xl border-2 border-black bg-white p-4 text-xl font-bold md:text-2xl'>
+          <ArrowDown className='h-auto w-[1.6em]' /> Change Profile Image
+        </h2>
       </div>
-      <h2 className='flex items-center justify-center gap-2 rounded-xl border-2 border-black bg-white p-4 text-xl font-bold md:text-2xl'>
-        <ArrowDown className='h-auto w-[1.6em]' /> Change Profile Image
-      </h2>
-      <UserProfile
-        appearance={{
-          layout: {
-            logoPlacement: 'inside',
-          },
-          elements: {
-            header: 'hidden',
-            navbar: 'hidden',
-            navbarMobileMenuRow: 'hidden',
-            profileSectionTitle: 'hidden',
-            profileSection__connectedAccounts: 'hidden',
-            profileSection__password: 'hidden',
-            profileSection__activeDevices: 'hidden',
-            profilePage__security: 'hidden',
-            pageScrollBox:
-              'p-2 md:min-h-[220px] flex gap-2 items-start justify-center',
-            page: 'w-full',
-            rootBox: 'm-0 w-full flex items-center justify-center',
-            card: 'rounded-2xl m-0 bg-white border-2 border-black',
-          },
-        }}
-      />
-    </div>
+      <div className='mt-2 flex max-w-[450px] items-center justify-center md:mt-6 md:max-w-[705px]'>
+        <UserProfile
+          appearance={{
+            layout: {
+              logoPlacement: 'inside',
+            },
+            elements: {
+              header: 'hidden',
+              navbar: 'hidden',
+              navbarMobileMenuRow: 'hidden',
+              profileSectionTitle: 'hidden',
+              profileSection__connectedAccounts: 'hidden',
+              profileSection__password: 'hidden',
+              profileSection__activeDevices: 'hidden',
+              profilePage__security: 'hidden',
+              pageScrollBox:
+                'p-2 md:min-h-[220px] flex gap-2 items-start justify-center',
+              page: 'w-full',
+              rootBox: 'm-0 w-full flex items-center justify-center',
+              card: 'rounded-2xl m-0 bg-white border-2 border-black',
+            },
+          }}
+        />
+      </div>
+    </>
   );
 }
