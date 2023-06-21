@@ -26,11 +26,13 @@ export default function SaveButton({
     ease-in-out
     hover:bg-h3DarkPurple
     disabled:bg-gray-400
+    border-black
+    border-2
     ${className || ''}
   `;
 
   return (
-    <button className={classNames.trimEnd()} {...rest}>
+    <button className={classNames.trim()} {...rest}>
       {children}
     </button>
   );

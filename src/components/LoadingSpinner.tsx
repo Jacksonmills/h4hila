@@ -5,7 +5,10 @@ export default function LoadingSpinner({ size = 32 }: { size?: number }) {
 
   return (
     <div className='flex grow items-center justify-center '>
-      <div className='rounded-full bg-white p-6' role='status'>
+      <div
+        className='rounded-full border-2 border-black bg-white p-6'
+        role='status'
+      >
         <svg
           aria-hidden='true'
           className='animate-spin fill-h3LightBlue text-gray-200 dark:text-h3Purple'

@@ -79,7 +79,7 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
 
   return (
     <div className='flex flex-col gap-2 md:gap-6'>
-      <div className='flex flex-col rounded-2xl bg-white md:flex-row'>
+      <div className='flex flex-col rounded-2xl border-2 border-black bg-white md:flex-row'>
         <div>
           <Image
             src={imageUrl}
@@ -90,7 +90,7 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
             style={{ backgroundColor: randomBackgroundColor }}
           />
         </div>
-        <div className='relative flex w-full grow flex-col gap-2 rounded-b-2xl bg-h3Purple/20 p-2 md:rounded-r-2xl md:rounded-bl-none md:p-4'>
+        <div className='relative flex w-full grow flex-col gap-2 rounded-b-2xl border-l-0 border-t-2 border-black bg-h3Purple/20 p-2 md:rounded-r-2xl md:rounded-bl-none md:border-l-2 md:border-t-0 md:p-4'>
           <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
             <div className='flex flex-col gap-1'>
               <label htmlFor='name' className='font-bold'>
@@ -98,7 +98,7 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
               </label>
               <input
                 type='text'
-                className='rounded-xl bg-white p-2 shadow-md'
+                className='rounded-xl border-2 border-black bg-white p-2 shadow-md'
                 placeholder='Pick a display name'
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -110,7 +110,7 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
               </label>
               <textarea
                 id='bio'
-                className='h-[100px] resize-none rounded-xl bg-white p-2 shadow-md md:h-[200px]'
+                className='h-[100px] resize-none rounded-xl border-2 border-black bg-white p-2 shadow-md md:h-[200px]'
                 placeholder='Write a bio...'
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
@@ -141,7 +141,7 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
           </form>
         </div>
       </div>
-      <h2 className='flex items-center justify-center gap-2 rounded-xl bg-white p-4 text-xl font-bold md:text-2xl'>
+      <h2 className='flex items-center justify-center gap-2 rounded-xl border-2 border-black bg-white p-4 text-xl font-bold md:text-2xl'>
         <ArrowDown className='h-auto w-[1.6em]' /> Change Profile Image
       </h2>
       <UserProfile
@@ -162,7 +162,7 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
               'p-2 md:min-h-[220px] flex gap-2 items-start justify-center',
             page: 'w-full',
             rootBox: 'm-0 w-full flex items-center justify-center',
-            card: 'rounded-2xl m-0 bg-white',
+            card: 'rounded-2xl m-0 bg-white border-2 border-black',
           },
         }}
       />

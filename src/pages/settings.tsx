@@ -1,6 +1,5 @@
 import { useUser } from '@clerk/nextjs';
 import { type NextPage } from 'next';
-import Layout from '~/components/Layout';
 import LoadingSpinner from '~/components/LoadingSpinner';
 import SettingsPanel from '~/components/SettingsPanel';
 import { api } from '~/utils/api';
@@ -16,19 +15,9 @@ const Settings: NextPage = () => {
 
   const currentUserCardData = dataForCurrentUser?.[0];
 
-  if (!data) {
-    return (
-      <Layout>
-        <LoadingSpinner size={100} />
-      </Layout>
-    );
-  }
+  if (!data) return <LoadingSpinner size={100} />;
 
-  return (
-    <Layout>
-      <SettingsPanel data={currentUserCardData} />
-    </Layout>
-  );
+  return <SettingsPanel data={currentUserCardData} />;
 };
 
 export default Settings;

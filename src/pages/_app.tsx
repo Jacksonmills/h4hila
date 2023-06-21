@@ -6,13 +6,16 @@ import { api } from '~/utils/api';
 import '~/styles/globals.css';
 import { ClerkProvider } from '@clerk/nextjs';
 import { SoundEnabledProvider } from '../context/SoundEnabledContext';
+import Layout from '~/components/Layout';
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <ClerkProvider {...pageProps}>
       <SoundEnabledProvider>
-        <Component {...pageProps} />
-        <Analytics />
+        <Layout>
+          <Component {...pageProps} />
+          <Analytics />
+        </Layout>
       </SoundEnabledProvider>
     </ClerkProvider>
   );

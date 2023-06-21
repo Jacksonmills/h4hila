@@ -1,7 +1,6 @@
 import { type NextPage } from 'next';
 import { type RouterOutputs, api } from '~/utils/api';
 import { useState } from 'react';
-import Layout from '~/components/Layout';
 import Card from '~/components/Card';
 import LoadingSpinner from '~/components/LoadingSpinner';
 
@@ -13,13 +12,7 @@ const Home: NextPage = () => {
   // const { user } = useUser();
   const { data } = api.posts.getAll.useQuery();
 
-  if (!data) {
-    return (
-      <Layout>
-        <LoadingSpinner size={100} />
-      </Layout>
-    );
-  }
+  if (!data) return <LoadingSpinner size={100} />;
 
   // const dataWithoutCurrentUser = data?.filter((post) => {
   //   return post.post.authorId !== user?.id;
@@ -47,18 +40,16 @@ const Home: NextPage = () => {
     Math.floor(Math.random() * dataWithoutCurrentUser.length);
 
   return (
-    <Layout>
-      <div className='pt-2 md:flex md:flex-col md:items-center md:justify-center'>
-        {dataWithoutCurrentUser && dataWithoutCurrentUser.length > 0 && (
-          <div key={dataWithoutCurrentUser[currentIndex]?.post.id}>
-            <Card
-              data={dataWithoutCurrentUser[currentIndex] as PostWithUser}
-              callback={nextCard}
-            />
-          </div>
-        )}
-      </div>
-    </Layout>
+    <div className='pt-2 md:flex md:flex-col md:items-center md:justify-center'>
+      {dataWithoutCurrentUser && dataWithoutCurrentUser.length > 0 && (
+        <div key={dataWithoutCurrentUser[currentIndex]?.post.id}>
+          <Card
+            data={dataWithoutCurrentUser[currentIndex] as PostWithUser}
+            callback={nextCard}
+          />
+        </div>
+      )}
+    </div>
   );
 };
 

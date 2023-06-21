@@ -41,18 +41,16 @@ const Lighthouse: NextPage = () => {
     Math.floor(Math.random() * dataWithoutCurrentUser.length);
 
   return (
-    <Layout>
-      <div className='pt-2 md:flex md:flex-col md:items-center md:justify-center'>
-        {dataWithoutCurrentUser && dataWithoutCurrentUser.length > 0 && (
-          <div key={dataWithoutCurrentUser[currentIndex]?.post.id}>
-            <Card
-              data={dataWithoutCurrentUser[currentIndex] as PostWithUser}
-              callback={nextCard}
-            />
-          </div>
-        )}
-      </div>
-    </Layout>
+    <div className='pt-2 md:flex md:flex-col md:items-center md:justify-center'>
+      {dataWithoutCurrentUser && dataWithoutCurrentUser.length > 0 && (
+        <div key={dataWithoutCurrentUser[currentIndex]?.post.id}>
+          <Card
+            data={dataWithoutCurrentUser[currentIndex] as PostWithUser}
+            callback={nextCard}
+          />
+        </div>
+      )}
+    </div>
   );
 };
 

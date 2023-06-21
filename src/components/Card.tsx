@@ -106,7 +106,7 @@ export default function Card({ data, callback }: CardProps) {
           setRotateDeg(0);
           callback && callback();
         }}
-        className='flex h-[90%] cursor-grab flex-col items-center justify-start gap-4 rounded-2xl bg-white p-2 text-black  shadow-lg active:cursor-grabbing md:p-4'
+        className='flex h-[90%] cursor-grab flex-col items-center justify-start gap-4 rounded-2xl border-2 border-black bg-white  p-2 text-black shadow-lg active:cursor-grabbing md:p-4'
       >
         <div className='relative flex shrink flex-col items-center'>
           <Image
@@ -115,10 +115,10 @@ export default function Card({ data, callback }: CardProps) {
             height={446}
             priority
             alt=''
-            className='pointer-events-none h-[296px] w-[446px] rounded-t-xl object-cover object-center md:h-[446px]'
+            className='pointer-events-none h-[284px] w-[452px] rounded-t-xl border-2 border-b-0 border-black object-cover object-center sm:h-[332px] md:h-[448px]'
           />
           <code
-            className='absolute right-0 top-0 ml-auto rounded-bl-2xl rounded-tl-2xl rounded-tr-xl px-4 py-1 font-bold'
+            className='absolute right-0 top-0 ml-auto rounded-bl-3xl rounded-tl-3xl rounded-tr-xl border-2 border-black px-4 py-1 font-bold'
             style={{
               backgroundColor: randomBrandColor,
               color: colorContrast(randomBrandColor),
@@ -126,7 +126,7 @@ export default function Card({ data, callback }: CardProps) {
           >
             #HOE4HILA
           </code>
-          <div className='relative flex w-full flex-col gap-2 rounded-b-xl bg-h3Purple/20 px-4 py-2 md:px-6 md:py-4'>
+          <div className='relative flex w-full flex-col gap-2 rounded-b-xl border-2 border-black bg-h3Purple/20 px-4 py-2 md:px-6 md:py-4'>
             <p className='text-xl font-bold text-current md:text-2xl'>
               {getAvailableUsername()}
             </p>
@@ -188,7 +188,7 @@ const ActionButton: React.FC<{
         rotate: rotateDeg,
         borderRadius: '100%',
       }}
-      className={`${className} relative rounded-full p-4 text-2xl text-white shadow-md shadow-black/30 sm:text-3xl md:text-5xl`}
+      className={`${className} relative rounded-full border-2 border-black p-4 text-2xl text-white shadow-md shadow-black/30 sm:text-3xl md:text-5xl`}
       onPointerUp={callback}
     >
       <Icon className={`h-[1em] w-[1em] fill-white`} />
