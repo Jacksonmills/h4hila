@@ -2,22 +2,16 @@ import { useUser } from '@clerk/nextjs';
 import { type NextPage } from 'next';
 import LoadingSpinner from '~/components/LoadingSpinner';
 import SettingsPanel from '~/components/SettingsPanel';
-import { api } from '~/utils/api';
+import { type RouterOutputs, api } from '~/utils/api';
+
+export type OnePostWithUser = RouterOutputs['posts']['getOneByAuthorId'];
 
 const Settings: NextPage = () => {
-  const { user } = useUser();
-  const { data } = api.posts.getAll.useQuery();
-  if (!data) return null;
-
-  const dataForCurrentUser = data?.filter((post) => {
-    return post.post.authorId === user?.id;
-  });
-
-  const currentUserCardData = dataForCurrentUser?.[0];
+  const { data } = api.posts.getOneByAuthorId.useQuery();
 
   if (!data) return <LoadingSpinner size={100} />;
 
-  return <SettingsPanel data={currentUserCardData} />;
+  return <SettingsPanel data={data} />;
 };
 
 export default Settings;

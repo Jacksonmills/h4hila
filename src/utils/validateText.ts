@@ -1,14 +1,10 @@
-import { blockList, allowList } from "./filterList";
+import { filterList } from "./filterList";
 
 const validateText = (text: string) => {
   const lowerCaseMessage = text.toLowerCase();
-  const lowerCaseBlockList = blockList.map(item => item.toLowerCase());
-  const lowerCaseAllowList = allowList.map(item => item.toLowerCase());
+  const lowerCaseFilterList = filterList.map(item => item.toLowerCase());
 
-  const isBlocked = lowerCaseBlockList.some(blocked => {
-    if (lowerCaseAllowList.includes(blocked)) {
-      return false;
-    }
+  const isBlocked = lowerCaseFilterList.some(blocked => {
     const regex = new RegExp(`\\b${blocked}\\b`, 'g');
     return regex.test(lowerCaseMessage);
   });

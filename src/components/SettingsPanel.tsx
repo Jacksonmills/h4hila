@@ -4,14 +4,14 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { ArrowDown, Save, XCircle } from 'react-feather';
 
-import { type PostWithUser } from '~/pages';
 import { api } from '~/utils/api';
 import { getRandomBrandColor } from '~/utils/getRandomBrandColor';
 import SaveButton from './SaveButton';
 import validateText from '~/utils/validateText';
+import { type OnePostWithUser } from '~/pages/settings';
 
 interface SettingsPanelProps {
-  data?: PostWithUser;
+  data?: OnePostWithUser;
 }
 
 export default function SettingsPanel({ data }: SettingsPanelProps) {
@@ -66,7 +66,7 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
       return;
     }
 
-    if (data?.post.id) {
+    if (data?.post?.id) {
       updatePost({
         username: nextUsername,
         content: bio,

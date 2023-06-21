@@ -15,7 +15,7 @@ const filterUserForClient = (user: User) => {
 };
 
 export const postsRouter = createTRPCRouter({
-  getOneByUserId: privateProcedure.query(async ({ ctx }) => {
+  getOneByAuthorId: privateProcedure.query(async ({ ctx }) => {
     const authorId = ctx.userId;
 
     const post = await ctx.prisma.post.findFirst({
@@ -24,16 +24,55 @@ export const postsRouter = createTRPCRouter({
       },
     });
 
-    return post;
+    const user = await clerkClient.users.getUser(authorId);
+
+    return {
+      post,
+      author: user
+    };
   }),
+  getAllWithCursor: publicProcedure
+    .input(
+      z.object({
+        cursor: z.object({
+          id: z.string().optional(),
+          createdAt: z.string().optional(),
+        }).optional(),
+        take: z.number().optional().default(100),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const cursor = input.cursor;
+      if (!cursor || (cursor?.id === undefined && cursor?.createdAt === undefined)) return;
+      const cursorWhere = {
+        createdAt: new Date(cursor.createdAt as string),
+        id: cursor.id,
+      };
+      const posts = await ctx.prisma.post.findMany({
+        take: input.take,
+        cursor: cursorWhere,
+        orderBy: [
+          { createdAt: 'asc' },
+          { id: 'asc' },
+        ],
+        skip: input.cursor ? 1 : undefined,
+      });
+
+      const users = (await clerkClient.users.getUserList({
+        userId: posts.map((post) => post.authorId),
+        limit: input.take,
+      })).map(filterUserForClient);
+
+      return posts.map((post) => ({
+        post,
+        author: users.find((user) => user.id === post.authorId),
+      }));
+    }),
   getAll: publicProcedure.query(async ({ ctx }) => {
-    const posts = await ctx.prisma.post.findMany({
-      take: 100,
-    });
+    const posts = await ctx.prisma.post.findMany();
 
     const users = (await clerkClient.users.getUserList({
       userId: posts.map((post) => post.authorId),
-      limit: 100,
     })).map(filterUserForClient);
 
     return posts.map((post) => ({
@@ -41,7 +80,6 @@ export const postsRouter = createTRPCRouter({
       author: users.find((user) => user.id === post.authorId),
     }));
   }),
-
   create: privateProcedure
     .input(
       z.object({
@@ -67,7 +105,6 @@ export const postsRouter = createTRPCRouter({
 
       return post;
     }),
-
   update: privateProcedure
     .input(
       z.object({

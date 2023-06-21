@@ -17,6 +17,7 @@ model Post {
     authorId String
 
     @@index([authorId])
+    @@index([createdAt, id])
 }
 
 // model User {

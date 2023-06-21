@@ -8,45 +8,23 @@ export type PostWithUser = RouterOutputs['posts']['getAll'][number];
 
 const Home: NextPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  // const { user } = useUser();
   const { data } = api.posts.getAll.useQuery();
 
   if (!data) return <LoadingSpinner size={100} />;
 
-  // const dataWithoutCurrentUser = data?.filter((post) => {
-  //   return post.post.authorId !== user?.id;
-  // });
-
-  const dataWithoutCurrentUser = data;
-
   const nextCard = () => {
-    setCurrentIndex((prevIndex) => {
-      return getRandomNextIndex(prevIndex);
-    });
+    if (currentIndex + 1 >= data.length) {
+      setCurrentIndex(0);
+    } else {
+      setCurrentIndex(currentIndex + 1);
+    }
   };
-
-  const getRandomNextIndex = (currentIndex: number) => {
-    if (dataWithoutCurrentUser.length === 1) return currentIndex;
-
-    let nextIndex;
-    do {
-      nextIndex = getRandomIndex();
-    } while (nextIndex === currentIndex);
-    return nextIndex;
-  };
-
-  const getRandomIndex = () =>
-    Math.floor(Math.random() * dataWithoutCurrentUser.length);
 
   return (
     <div className='pt-2 md:flex md:flex-col md:items-center md:justify-center'>
-      {dataWithoutCurrentUser && dataWithoutCurrentUser.length > 0 && (
-        <div key={dataWithoutCurrentUser[currentIndex]?.post.id}>
-          <Card
-            data={dataWithoutCurrentUser[currentIndex] as PostWithUser}
-            callback={nextCard}
-          />
+      {data && data.length > 0 && (
+        <div key={data[currentIndex]?.post.id}>
+          <Card data={data[currentIndex] as PostWithUser} callback={nextCard} />
         </div>
       )}
     </div>
