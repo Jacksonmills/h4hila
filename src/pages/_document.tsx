@@ -8,7 +8,7 @@ export default function Document() {
       <Head>
         <meta
           name='description'
-          content='Tinder-like dating app for the H3Podcast fan base'
+          content='Join the (non)sexual marketplace, make a low-value “dating profile” & enjoy perusing with fellow fupa troopers'
         />
 
         <meta property='og:image' content={`${baseUrl}/image/meta.png`} />
