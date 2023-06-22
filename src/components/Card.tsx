@@ -8,6 +8,7 @@ import useSound from 'use-sound';
 import { colorContrast } from '~/utils/colorContrast';
 import { getRandomBrandColor } from '~/utils/getRandomBrandColor';
 import { useSoundEnabledContext } from '~/context/SoundEnabledContext';
+import LoadingSpinner from './LoadingSpinner';
 
 interface CardProps {
   data: PostWithUser;
@@ -50,6 +51,8 @@ export default function Card({ data, callback }: CardProps) {
   useEffect(() => {
     setRandomBrandColor(getRandomBrandColor);
   }, []);
+
+  if (!data) return <LoadingSpinner />;
 
   return (
     <motion.div
