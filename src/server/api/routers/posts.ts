@@ -62,9 +62,7 @@ export const postsRouter = createTRPCRouter({
         author: users.find((user) => user.id === post.authorId),
       }));
     }),
-  getAll: publicProcedure.query(async ({ ctx }) => { // gets all posts in the database (no cursor) and returns them with their authors (users) as well as the post itself (post) in an array of objects with the shape { post: Post, author: User } (see below)
-    // TODO: add pagination (cursor-based) to this query
-    // without using take we get all posts in the database which is not ideal but it's fine for now since we don't have many posts in the database yet (and we don't have pagination yet) but we should add pagination soon (see above) so that we don't have to load all posts at once (which would be slow and inefficient)
+  getAll: publicProcedure.query(async ({ ctx }) => {
     const posts = await ctx.prisma.post.findMany();
 
     const users = (await clerkClient.users.getUserList({
