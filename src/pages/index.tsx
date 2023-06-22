@@ -30,7 +30,7 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
-    if (!data) return;
+    if (data.length === 0) return;
 
     setShuffledPosts(shuffle(data));
 
@@ -40,7 +40,8 @@ const Home: NextPage = () => {
   }, [data]);
 
   const nextCard = useCallback(() => {
-    if (!data) return;
+    if (data.length === 0) return;
+
     if (currentIndex + 1 >= data.length) {
       setCurrentIndex(0);
     } else {
@@ -62,7 +63,7 @@ const Home: NextPage = () => {
     };
   }, [nextCard]);
 
-  if (!shuffledPosts) return <LoadingSpinner size={100} />;
+  if (shuffledPosts.length === 0) return <LoadingSpinner size={100} />;
 
   return (
     <div className='md:flex md:flex-col md:items-center md:justify-center'>
