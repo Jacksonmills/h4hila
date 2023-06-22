@@ -1,3 +1,4 @@
+![android-chrome-192x192](https://github.com/Jacksonmills/hoe4hila/assets/19780885/bc79e84a-0671-4a79-ae21-5cd2b1efa5c4)
 # HOE4HILA
 
 **A playful web application for fans of the H3 podcast to create and browse through joke dating profiles.**
