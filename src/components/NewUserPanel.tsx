@@ -8,20 +8,15 @@ import { api } from '~/utils/api';
 import { getRandomBrandColor } from '~/utils/getRandomBrandColor';
 import SaveButton from './SaveButton';
 import validateText from '~/utils/validateText';
-import { type OnePostWithUser } from '~/pages/settings';
 import Modal from './Modal';
 
 import { motion } from 'framer-motion';
 
-interface SettingsPanelProps {
-  data: OnePostWithUser;
-}
-
-export default function SettingsPanel({ data }: SettingsPanelProps) {
+export default function NewUserPanel() {
   const router = useRouter();
   const { user } = useUser();
-  const [username, setUsername] = useState(getAvailableUsername());
-  const [bio, setBio] = useState(getBio());
+  const [username, setUsername] = useState('Fupa Trooper');
+  const [bio, setBio] = useState('');
   const [imageUrl, setImageUrl] = useState(user?.profileImageUrl as string);
   const [randomBackgroundColor, setRandomBackgroundColor] = useState('#ff0000');
   const [usernameError, setUsernameError] = useState('');
@@ -32,7 +27,7 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
 
   const ctx = api.useContext();
 
-  const { mutate: updatePost } = api.posts.update.useMutation({
+  const { mutate } = api.posts.create.useMutation({
     onSuccess: () => {
       void ctx.posts.getAll.invalidate();
     },
@@ -64,26 +59,13 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
       return;
     }
 
-    updatePost({
+    mutate({
       username: nextUsername,
       content: bio,
     });
 
     return void router.push('/');
   };
-
-  function getAvailableUsername() {
-    const username =
-      (data?.post?.username as string) ||
-      (data?.author?.username as string) ||
-      'Fupa Trooper';
-    return username;
-  }
-
-  function getBio() {
-    const bio = data?.post?.content || '';
-    return bio;
-  }
 
   return (
     <>

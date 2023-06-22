@@ -25,7 +25,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <>
               <SignedOut>
                 <div className='flex grow items-center justify-center'>
-                  <SignIn />
+                  <SignIn afterSignInUrl='/' afterSignUpUrl='/settings' />
                 </div>
               </SignedOut>
               <SignedIn>{children}</SignedIn>
