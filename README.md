@@ -1,5 +1,6 @@
 ![android-chrome-192x192](https://github.com/Jacksonmills/hoe4hila/assets/19780885/bc79e84a-0671-4a79-ae21-5cd2b1efa5c4)
 # HOE4HILA
+![apple-touch-icon](https://github.com/Jacksonmills/hoe4hila/assets/19780885/c8edee9d-cde7-4e86-8405-1ed6ec5d5801)
 
 **A playful web application for fans of the H3 podcast to create and browse through joke dating profiles.**
 
