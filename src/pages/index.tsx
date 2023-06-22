@@ -4,11 +4,40 @@ import { useCallback, useEffect, useState } from 'react';
 import Card from '~/components/Card';
 import LoadingSpinner from '~/components/LoadingSpinner';
 
-export type PostWithUser = RouterOutputs['posts']['getAll'][number];
+export type AllPostData = RouterOutputs['posts']['getAll'];
+export type PostWithUser = AllPostData[number] | undefined;
 
 const Home: NextPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { data } = api.posts.getAll.useQuery();
+  const [shuffledPosts, setShuffledPosts] = useState<PostWithUser[]>([]);
+  const { data = [] } = api.posts.getAll.useQuery();
+
+  const shuffle = (array: PostWithUser[]) => {
+    let currentIndex = array.length;
+    let temporaryValue: PostWithUser | undefined;
+    let randomIndex: number;
+
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  };
+
+  useEffect(() => {
+    if (!data) return;
+
+    setShuffledPosts(shuffle(data));
+
+    return () => {
+      setShuffledPosts([]);
+    };
+  }, [data]);
 
   const nextCard = useCallback(() => {
     if (!data) return;
@@ -33,13 +62,13 @@ const Home: NextPage = () => {
     };
   }, [nextCard]);
 
-  if (!data) return <LoadingSpinner size={100} />;
+  if (!shuffledPosts) return <LoadingSpinner size={100} />;
 
   return (
     <div className='md:flex md:flex-col md:items-center md:justify-center'>
-      {data && data.length > 0 && (
-        <div key={data[currentIndex]?.post.id}>
-          <Card data={data[currentIndex] as PostWithUser} callback={nextCard} />
+      {shuffledPosts && shuffledPosts.length > 0 && (
+        <div key={shuffledPosts[currentIndex]?.post.id}>
+          <Card data={shuffledPosts[currentIndex]} callback={nextCard} />
         </div>
       )}
     </div>

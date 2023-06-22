@@ -24,38 +24,32 @@ export const postsRouter = createTRPCRouter({
       },
     });
 
-    const user = await clerkClient.users.getUser(authorId);
+    const user = filterUserForClient(await clerkClient.users.getUser(authorId));
+
+    if (!post) throw new Error("Post not found");
 
     return {
       post,
-      author: user
+      author: user,
     };
   }),
   getAllWithCursor: publicProcedure
     .input(
       z.object({
-        cursor: z.object({
-          id: z.string().optional(),
-          createdAt: z.string().optional(),
-        }).optional(),
+        cursor: z.string().optional(),
         take: z.number().optional().default(100),
       })
     )
     .query(async ({ ctx, input }) => {
       const cursor = input.cursor;
-      if (!cursor || (cursor?.id === undefined && cursor?.createdAt === undefined)) return;
-      const cursorWhere = {
-        createdAt: new Date(cursor.createdAt as string),
-        id: cursor.id,
-      };
+
       const posts = await ctx.prisma.post.findMany({
         take: input.take,
-        cursor: cursorWhere,
+        cursor: cursor ? { id: cursor } : undefined,
         orderBy: [
-          { createdAt: 'asc' },
           { id: 'asc' },
         ],
-        skip: input.cursor ? 1 : undefined,
+        skip: cursor ? 1 : undefined,
       });
 
       const users = (await clerkClient.users.getUserList({
@@ -68,7 +62,9 @@ export const postsRouter = createTRPCRouter({
         author: users.find((user) => user.id === post.authorId),
       }));
     }),
-  getAll: publicProcedure.query(async ({ ctx }) => {
+  getAll: publicProcedure.query(async ({ ctx }) => { // gets all posts in the database (no cursor) and returns them with their authors (users) as well as the post itself (post) in an array of objects with the shape { post: Post, author: User } (see below)
+    // TODO: add pagination (cursor-based) to this query
+    // without using take we get all posts in the database which is not ideal but it's fine for now since we don't have many posts in the database yet (and we don't have pagination yet) but we should add pagination soon (see above) so that we don't have to load all posts at once (which would be slow and inefficient)
     const posts = await ctx.prisma.post.findMany();
 
     const users = (await clerkClient.users.getUserList({
