@@ -9,6 +9,10 @@ import { Redis } from "@upstash/redis/nodejs";
 import { TRPCError } from "@trpc/server";
 import { filterUserForClient } from "~/server/helpers/filterUserForClient";
 
+const addUserToData = () => {
+  return {};
+};
+
 // (3 requests per minute)
 const ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),
@@ -17,6 +21,24 @@ const ratelimit = new Ratelimit({
 });
 
 export const postsRouter = createTRPCRouter({
+  getById: publicProcedure.input(z.object({
+    id: z.string(),
+  })).query(async ({ input, ctx }) => {
+    const post = await ctx.prisma.post.findUnique({
+      where: {
+        id: input.id,
+      },
+    });
+
+    if (!post) throw new TRPCError({
+      code: "NOT_FOUND", message: "Post not found"
+    });
+
+    // we would add user data here with a helper we still need
+    return {
+      post,
+    };
+  }),
   getOneByAuthorId: privateProcedure.query(async ({ ctx }) => {
     const authorId = ctx.userId;
 
@@ -35,6 +57,20 @@ export const postsRouter = createTRPCRouter({
       author: user,
     };
   }),
+  getPostsByUserId: publicProcedure
+    .input(
+      z.object({
+        userId: z.string(),
+      }))
+    .query(async ({ input, ctx }) => ctx.prisma.post.findMany({
+      where: {
+        authorId: input.userId,
+      },
+      take: 100,
+      orderBy: [
+        { id: 'asc' },
+      ],
+    })),
   getAllWithCursor: publicProcedure
     .input(
       z.object({
