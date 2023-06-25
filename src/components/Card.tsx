@@ -123,7 +123,7 @@ export default function Card({ data, callback }: CardProps) {
             style={{ backgroundColor: randomBrandColor }}
           />
           <code
-            className='absolute right-0 top-0 ml-auto rounded-bl-3xl rounded-tl-3xl rounded-tr-xl border-2 border-black px-4 py-1 font-bold'
+            className='absolute right-0 top-0 ml-auto rounded-bl-3xl rounded-tl-3xl rounded-tr-2xl border-2 border-black px-4 py-1 font-bold'
             style={{
               backgroundColor: randomBrandColor,
               color: colorContrast(randomBrandColor),
