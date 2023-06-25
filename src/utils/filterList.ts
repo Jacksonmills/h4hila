@@ -115,6 +115,7 @@ export const filterList = [
   'transvestite',
   'vorarephilia',
   'wetback',
+  'wetbacks',
   'white power',
   'zoophilia',
 ];

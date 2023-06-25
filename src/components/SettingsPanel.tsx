@@ -84,7 +84,7 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
   }
 
   return (
-    <>
+    <div className='grid w-full place-content-center md:h-[90vh]'>
       <div className='flex w-full max-w-[450px] flex-col gap-2 md:w-[705px] md:max-w-[705px] md:gap-6'>
         <div className='flex flex-col rounded-2xl bg-white md:flex-row'>
           <div className='relative'>
@@ -109,7 +109,7 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
               width={446}
               height={446}
               alt={`${username}'s Profile Image`}
-              className='pointer-events-none h-[332px] w-full rounded-t-2xl border-2 border-black object-cover object-center md:h-[448px] md:min-w-[332px] md:rounded-l-2xl md:rounded-tr-none'
+              className='pointer-events-none h-[332px] w-full rounded-t-2xl border-2 border-black object-cover object-center md:h-full md:min-w-[332px] md:rounded-l-2xl md:rounded-tr-none'
               style={{ backgroundColor: randomBackgroundColor }}
             />
           </div>
@@ -194,6 +194,6 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
           />
         </Modal>
       )}
-    </>
+    </div>
   );
 }
