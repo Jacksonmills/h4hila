@@ -1,16 +1,30 @@
-import Image from 'next/image';
 import React from 'react';
 
 export default function Background() {
   return (
     <div className='absolute left-0 top-0 z-[-1] h-full w-screen bg-h3Pink'>
-      <Image
-        src='/image/bg.svg'
-        width={3840}
-        height={2160}
-        alt='Swooping color blobs in the background'
-        priority
-      />
+      <svg
+        className=''
+        xmlns='http://www.w3.org/2000/svg'
+        viewBox='0 0 3840 2160'
+      >
+        <path
+          className='fill-h3HotPink'
+          d='M3840,0h-744.24c-507.48,1109.64-1040.4,1466.45-2179.54,904.83C466.54,696.3,284.84,866.51,0,741.63v585.41l2846.54,673.44s302.77-580.39,586.61-1124.51c16.69-32.01,33.32-63.89,49.82-95.52,89.33-169.11,196.1-329.27,268.72-515.12,25.14-48.2,48.19-92.38,68.62-131.54,6.86-13.16,13.43-25.75,19.68-37.73V0Z'
+        />
+        <path
+          className='fill-h3Pink'
+          d='M1692.42,1427.7C1188.06,1304.25,531.88,1083.02,0,1199.46v960.54H3840V0h-298.98c-664.72,242.89-510.36,1696.51-1848.59,1427.7Z'
+        />
+        <path
+          className='fill-h3Purple'
+          d='M0,0V778.53c306.31,156.89,483.96-36.82,952.35,180.39C2100.85,1525.15,2633.14,1131.67,3144.4,0H0Z'
+        />
+        <path
+          className='fill-h3LightBlue'
+          d='M0,1132.29c199.41-5.82,708.87-686.4,1800.86-361.25,379.24,112.92,757.5-188.41,677.14-575.86-14.59-70.34-43.56-137.29-88.7-195.18H0V1132.29Z'
+        />
+      </svg>
     </div>
   );
 }
