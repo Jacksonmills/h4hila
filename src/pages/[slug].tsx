@@ -12,6 +12,8 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
     username,
   });
 
+  if (!data) return <div>404</div>;
+
   return (
     <>
       <h1>{data?.username}</h1>
@@ -26,13 +28,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
     transformer: superjson, // optional - adds superjson serialization
   });
 
-  const slug = context.params?.slug as string;
+  const slug = context.params?.slug;
 
-  if (!slug) {
-    return {
-      notFound: true,
-    };
-  }
+  if (typeof slug !== 'string') throw new Error('slug is not a string');
 
   await helpers.profile.getUserByUsername.prefetch({ username: slug });
 
