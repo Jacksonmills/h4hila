@@ -1,6 +1,6 @@
 import { clerkClient } from "@clerk/nextjs";
 import type { User } from "@clerk/nextjs/dist/server";
-import { type ZodError, z, type input as UserNameInput, type ZodCatch } from "zod";
+import { z } from "zod";
 
 import validateText from "~/utils/validateText";
 

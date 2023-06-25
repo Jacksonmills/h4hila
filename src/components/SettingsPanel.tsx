@@ -7,14 +7,11 @@ import { Save, Image as ImageIcon, XCircle } from 'react-feather';
 import { api } from '~/utils/api';
 import { getRandomBrandColor } from '~/utils/getRandomBrandColor';
 import SaveButton from './SaveButton';
-import validateText from '~/utils/validateText';
 import { type OnePostWithUser } from '~/pages/settings';
 import Modal from './Modal';
 
 import { motion } from 'framer-motion';
 import { toast } from 'react-hot-toast';
-import { set } from 'zod';
-import LoadingSpinner from './LoadingSpinner';
 
 interface SettingsPanelProps {
   data: OnePostWithUser;

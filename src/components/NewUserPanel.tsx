@@ -2,12 +2,11 @@ import { UserProfile, useUser } from '@clerk/nextjs';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { Save, Image as ImageIcon, XCircle, Send } from 'react-feather';
+import { Image as ImageIcon, XCircle, Send } from 'react-feather';
 
 import { api } from '~/utils/api';
 import { getRandomBrandColor } from '~/utils/getRandomBrandColor';
 import SaveButton from './SaveButton';
-import validateText from '~/utils/validateText';
 import Modal from './Modal';
 
 import { motion } from 'framer-motion';
@@ -20,22 +19,29 @@ export default function NewUserPanel() {
   const [bio, setBio] = useState('');
   const [imageUrl, setImageUrl] = useState(user?.profileImageUrl as string);
   const [randomBackgroundColor, setRandomBackgroundColor] = useState('#ff0000');
-  const [usernameError, setUsernameError] = useState('');
-  const [bioError, setBioError] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
 
   const disabled = bio.length > 140;
 
   const ctx = api.useContext();
 
-  const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
-    onSuccess: () => {
-      void ctx.posts.getAll.invalidate();
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
+  const { mutate: createPost, isLoading: isPosting } =
+    api.posts.create.useMutation({
+      onSuccess: async () => {
+        void ctx.posts.getAll.invalidate();
+        void ctx.posts.getOneByAuthorId.invalidate();
+
+        await router.push('/');
+      },
+      onError: (error) => {
+        const errors = error.data?.zodError?.formErrors;
+        if (errors && errors[0]) {
+          toast.error(errors[0]);
+        } else {
+          toast.error('Please try again later! 💅');
+        }
+      },
+    });
 
   useEffect(() => {
     setImageUrl(user?.profileImageUrl as string);
@@ -53,22 +59,10 @@ export default function NewUserPanel() {
       nextUsername = 'Fupa Trooper';
     }
 
-    const isValid = validateText(nextUsername) && validateText(bio);
-
-    if (!isValid) {
-      const usernameInvalid = !validateText(nextUsername);
-      const bioInvalid = !validateText(bio);
-      usernameInvalid && setUsernameError('Error: Contains bad words');
-      bioInvalid && setBioError('Error: Contains bad words');
-      return;
-    }
-
-    mutate({
+    createPost({
       username: nextUsername,
       content: bio,
     });
-
-    return void router.push('/');
   };
 
   return (
@@ -106,11 +100,6 @@ export default function NewUserPanel() {
               <div className='flex flex-col gap-1'>
                 <label htmlFor='name' className='flex gap-2 font-bold'>
                   Username
-                  {usernameError && (
-                    <p className='text-red-500' role='alert'>
-                      {usernameError}
-                    </p>
-                  )}
                 </label>
                 <input
                   type='text'
@@ -123,11 +112,6 @@ export default function NewUserPanel() {
               <div className='flex flex-col gap-1'>
                 <label htmlFor='bio' className='flex gap-2 font-bold'>
                   Bio
-                  {bioError && (
-                    <p className=' text-red-500' role='alert'>
-                      {bioError}
-                    </p>
-                  )}
                 </label>
                 <textarea
                   id='bio'
