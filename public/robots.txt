@@ -1,0 +1,10 @@
+# Block all crawlers for /settings
+User-agent: *
+Disallow: /settings
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Site map
+Sitemap: https://www.hoe4hila.com/sitemap.xml
