@@ -5,13 +5,15 @@ import { RemoveScroll } from 'react-remove-scroll';
 
 interface ModalProps {
   title: string;
-  handleDismiss: () => void;
   children: React.ReactNode;
+  handleDismiss?: () => void;
 }
 
 export default function Modal({ title, handleDismiss, children }: ModalProps) {
   React.useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
+      if (handleDismiss === undefined) return;
+
       if (event.code === 'Escape') {
         handleDismiss();
       }
@@ -41,13 +43,15 @@ export default function Modal({ title, handleDismiss, children }: ModalProps) {
               <h2 className='flex gap-2 text-lg font-bold md:text-xl'>
                 {title}
               </h2>
-              <button
-                className='rounded-full border-2 border-black bg-white p-1'
-                onClick={handleDismiss}
-              >
-                <X />
-                <span className='sr-only'>Dismiss modal</span>
-              </button>
+              {handleDismiss && (
+                <button
+                  className='rounded-full border-2 border-black bg-white p-1'
+                  onClick={handleDismiss}
+                >
+                  <X />
+                  <span className='sr-only'>Dismiss modal</span>
+                </button>
+              )}
             </div>
             {children}
           </div>

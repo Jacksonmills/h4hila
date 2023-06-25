@@ -12,6 +12,9 @@ import { type OnePostWithUser } from '~/pages/settings';
 import Modal from './Modal';
 
 import { motion } from 'framer-motion';
+import { toast } from 'react-hot-toast';
+import { set } from 'zod';
+import LoadingSpinner from './LoadingSpinner';
 
 interface SettingsPanelProps {
   data: OnePostWithUser;
@@ -24,19 +27,29 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
   const [bio, setBio] = useState(getBio());
   const [imageUrl, setImageUrl] = useState(user?.profileImageUrl as string);
   const [randomBackgroundColor, setRandomBackgroundColor] = useState('#ff0000');
-  const [usernameError, setUsernameError] = useState('');
-  const [bioError, setBioError] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
 
   const disabled = bio.length > 140;
 
   const ctx = api.useContext();
 
-  const { mutate: updatePost } = api.posts.update.useMutation({
-    onSuccess: () => {
-      void ctx.posts.getAll.invalidate();
-    },
-  });
+  const { mutate: updatePost, isLoading: isPosting } =
+    api.posts.update.useMutation({
+      onSuccess: async () => {
+        void ctx.posts.getAll.invalidate();
+        void ctx.posts.getOneByAuthorId.invalidate();
+
+        await router.push('/');
+      },
+      onError: (error) => {
+        const errors = error.data?.zodError?.formErrors;
+        if (errors && errors[0]) {
+          toast.error(errors[0]);
+        } else {
+          toast.error('Please try again later! 💅');
+        }
+      },
+    });
 
   useEffect(() => {
     setImageUrl(user?.profileImageUrl as string);
@@ -54,22 +67,10 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
       nextUsername = 'Fupa Trooper';
     }
 
-    const isValid = validateText(nextUsername) && validateText(bio);
-
-    if (!isValid) {
-      const usernameInvalid = !validateText(nextUsername);
-      const bioInvalid = !validateText(bio);
-      usernameInvalid && setUsernameError('Error: Contains bad words');
-      bioInvalid && setBioError('Error: Contains bad words');
-      return;
-    }
-
     updatePost({
       username: nextUsername,
       content: bio,
     });
-
-    return void router.push('/');
   };
 
   function getAvailableUsername() {
@@ -120,11 +121,6 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
               <div className='flex flex-col gap-1'>
                 <label htmlFor='name' className='flex gap-2 font-bold'>
                   Username
-                  {usernameError && (
-                    <p className='text-red-500' role='alert'>
-                      {usernameError}
-                    </p>
-                  )}
                 </label>
                 <input
                   type='text'
@@ -137,11 +133,6 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
               <div className='flex flex-col gap-1'>
                 <label htmlFor='bio' className='flex gap-2 font-bold'>
                   Bio
-                  {bioError && (
-                    <p className=' text-red-500' role='alert'>
-                      {bioError}
-                    </p>
-                  )}
                 </label>
                 <textarea
                   id='bio'
@@ -167,10 +158,10 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
                     <span className='sr-only'>Too long!</span>
                   </>
                 ) : (
-                  <>
+                  <div className='flex items-center gap-4'>
                     <Save />
-                    <span className='sr-only'>Save</span>
-                  </>
+                    {isPosting ? 'Saving...' : 'Save'}
+                  </div>
                 )}
               </SaveButton>
             </form>

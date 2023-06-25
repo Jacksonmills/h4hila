@@ -1,10 +1,13 @@
 import { clerkClient } from "@clerk/nextjs";
 import type { User } from "@clerk/nextjs/dist/server";
-import { z } from "zod";
+import { type ZodError, z, type input as UserNameInput, type ZodCatch } from "zod";
 
 import validateText from "~/utils/validateText";
 
 import { createTRPCRouter, privateProcedure, publicProcedure } from "~/server/api/trpc";
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis/nodejs";
+import { TRPCError } from "@trpc/server";
 
 const filterUserForClient = (user: User) => {
   return {
@@ -13,6 +16,13 @@ const filterUserForClient = (user: User) => {
     profileImageUrl: user.profileImageUrl,
   };
 };
+
+// (3 requests per minute)
+const ratelimit = new Ratelimit({
+  redis: Redis.fromEnv(),
+  limiter: Ratelimit.slidingWindow(3, "1 m"),
+  analytics: true,
+});
 
 export const postsRouter = createTRPCRouter({
   getOneByAuthorId: privateProcedure.query(async ({ ctx }) => {
@@ -87,7 +97,11 @@ export const postsRouter = createTRPCRouter({
       // both username and content must be valid text (no slurs, etc.) to be saved
       const isValid = validateText(input.content) && validateText(input.username);
 
-      if (!isValid) throw new Error("Invalid content");
+      if (!isValid) throw new TRPCError({ code: "UNPROCESSABLE_CONTENT" });
+
+      const { success } = await ratelimit.limit(authorId);
+
+      if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" });
 
       const post = await ctx.prisma.post.create({
         data: {
@@ -104,14 +118,23 @@ export const postsRouter = createTRPCRouter({
       z.object({
         username: z.string().min(2).max(32),
         content: z.string().min(1).max(140),
+      }).superRefine((val, ctx) => {
+        if (!validateText(val.content) || !validateText(val.username)) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Invalid content 🤬🧹",
+          });
+        }
       })
     )
     .mutation(async ({ ctx, input }) => {
       const authorId = ctx.userId;
 
-      const isValid = validateText(input.content) && validateText(input.username);
+      const { success } = await ratelimit.limit(authorId);
 
-      if (!isValid) throw new Error("Invalid content");
+      if (!success) {
+        throw new TRPCError({ code: "TOO_MANY_REQUESTS", message: "Too many requests" });
+      }
 
       const post = await ctx.prisma.post.findFirst({
         where: {
@@ -119,7 +142,7 @@ export const postsRouter = createTRPCRouter({
         },
       });
 
-      if (!post) throw new Error("Post not found");
+      if (!post) throw new TRPCError({ code: "NOT_FOUND", message: "Post not found" });
 
       const updatedPost = await ctx.prisma.post.update({
         where: {

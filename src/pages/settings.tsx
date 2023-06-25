@@ -8,9 +8,7 @@ import { type RouterOutputs, api } from '~/utils/api';
 export type OnePostWithUser = RouterOutputs['posts']['getOneByAuthorId'];
 
 const Settings: NextPage = () => {
-  const { data, isLoading } = api.posts.getOneByAuthorId.useQuery(undefined, {
-    refetchOnWindowFocus: false,
-  });
+  const { data, isLoading } = api.posts.getOneByAuthorId.useQuery();
 
   if (isLoading) return <LoadingSpinner size={100} />;
 

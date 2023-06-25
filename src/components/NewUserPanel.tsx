@@ -2,7 +2,7 @@ import { UserProfile, useUser } from '@clerk/nextjs';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { Save, Image as ImageIcon, XCircle } from 'react-feather';
+import { Save, Image as ImageIcon, XCircle, Send } from 'react-feather';
 
 import { api } from '~/utils/api';
 import { getRandomBrandColor } from '~/utils/getRandomBrandColor';
@@ -11,6 +11,7 @@ import validateText from '~/utils/validateText';
 import Modal from './Modal';
 
 import { motion } from 'framer-motion';
+import { toast } from 'react-hot-toast';
 
 export default function NewUserPanel() {
   const router = useRouter();
@@ -27,9 +28,12 @@ export default function NewUserPanel() {
 
   const ctx = api.useContext();
 
-  const { mutate } = api.posts.create.useMutation({
+  const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
     onSuccess: () => {
       void ctx.posts.getAll.invalidate();
+    },
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 
@@ -149,10 +153,10 @@ export default function NewUserPanel() {
                     <span className='sr-only'>Too long!</span>
                   </>
                 ) : (
-                  <>
-                    <Save />
-                    <span className='sr-only'>Save</span>
-                  </>
+                  <div className='flex items-center gap-4'>
+                    <Send />
+                    {isPosting ? 'Posting...' : 'Post'}
+                  </div>
                 )}
               </SaveButton>
             </form>
