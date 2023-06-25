@@ -1,4 +1,5 @@
 import { type NextPage } from 'next';
+import Head from 'next/head';
 import LoadingSpinner from '~/components/LoadingSpinner';
 import NewUserPanel from '~/components/NewUserPanel';
 import SettingsPanel from '~/components/SettingsPanel';
@@ -15,7 +16,14 @@ const Settings: NextPage = () => {
 
   if (!data) return <NewUserPanel />;
 
-  return <SettingsPanel data={data} />;
+  return (
+    <>
+      <Head>
+        <title>Settings</title>
+      </Head>
+      <SettingsPanel data={data} />
+    </>
+  );
 };
 
 export default Settings;

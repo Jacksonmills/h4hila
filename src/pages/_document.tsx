@@ -6,6 +6,11 @@ export default function Document() {
   return (
     <Html>
       <Head>
+        <meta charSet='UTF-8' />
+
+        <meta name='robots' content='index, follow' />
+        <meta name='google' content='nositelinkssearchbox' />
+
         <meta
           name='description'
           content='Join the (non)sexual marketplace, make a low-value “dating profile” & enjoy perusing with fellow fupa troopers'
