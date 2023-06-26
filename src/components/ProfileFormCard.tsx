@@ -18,6 +18,7 @@ interface Props {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   isPosting: boolean;
   disabled: boolean;
+  isNewUser?: boolean;
 }
 
 export default function ProfileFormCard({
@@ -32,7 +33,16 @@ export default function ProfileFormCard({
   handleSubmit,
   isPosting,
   disabled,
+  isNewUser = false,
 }: Props) {
+  const getSaveButtonText = () => {
+    if (isNewUser) {
+      return isPosting ? 'Creating Profile...' : 'Create Profile';
+    }
+
+    return isPosting ? 'Updating Profile...' : 'Update Profile';
+  };
+
   return (
     <div className='grid w-full place-content-center md:h-[90vh]'>
       <div className='flex w-[94vw] max-w-[800px] flex-col gap-2 md:gap-6'>
@@ -108,7 +118,7 @@ export default function ProfileFormCard({
                 ) : (
                   <div className='flex items-center gap-4'>
                     <Send />
-                    {isPosting ? 'Posting...' : 'Post'}
+                    {getSaveButtonText()}
                   </div>
                 )}
               </SaveButton>
@@ -121,7 +131,7 @@ export default function ProfileFormCard({
           title='Change profile image'
           handleDismiss={() => setModalOpen(false)}
         >
-          <div className='w-[94vw]'>
+          <div className='w-[94vw] md:w-auto'>
             <UserProfile
               appearance={{
                 layout: {

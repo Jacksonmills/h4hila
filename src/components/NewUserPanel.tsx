@@ -73,6 +73,7 @@ export default function NewUserPanel() {
       setUsername={setUsername}
       setBio={setBio}
       isPosting={isPosting}
+      isNewUser={true}
     />
   );
 }

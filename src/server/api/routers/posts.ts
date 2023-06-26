@@ -50,7 +50,7 @@ export const postsRouter = createTRPCRouter({
 
     const user = filterUserForClient(await clerkClient.users.getUser(authorId));
 
-    if (!post) throw new Error("Post not found");
+    if (!post) return null;
 
     return {
       post,
