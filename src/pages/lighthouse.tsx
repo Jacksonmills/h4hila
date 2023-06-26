@@ -21,6 +21,7 @@ const Lighthouse: NextPage = () => {
 
   return (
     <div className='pt-2 md:flex md:flex-col md:items-center md:justify-center'>
+      <h1 className='sr-only'>Lighthouse test report page</h1>
       {data && data.length > 0 && (
         <div key={data[currentIndex]?.post.id}>
           <Card data={data[currentIndex] as PostWithUser} callback={nextCard} />

@@ -29,7 +29,7 @@ export default function Modal({ title, handleDismiss, children }: ModalProps) {
       <RemoveScroll>
         <div className='fixed left-0 top-0 h-screen w-screen'>
           <div
-            className='absolute h-full w-full bg-h3DarkPurple/80'
+            className='absolute h-full w-full bg-h3DarkPurple/90'
             onClick={handleDismiss}
           />
           <div

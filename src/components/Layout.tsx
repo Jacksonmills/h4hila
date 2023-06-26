@@ -46,17 +46,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           )}
           {ageLimitModalOpen && (
             <Modal title='Must be 18+'>
-              <div className='flex w-[90vw] flex-col items-center justify-between gap-4 rounded-2xl border-2 border-black bg-white p-6 md:w-[400px] md:p-4'>
-                <h1 className='text-center text-2xl font-bold'></h1>
+              <div className='flex w-[94vw] flex-col items-center justify-between gap-4 rounded-2xl border-2 border-black bg-white p-6 md:w-[400px] md:p-4'>
                 <p className='text-center text-lg'>
                   This website is only for people over 18 years old. Although
                   content is not explicit, it is not suitable for minors. By
                   clicking &quot;Yes&quot; you confirm that you are over 18
                   years old.
                 </p>
-                <div className='flex items-center justify-center'>
+                <div className='flex w-full items-center justify-center gap-2'>
                   <button
-                    className='mr-2 rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-600'
+                    className='w-full rounded-xl bg-h3LightBlue px-6 py-4 font-bold text-black hover:bg-h3LightBlue/60'
                     onClick={() => {
                       localStorage.setItem('ageLimit', 'true');
                       setAgeLimitModalOpen(false);
@@ -65,7 +64,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     Yes
                   </button>
                   <button
-                    className='rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-600'
+                    className='w-full rounded-xl bg-h3HotPink px-6 py-4 font-bold text-white hover:bg-h3HotPink/60'
                     onClick={() => {
                       console.log('21 fuck you');
                     }}

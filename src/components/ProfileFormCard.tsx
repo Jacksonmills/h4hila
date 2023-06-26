@@ -118,31 +118,33 @@ export default function ProfileFormCard({
       </div>
       {modalOpen && (
         <Modal
-          title='Change your profile picture'
+          title='Change profile image'
           handleDismiss={() => setModalOpen(false)}
         >
-          <UserProfile
-            appearance={{
-              layout: {
-                logoPlacement: 'inside',
-              },
-              elements: {
-                header: 'hidden',
-                navbar: 'hidden',
-                navbarMobileMenuRow: 'hidden',
-                profileSectionTitle: 'hidden',
-                profileSection__connectedAccounts: 'hidden',
-                profileSection__password: 'hidden',
-                profileSection__activeDevices: 'hidden',
-                profilePage__security: 'hidden',
-                pageScrollBox:
-                  'p-2 md:min-h-[220px] flex gap-2 items-start justify-center',
-                page: 'w-full',
-                rootBox: 'm-0 w-full flex items-center justify-center',
-                card: 'rounded-2xl m-0 bg-white border-2 border-black',
-              },
-            }}
-          />
+          <div className='w-[94vw]'>
+            <UserProfile
+              appearance={{
+                layout: {
+                  logoPlacement: 'inside',
+                },
+                elements: {
+                  header: 'hidden',
+                  navbar: 'hidden',
+                  navbarMobileMenuRow: 'hidden',
+                  profileSectionTitle: 'hidden',
+                  profileSection__connectedAccounts: 'hidden',
+                  profileSection__password: 'hidden',
+                  profileSection__activeDevices: 'hidden',
+                  profilePage__security: 'hidden',
+                  pageScrollBox:
+                    'p-2 md:min-h-[220px] flex gap-2 items-start justify-center',
+                  page: 'w-full',
+                  rootBox: 'm-0 w-full flex items-center justify-center',
+                  card: 'rounded-2xl m-0 bg-white border-2 border-black',
+                },
+              }}
+            />
+          </div>
         </Modal>
       )}
     </div>

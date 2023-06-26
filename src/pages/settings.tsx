@@ -2,7 +2,9 @@ import { type NextPage } from 'next';
 import Head from 'next/head';
 import LoadingSpinner from '~/components/LoadingSpinner';
 import NewUserPanel from '~/components/NewUserPanel';
-import SettingsPanel from '~/components/SettingsPanel';
+import SettingsPanel, {
+  getAvailableUsername,
+} from '~/components/SettingsPanel';
 import { type RouterOutputs, api } from '~/utils/api';
 
 export type OnePostWithUser = RouterOutputs['posts']['getOneByAuthorId'];
@@ -14,11 +16,15 @@ const Settings: NextPage = () => {
 
   if (!data) return <NewUserPanel />;
 
+  const username = getAvailableUsername(data);
+  const title = `${username} settings`.toUpperCase();
+
   return (
     <>
       <Head>
-        <title>Settings</title>
+        <title>{title}</title>
       </Head>
+      <h1 className='sr-only'>{title}</h1>
       <SettingsPanel data={data} />
     </>
   );

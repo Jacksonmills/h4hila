@@ -12,11 +12,24 @@ interface SettingsPanelProps {
   data: OnePostWithUser;
 }
 
+export function getAvailableUsername(data?: OnePostWithUser) {
+  const username =
+    (data?.post?.username as string) ||
+    (data?.author?.username as string) ||
+    'Fupa Trooper';
+  return username;
+}
+
+export function getBio(data?: OnePostWithUser) {
+  const bio = data?.post?.content || '';
+  return bio;
+}
+
 export default function SettingsPanel({ data }: SettingsPanelProps) {
   const router = useRouter();
   const { user } = useUser();
-  const [username, setUsername] = useState(getAvailableUsername());
-  const [bio, setBio] = useState(getBio());
+  const [username, setUsername] = useState(getAvailableUsername(data));
+  const [bio, setBio] = useState(getBio(data));
   const [imageUrl, setImageUrl] = useState(user?.profileImageUrl as string);
   const [randomBackgroundColor, setRandomBackgroundColor] = useState('#ff0000');
   const [modalOpen, setModalOpen] = useState(false);
@@ -64,19 +77,6 @@ export default function SettingsPanel({ data }: SettingsPanelProps) {
       content: bio,
     });
   };
-
-  function getAvailableUsername() {
-    const username =
-      (data?.post?.username as string) ||
-      (data?.author?.username as string) ||
-      'Fupa Trooper';
-    return username;
-  }
-
-  function getBio() {
-    const bio = data?.post?.content || '';
-    return bio;
-  }
 
   return (
     <ProfileFormCard

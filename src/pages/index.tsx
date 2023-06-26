@@ -29,6 +29,7 @@ const Home: NextPage = () => {
 
   return (
     <div className='md:flex md:flex-col md:items-center md:justify-center'>
+      <h1 className='sr-only'>Hoe4hila Home page</h1>
       <Deck posts={data} />
     </div>
   );
