@@ -11,6 +11,8 @@ export default function Document() {
         <meta name='robots' content='index, follow' />
         <meta name='google' content='nositelinkssearchbox' />
 
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
+
         <meta
           name='description'
           content='Join the (non)sexual marketplace, make a low-value “dating profile” & enjoy perusing with fellow fupa troopers'
@@ -32,7 +34,8 @@ export default function Document() {
           sizes='180x180'
         />
 
-        <meta name='theme-color' content='#7ed9f8' />
+        <link rel='manifest' href='/manifest.json' />
+        <meta name='theme-color' content='#2563eb' />
       </Head>
       <body>
         <Main />
