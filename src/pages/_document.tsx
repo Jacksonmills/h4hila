@@ -1,8 +1,7 @@
 import { Html, Head, Main, NextScript } from 'next/document';
+import { baseUrl } from '~/utils/baseUrl';
 
 export default function Document() {
-  const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000';
-
   return (
     <Html>
       <Head>
@@ -10,8 +9,6 @@ export default function Document() {
 
         <meta name='robots' content='index, follow' />
         <meta name='google' content='nositelinkssearchbox' />
-
-        <meta name='viewport' content='width=device-width, initial-scale=1' />
 
         <meta
           name='description'
