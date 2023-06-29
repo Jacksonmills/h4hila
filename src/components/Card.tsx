@@ -28,6 +28,7 @@ export default function Card({ data, callback }: CardProps) {
     'https://cdn.glitch.me/3b576859-bca3-4031-ae39-117a4ffdc779%2Fvin%20beautiful.mp3',
     'https://cdn.glitch.com/3b576859-bca3-4031-ae39-117a4ffdc779%2Fvin_diesel_wow_man.mp3?v=1620189329726',
     'https://cdn.glitch.com/3b576859-bca3-4031-ae39-117a4ffdc779%2Fvin%20talk.mp3?v=1620459443481',
+    'soundbites/trisha_daddy.mp3',
   ];
 
   const [play] = useSound(audioUrls[randomAudioFile] as string, {
