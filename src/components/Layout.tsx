@@ -14,7 +14,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const { soundEnabled } = useSoundEnabledContext();
   const [ageLimitModalOpen, setAgeLimitModalOpen] = useState(false);
 
-  const [play] = useSound('/soundbites/21_fuck_you.mp3', {
+  const [play] = useSound('/soundbites/aiden_21_fuck_you.mp3', {
     volume: 0.25,
     soundEnabled,
   });

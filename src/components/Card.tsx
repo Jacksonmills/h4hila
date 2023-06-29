@@ -9,7 +9,7 @@ import { colorContrast } from '~/utils/colorContrast';
 import { getRandomBrandColor } from '~/utils/getRandomBrandColor';
 import { useSoundEnabledContext } from '~/context/SoundEnabledContext';
 import LoadingSpinner from './LoadingSpinner';
-import { set } from 'zod';
+import { soundbites } from '~/utils/soundbites';
 
 interface CardProps {
   data: PostWithUser;
@@ -25,14 +25,7 @@ export default function Card({ data, callback }: CardProps) {
 
   const cardRef = useRef<HTMLDivElement>(null);
 
-  const audioUrls = [
-    'https://cdn.glitch.me/3b576859-bca3-4031-ae39-117a4ffdc779%2Fvin%20beautiful.mp3',
-    'https://cdn.glitch.com/3b576859-bca3-4031-ae39-117a4ffdc779%2Fvin_diesel_wow_man.mp3?v=1620189329726',
-    'https://cdn.glitch.com/3b576859-bca3-4031-ae39-117a4ffdc779%2Fvin%20talk.mp3?v=1620459443481',
-    'soundbites/trisha_daddy.mp3',
-  ];
-
-  const [play] = useSound(audioUrls[nextAudioFile] as string, {
+  const [play] = useSound(soundbites[nextAudioFile] as string, {
     volume: 0.25,
     soundEnabled,
   });
@@ -40,10 +33,11 @@ export default function Card({ data, callback }: CardProps) {
   const handlePlayAudio = () => {
     play();
     setNextAudioFile((curr) => {
-      if (curr === audioUrls.length - 1) {
-        return 0;
+      const randomIndex = Math.floor(Math.random() * soundbites.length);
+      if (randomIndex === curr) {
+        return (curr + 1) % soundbites.length;
       }
-      return curr + 1;
+      return randomIndex;
     });
   };
 
