@@ -12,7 +12,7 @@ export default function Document() {
 
         <meta
           name='description'
-          content='Join the (non)sexual marketplace, make a low-value “dating profile” & enjoy perusing with fellow fupa troopers'
+          content='Hit up HOE4HILA, our meme-filled, (non)sexual marketplace, only for the 18+ crowd. Craft your "dating" profile and enjoy the swipe life on our unofficial H3 dating app, together with fellow fupa troopers and steadfast foot soldiers. This place is about the memes, not the matches!'
         />
 
         <meta property='og:image' content={`${baseUrl}/image/meta.png`} />

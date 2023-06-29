@@ -31,7 +31,7 @@ export default function Card({ data, callback }: CardProps) {
   ];
 
   const [play] = useSound(audioUrls[randomAudioFile] as string, {
-    volume: 0.5,
+    volume: 0.25,
     soundEnabled,
   });
 
