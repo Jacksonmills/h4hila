@@ -13,3 +13,9 @@
     }
   }
 }
+
+@layer components {
+  .sound-icon polygon {
+    fill: currentColor;
+  }
+}

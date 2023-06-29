@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
-import { FastForward, Heart, Zap, type Icon } from 'react-feather';
+import { FastForward, Heart, type Icon, Star, Volume2 } from 'react-feather';
 import { motion } from 'framer-motion';
 
 import { type PostWithUser } from '~/pages';
@@ -149,9 +149,10 @@ export default function Card({ data, callback }: CardProps) {
             label='Like and go to next profile card'
           />
           <ActionButton
-            Icon={Zap}
+            Icon={soundEnabled ? Volume2 : Star}
             className='bg-h3Purple p-6 text-4xl sm:p-8 sm:text-5xl md:text-6xl'
             callback={soundEnabled ? handlePlayAudio : callback}
+            soundEnabled={soundEnabled}
             label={
               soundEnabled
                 ? 'Play H3podcast soundbite'
@@ -174,8 +175,9 @@ const ActionButton: React.FC<{
   label: string;
   Icon: Icon;
   className?: string;
+  soundEnabled?: boolean;
   callback?: () => void;
-}> = ({ label, Icon, className, callback }) => {
+}> = ({ label, Icon, className, soundEnabled, callback }) => {
   const [rotateDeg, setRotateDeg] = useState(0);
 
   function getRandomRotation() {
@@ -199,7 +201,11 @@ const ActionButton: React.FC<{
       }`}
       onPointerUp={callback}
     >
-      <Icon className={`h-[1em] w-[1em] fill-white`} />
+      <Icon
+        className={`h-[1em] w-[1em] ${
+          !soundEnabled ? 'fill-white' : 'sound-icon'
+        }`}
+      />
       <span className='sr-only'>{label}</span>
     </motion.button>
   );
