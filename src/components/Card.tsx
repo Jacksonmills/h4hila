@@ -9,6 +9,7 @@ import { colorContrast } from '~/utils/colorContrast';
 import { getRandomBrandColor } from '~/utils/getRandomBrandColor';
 import { useSoundEnabledContext } from '~/context/SoundEnabledContext';
 import LoadingSpinner from './LoadingSpinner';
+import { set } from 'zod';
 
 interface CardProps {
   data: PostWithUser;
@@ -20,7 +21,7 @@ export default function Card({ data, callback }: CardProps) {
   const [rotateDeg, setRotateDeg] = useState(0);
   const [opacity, setOpacity] = useState(1);
   const [randomBrandColor, setRandomBrandColor] = useState('');
-  const [randomAudioFile, setRandomAudioFile] = useState(0);
+  const [nextAudioFile, setNextAudioFile] = useState(0);
 
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -31,14 +32,19 @@ export default function Card({ data, callback }: CardProps) {
     'soundbites/trisha_daddy.mp3',
   ];
 
-  const [play] = useSound(audioUrls[randomAudioFile] as string, {
+  const [play] = useSound(audioUrls[nextAudioFile] as string, {
     volume: 0.25,
     soundEnabled,
   });
 
   const handlePlayAudio = () => {
     play();
-    setRandomAudioFile(Math.floor(Math.random() * audioUrls.length));
+    setNextAudioFile((curr) => {
+      if (curr === audioUrls.length - 1) {
+        return 0;
+      }
+      return curr + 1;
+    });
   };
 
   const getAvailableUsername = () => {
@@ -150,7 +156,7 @@ export default function Card({ data, callback }: CardProps) {
           />
           <ActionButton
             Icon={Zap}
-            className='bg-h3Purple p-6 text-4xl sm:p-8 md:text-6xl'
+            className='bg-h3Purple p-6 text-4xl sm:p-8 sm:text-5xl md:text-6xl'
             callback={soundEnabled ? handlePlayAudio : callback}
             label={
               soundEnabled
