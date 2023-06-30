@@ -20,7 +20,9 @@ export default function Card({ data, callback }: CardProps) {
   const [rotateDeg, setRotateDeg] = useState(0);
   const [opacity, setOpacity] = useState(1);
   const [randomBrandColor, setRandomBrandColor] = useState('');
-  const [nextAudioFile, setNextAudioFile] = useState(0);
+  const [nextAudioFile, setNextAudioFile] = useState(
+    Math.floor(Math.random() * soundbites.length)
+  );
 
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -29,15 +31,17 @@ export default function Card({ data, callback }: CardProps) {
     soundEnabled,
   });
 
+  const getNextAudioFile = (curr: number) => {
+    const randomIndex = Math.floor(Math.random() * soundbites.length);
+    if (randomIndex === curr) {
+      return (curr + 1) % soundbites.length;
+    }
+    return randomIndex;
+  };
+
   const handlePlayAudio = () => {
     play();
-    setNextAudioFile((curr) => {
-      const randomIndex = Math.floor(Math.random() * soundbites.length);
-      if (randomIndex === curr) {
-        return (curr + 1) % soundbites.length;
-      }
-      return randomIndex;
-    });
+    setNextAudioFile((curr) => getNextAudioFile(curr));
   };
 
   const getAvailableUsername = () => {
