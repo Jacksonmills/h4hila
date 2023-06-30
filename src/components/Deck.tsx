@@ -4,9 +4,9 @@ import Card from './Card';
 
 export default function Deck({ posts }: { posts: PostWithUser[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [shuffledPosts, setShuffledPosts] = useState<PostWithUser[]>([]);
+  const [shuffledPosts] = useState<PostWithUser[]>(shuffle(posts));
 
-  const shuffle = (array: PostWithUser[]) => {
+  function shuffle(array: PostWithUser[]) {
     let currentIndex = array.length;
     let temporaryValue: PostWithUser | undefined;
     let randomIndex: number;
@@ -21,7 +21,7 @@ export default function Deck({ posts }: { posts: PostWithUser[] }) {
     }
 
     return array;
-  };
+  }
 
   const nextCard = useCallback(() => {
     if (posts.length === 0) return;
@@ -46,14 +46,6 @@ export default function Deck({ posts }: { posts: PostWithUser[] }) {
       window.removeEventListener('keydown', keyboardListener);
     };
   }, [nextCard]);
-
-  useEffect(() => {
-    setShuffledPosts(shuffle(posts));
-
-    return () => {
-      setShuffledPosts([]);
-    };
-  }, [posts]);
 
   return (
     <>
