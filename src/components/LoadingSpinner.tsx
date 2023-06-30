@@ -1,15 +1,17 @@
 import React from 'react';
 
-export default function LoadingSpinner({ size = 32 }: { size?: number }) {
+export default function LoadingSpinner({ size = 42 }: { size?: number }) {
   const sizeStr = `${size}`;
 
   return (
-    <div className='flex grow items-center justify-center '>
-      <div className='rounded-full  p-6' role='status'>
+    <div className='flex grow items-center justify-center'>
+      <div
+        className='rounded-full border-2 border-black bg-black p-2'
+        role='status'
+      >
         <svg
           aria-hidden='true'
-          className='animate-spin fill-black stroke-black text-gray-200 dark:text-white'
-          strokeWidth={2}
+          className='animate-spin fill-white text-gray-200 dark:text-black'
           viewBox='0 0 100 101'
           fill='none'
           xmlns='http://www.w3.org/2000/svg'

@@ -25,7 +25,7 @@ const Home: NextPage = () => {
     };
   }, [query.data]);
 
-  if (data.length === 0) return <LoadingSpinner size={100} />;
+  if (data.length === 0) return <LoadingSpinner size={69} />;
 
   return (
     <div className='md:flex md:flex-col md:items-center md:justify-center'>

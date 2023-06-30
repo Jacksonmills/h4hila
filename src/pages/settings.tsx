@@ -12,7 +12,7 @@ export type OnePostWithUser = RouterOutputs['posts']['getOneByAuthorId'];
 const Settings: NextPage = () => {
   const { data, isLoading } = api.posts.getOneByAuthorId.useQuery();
 
-  if (isLoading) return <LoadingSpinner size={100} />;
+  if (isLoading) return <LoadingSpinner size={69} />;
 
   if (!data) return <NewUserPanel />;
 

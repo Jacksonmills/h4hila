@@ -8,7 +8,6 @@ import useSound from 'use-sound';
 import { colorContrast } from '~/utils/colorContrast';
 import { getRandomBrandColor } from '~/utils/getRandomBrandColor';
 import { useSoundEnabledContext } from '~/context/SoundEnabledContext';
-import LoadingSpinner from './LoadingSpinner';
 import { soundbites } from '~/utils/soundbites';
 
 interface CardProps {
@@ -52,8 +51,6 @@ export default function Card({ data, callback }: CardProps) {
   useEffect(() => {
     setRandomBrandColor(getRandomBrandColor);
   }, []);
-
-  if (!data) return <LoadingSpinner />;
 
   return (
     <motion.div
@@ -115,7 +112,7 @@ export default function Card({ data, callback }: CardProps) {
       >
         <div className='relative flex shrink flex-col items-center'>
           <Image
-            src={data.author?.profileImageUrl as string}
+            src={data?.author?.profileImageUrl as string}
             width={446}
             height={446}
             priority
@@ -137,7 +134,7 @@ export default function Card({ data, callback }: CardProps) {
               {getAvailableUsername()}
             </p>
             <p className='text-md min-h-[115px] max-w-[400px] break-words text-current md:text-lg'>
-              {data.post.content}
+              {data?.post.content}
             </p>
           </div>
         </div>
