@@ -58,7 +58,7 @@ export default function Card({ data, callback }: CardProps) {
       className='transition-opacity duration-100 md:h-auto'
     >
       <motion.div
-        drag='x'
+        drag
         dragConstraints={cardRef}
         dragElastic={0.5}
         dragTransition={{ bounceStiffness: 400, bounceDamping: 40 }}
