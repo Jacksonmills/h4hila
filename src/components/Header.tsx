@@ -1,10 +1,11 @@
-import { Settings, Volume2, VolumeX } from 'react-feather';
+import { Volume2, VolumeX } from 'react-feather';
 import Link from 'next/link';
 import { UserButton } from '@clerk/nextjs';
 import Logo from './Logo';
 import { motion } from 'framer-motion';
 import { useSoundEnabledContext } from '~/context/SoundEnabledContext';
 import NavButton from './NavButton';
+import SettingsIcon from './SettingsIcon';
 
 export default function Header({ isSignedIn }: { isSignedIn?: boolean }) {
   const { soundEnabled, toggleSoundEnabled } = useSoundEnabledContext();
@@ -33,9 +34,9 @@ export default function Header({ isSignedIn }: { isSignedIn?: boolean }) {
           >
             <NavButton onClick={toggleSoundEnabled}>
               {soundEnabled ? (
-                <Volume2 className='text-black' />
+                <Volume2 className='volume-icon' />
               ) : (
-                <VolumeX className='text-black' />
+                <VolumeX className='volume-icon' />
               )}
               <span className='sr-only'>Toggle sound</span>
             </NavButton>
@@ -47,7 +48,7 @@ export default function Header({ isSignedIn }: { isSignedIn?: boolean }) {
           >
             <Link href='/settings'>
               <NavButton as='span'>
-                <Settings className='text-black' />
+                <SettingsIcon />
                 <span className='sr-only'>Settings page Link</span>
               </NavButton>
             </Link>

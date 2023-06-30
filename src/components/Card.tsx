@@ -206,7 +206,7 @@ const ActionButton: React.FC<{
     >
       <Icon
         className={`h-[1em] w-[1em] ${
-          !soundEnabled ? 'fill-white' : 'sound-icon'
+          !soundEnabled ? 'fill-white' : 'volume-icon'
         }`}
       />
       <span className='sr-only'>{label}</span>

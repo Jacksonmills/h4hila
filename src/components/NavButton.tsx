@@ -12,25 +12,15 @@ export default function NavButton({
   as = 'button',
   ...rest
 }: NavButtonProps) {
-  const classNames = `
-    flex
-    items-center
-    justify-center
-    rounded-full
-    bg-h3LightBlue
-    p-[8px]
-    border-2
-    border-black
-    transition-colors
-    duration-200
-    ease-in-out
-    ${className || ''}
-  `;
-
   const Component = as;
 
   return (
-    <Component className={classNames.trim()} {...rest}>
+    <Component
+      className={`flex items-center justify-center rounded-full border-2 border-black bg-black p-[8px] text-white transition-colors duration-200 ease-in-out ${
+        className || ''
+      }`.trim()}
+      {...rest}
+    >
       {children}
     </Component>
   );

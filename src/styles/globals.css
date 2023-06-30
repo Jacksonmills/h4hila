@@ -15,7 +15,16 @@
 }
 
 @layer components {
-  .sound-icon polygon {
+  .volume-icon polygon {
     fill: currentColor;
+  }
+
+  .settings-icon circle {
+    fill: black;
+    stroke: black;
+  }
+  .settings-icon path {
+    fill: currentColor;
+    stroke: none;
   }
 }
