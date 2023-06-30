@@ -76,20 +76,20 @@ export default function Card({ data, callback }: CardProps) {
           }
 
           // rotate
-          if (info.offset.x > 10) {
+          if (info.offset.x > 20) {
             setRotateDeg(6);
-            if (info.offset.x > 20) {
+            if (info.offset.x > 40) {
               setRotateDeg(12);
             }
-            if (info.offset.x > 40) {
+            if (info.offset.x > 80) {
               setRotateDeg(24);
             }
-          } else if (info.offset.x < -10) {
+          } else if (info.offset.x < -20) {
             setRotateDeg(-6);
-            if (info.offset.x < -20) {
+            if (info.offset.x < -40) {
               setRotateDeg(-12);
             }
-            if (info.offset.x < -40) {
+            if (info.offset.x < -80) {
               setRotateDeg(-24);
             }
           } else {
@@ -104,9 +104,15 @@ export default function Card({ data, callback }: CardProps) {
             setOpacity(0.1);
           }
         }}
-        onDragEnd={() => {
+        onDragEnd={(_, info) => {
+          if (info.offset.x > 80) {
+            callback && callback();
+          }
+          if (info.offset.x < -80) {
+            callback && callback();
+          }
           setRotateDeg(0);
-          callback && callback();
+          setOpacity(1);
         }}
         className='flex h-[90%] cursor-grab flex-col items-center justify-start gap-4 rounded-2xl border-2 border-black bg-white  p-2 text-black shadow-lg active:cursor-grabbing md:p-4'
       >

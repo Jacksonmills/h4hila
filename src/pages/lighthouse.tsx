@@ -7,9 +7,9 @@ import { type PostWithUser } from '.';
 
 const Lighthouse: NextPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { data } = api.posts.getAll.useQuery();
+  const { data, isLoading } = api.posts.getAll.useQuery();
 
-  if (!data) return <LoadingSpinner size={69} />;
+  if (!data || isLoading) return <LoadingSpinner size={69} />;
 
   const nextCard = () => {
     if (currentIndex + 1 >= data.length) {
