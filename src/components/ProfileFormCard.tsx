@@ -54,7 +54,7 @@ export default function ProfileFormCard({
                 whileTap={{ scale: 0.8 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                 onClick={() => setModalOpen(!modalOpen)}
-                className='relative h-[50px] w-[50px] rounded-full border-2 border-black bg-h3LightBlue p-1 text-black'
+                className='relative h-[50px] w-[50px] rounded-full border-2 border-black bg-h3Blue p-1 text-white'
               >
                 <span className='pointer-events-none absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] text-current'>
                   <ImageIcon />

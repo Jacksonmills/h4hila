@@ -1,10 +1,14 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { use, useCallback, useEffect, useState } from 'react';
 import { type PostWithUser } from '~/pages';
 import Card from './Card';
+import LoadingSpinner from './LoadingSpinner';
 
 export default function Deck({ posts }: { posts: PostWithUser[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [shuffledPosts] = useState<PostWithUser[]>(shuffle(posts));
+  const [shuffledPosts, setShuffledPosts] = useState<PostWithUser[]>(
+    shuffle(posts)
+  );
+  const [isShuffling, setIsShuffling] = useState(true);
 
   function shuffle(array: PostWithUser[]) {
     let currentIndex = array.length;
@@ -46,6 +50,14 @@ export default function Deck({ posts }: { posts: PostWithUser[] }) {
       window.removeEventListener('keydown', keyboardListener);
     };
   }, [nextCard]);
+
+  useEffect(() => {
+    setIsShuffling(true);
+    setShuffledPosts(shuffle(posts));
+    setIsShuffling(false);
+  }, [posts]);
+
+  if (isShuffling) return <LoadingSpinner size={69} />;
 
   return (
     <>

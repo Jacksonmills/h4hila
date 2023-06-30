@@ -7,9 +7,7 @@ export type AllPostData = RouterOutputs['posts']['getAll'];
 export type PostWithUser = AllPostData[number] | undefined;
 
 const Home: NextPage = () => {
-  const { data, isLoading } = api.posts.getAll.useQuery(undefined, {
-    refetchOnWindowFocus: false,
-  });
+  const { data, isLoading } = api.posts.getAll.useQuery();
 
   if (!data || isLoading) return <LoadingSpinner size={69} />;
 
