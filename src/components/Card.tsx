@@ -24,6 +24,11 @@ export default function Card({ data, callback }: CardProps) {
     Math.floor(Math.random() * soundbites.length)
   );
 
+  const [isSwiping, setIsSwiping] = useState(false);
+  const [swipeDirection, setSwipeDirection] = useState<'left' | 'right' | ''>(
+    ''
+  );
+
   const cardRef = useRef<HTMLDivElement>(null);
 
   const [play] = useSound(soundbites[nextAudioFile] as string, {
@@ -64,12 +69,27 @@ export default function Card({ data, callback }: CardProps) {
       <motion.div
         drag
         dragConstraints={cardRef}
-        dragElastic={0.5}
+        dragElastic={0.75}
         dragTransition={{ bounceStiffness: 400, bounceDamping: 40 }}
         whileHover={{ scale: 1.025 }}
         animate={{ rotate: rotateDeg, opacity: opacity }}
         transition={{ type: 'spring', stiffness: 300, damping: 20 }}
         onDrag={(_, info) => {
+          // show or hide swiping icons
+          if (info.point.x <= 0 + window.innerWidth / 4) {
+            setIsSwiping(true);
+            setSwipeDirection('left');
+          } else if (
+            info.point.x >=
+            window.innerWidth - window.innerWidth / 4
+          ) {
+            setIsSwiping(true);
+            setSwipeDirection('right');
+          } else {
+            setIsSwiping(false);
+            setSwipeDirection('');
+          }
+
           // opacity
           if (info.offset.x > 20) {
             setOpacity(0.75);
@@ -109,10 +129,9 @@ export default function Card({ data, callback }: CardProps) {
           }
         }}
         onDragEnd={(_, info) => {
-          // if dragged off screen, call callback function
           if (
-            info.offset.x > window.innerWidth / 2 - 20 ||
-            info.offset.x < -window.innerWidth / 2 + 20
+            info.point.x <= 0 + window.innerWidth / 4 ||
+            info.point.x >= window.innerWidth - window.innerWidth / 4
           ) {
             callback && callback();
           }
@@ -140,6 +159,24 @@ export default function Card({ data, callback }: CardProps) {
           >
             #HOE4HILA
           </code>
+          {isSwiping && (
+            <motion.div
+              initial={{
+                opacity: 0,
+              }}
+              animate={{
+                opacity: 0.75,
+              }}
+              className='absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]'
+            >
+              {swipeDirection === 'right' && (
+                <Heart className='h-[3em] w-[3em] fill-h3Pink text-9xl text-h3Pink' />
+              )}
+              {swipeDirection === 'left' && (
+                <FastForward className='h-[3em] w-[3em] fill-h3Blue text-9xl text-h3Blue' />
+              )}
+            </motion.div>
+          )}
           <div
             className='relative flex w-full flex-col gap-2 rounded-b-2xl border-2 border-black bg-h3Purple/20 px-4 py-2 md:px-6 md:py-4'
             style={{
