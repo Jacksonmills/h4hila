@@ -109,10 +109,11 @@ export default function Card({ data, callback }: CardProps) {
           }
         }}
         onDragEnd={(_, info) => {
-          if (info.offset.x > 80) {
-            callback && callback();
-          }
-          if (info.offset.x < -80) {
+          // if dragged off screen, call callback function
+          if (
+            info.offset.x > window.innerWidth / 2 - 20 ||
+            info.offset.x < -window.innerWidth / 2 + 20
+          ) {
             callback && callback();
           }
           setRotateDeg(0);
@@ -139,7 +140,12 @@ export default function Card({ data, callback }: CardProps) {
           >
             #HOE4HILA
           </code>
-          <div className='relative flex w-full flex-col gap-2 rounded-b-2xl border-2 border-black bg-h3Purple/20 px-4 py-2 md:px-6 md:py-4'>
+          <div
+            className='relative flex w-full flex-col gap-2 rounded-b-2xl border-2 border-black bg-h3Purple/20 px-4 py-2 md:px-6 md:py-4'
+            style={{
+              backgroundColor: `${randomBrandColor}22`,
+            }}
+          >
             <p className='text-xl font-bold text-current md:text-2xl'>
               {getAvailableUsername()}
             </p>
@@ -197,6 +203,7 @@ const ActionButton: React.FC<{
 
   return (
     <motion.button
+      tabIndex={-1}
       whileHover={{ scale: 1.2, rotate: -rotateDeg }}
       whileTap={{
         scale: 0.8,

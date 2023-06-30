@@ -4,7 +4,6 @@ import { UserProfile } from '@clerk/nextjs';
 import SaveButton from './SaveButton';
 import { Send, XCircle, Image as ImageIcon } from 'react-feather';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 
 interface Props {
   username: string;
@@ -49,12 +48,9 @@ export default function ProfileFormCard({
         <div className='flex flex-col rounded-2xl bg-white md:flex-row'>
           <div className='relative'>
             <div className='absolute bottom-2 right-2 md:bottom-4 md:right-4'>
-              <motion.button
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.8 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              <button
                 onClick={() => setModalOpen(!modalOpen)}
-                className='relative h-[50px] w-[50px] rounded-full border-2 border-black bg-h3Blue p-1 text-white'
+                className='relative h-[50px] w-[50px] rounded-full border-2 border-black bg-h3Blue p-1 text-white transition-colors duration-200 ease-in-out hover:bg-h3DarkBlue'
               >
                 <span className='pointer-events-none absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] text-current'>
                   <ImageIcon />
@@ -62,7 +58,7 @@ export default function ProfileFormCard({
                 <span className='sr-only'>
                   Change profile image, opens dialog
                 </span>
-              </motion.button>
+              </button>
             </div>
             <Image
               src={imageUrl}

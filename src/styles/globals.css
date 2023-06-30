@@ -7,6 +7,10 @@
     --header-height: 52px;
   }
 
+  *:focus-visible {
+    @apply outline-none outline-4 outline-offset-0 focus:outline-h3Blue;
+  }
+
   @media (min-width: 768px) {
     :root {
       --header-height: 64px;

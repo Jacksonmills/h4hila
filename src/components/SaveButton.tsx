@@ -11,28 +11,13 @@ export default function SaveButton({
   className,
   ...rest
 }: SaveButtonProps) {
-  const classNames = `
-    inline-flex
-    items-center
-    justify-center
-    rounded-xl
-    bg-h3Purple
-    p-2
-    text-xl
-    font-bold
-    text-white
-    transition-colors
-    duration-200
-    ease-in-out
-    hover:bg-h3DarkPurple
-    disabled:bg-gray-400
-    border-black
-    border-2
-    ${className || ''}
-  `;
-
   return (
-    <button className={classNames.trim()} {...rest}>
+    <button
+      className={`inline-flex items-center justify-center rounded-xl border-2 border-black bg-h3Purple p-2 text-xl font-bold text-white transition-colors duration-200 ease-in-out hover:bg-h3DarkPurple disabled:bg-gray-400 ${
+        className || ''
+      }`.trim()}
+      {...rest}
+    >
       {children}
     </button>
   );
