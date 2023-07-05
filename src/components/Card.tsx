@@ -128,13 +128,8 @@ export default function Card({ data, callback }: CardProps) {
             setOpacity(0.1);
           }
         }}
-        onDragEnd={(_, info) => {
-          if (
-            info.point.x <= 0 + window.innerWidth / 4 ||
-            info.point.x >= window.innerWidth - window.innerWidth / 4
-          ) {
-            callback && callback();
-          }
+        onDragEnd={() => {
+          callback && callback();
           setRotateDeg(0);
           setOpacity(1);
         }}
@@ -170,10 +165,10 @@ export default function Card({ data, callback }: CardProps) {
               className='absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]'
             >
               {swipeDirection === 'right' && (
-                <Heart className='h-[3em] w-[3em] fill-h3Pink text-9xl text-h3Pink' />
+                <Heart className='h-[3em] w-[3em] fill-h3Pink text-4xl text-h3Pink md:text-9xl' />
               )}
               {swipeDirection === 'left' && (
-                <FastForward className='h-[3em] w-[3em] fill-h3Blue text-9xl text-h3Blue' />
+                <FastForward className='h-[3em] w-[3em] fill-h3Blue text-4xl text-h3Blue md:text-9xl' />
               )}
             </motion.div>
           )}
