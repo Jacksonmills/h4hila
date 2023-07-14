@@ -41,7 +41,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-dnd.*
+tmp/*
 
 # Auto Generated PWA files
 **/public/sw.js
