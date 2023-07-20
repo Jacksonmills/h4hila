@@ -100,10 +100,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     onChange={(e) => setAgeDate(e.target.value)}
                   />
                   <button
-                    className='rounded bg-green-600 px-4 py-2 font-bold text-white hover:bg-green-700 disabled:bg-red-500'
+                    className='rounded bg-green-600 px-4 py-2 font-bold text-white hover:bg-green-700'
                     type='submit'
-                    disabled={!isOver18(ageDate) ? true : false}
-                    style={{ opacity: isOver18(ageDate) ? 1 : 0.25 }}
                   >
                     Submit
                   </button>
