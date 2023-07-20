@@ -8,18 +8,51 @@ import { useRouter } from 'next/router';
 import Modal from './Modal';
 import { useSoundEnabledContext } from '~/context/SoundEnabledContext';
 import useSound from 'use-sound';
+import { formatDate } from '~/utils/formatDate';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { isSignedIn } = useUser();
   const { soundEnabled } = useSoundEnabledContext();
   const [ageLimitModalOpen, setAgeLimitModalOpen] = useState(false);
+  const [ageDate, setAgeDate] = useState(formatDate(new Date()));
+
+  const router = useRouter();
+
+  const isOver18 = (age: string) => {
+    const formattedBirthDate = formatDate(new Date(age));
+    const birthDate = new Date(formattedBirthDate);
+
+    const today = new Date();
+    const calculatedAge = today.getFullYear() - birthDate.getFullYear();
+    const calculatedMonth = today.getMonth() - birthDate.getMonth();
+
+    if (
+      calculatedMonth < 0 ||
+      (calculatedMonth === 0 && today.getDate() < birthDate.getDate()) ||
+      calculatedAge < 18
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const handleSubmitAge = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!isOver18(ageDate)) {
+      return (window.location.href =
+        'https://www.youtube.com/watch?v=kMHfi5ymTFs');
+    }
+
+    localStorage.setItem('ageLimit', 'true');
+    setAgeLimitModalOpen(false);
+  };
 
   const [play] = useSound('/soundbites/aiden_21_fuck_you.mp3', {
     volume: 0.25,
     soundEnabled,
   });
-
-  const router = useRouter();
 
   useEffect(() => {
     const ageLimit = localStorage.getItem('ageLimit');
@@ -57,14 +90,25 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <div className='flex w-[94vw] flex-col items-center justify-between gap-4 rounded-2xl border-2 border-black bg-white p-6 md:w-[400px] md:p-4'>
                 <p className='text-center text-lg'>
                   {`
-                    Heads up! HOE4HILA is a space for those 18 and older. While we
-                    don't feature explicit content, the site's nature is best
-                    suited for mature audiences. By clicking 'Yes', you confirm
-                    you're 18 or older. Help us keep this a fun, safe space for
-                    all.
+                    Heads up! HOE4HILA is a space for those 18 and older. While we don't feature explicit content, the site's nature is best suited for mature audiences. Please use the date picker to confirm that you are 18 or older. Help us keep this a fun, safe space for all.
                   `}
                 </p>
-                <div className='flex w-full items-center justify-center gap-2'>
+                <form onSubmit={handleSubmitAge}>
+                  <input
+                    type='date'
+                    value={ageDate}
+                    onChange={(e) => setAgeDate(e.target.value)}
+                  />
+                  <button
+                    className='rounded bg-green-600 px-4 py-2 font-bold text-white hover:bg-green-700 disabled:bg-red-500'
+                    type='submit'
+                    disabled={!isOver18(ageDate) ? true : false}
+                    style={{ opacity: isOver18(ageDate) ? 1 : 0.25 }}
+                  >
+                    Submit
+                  </button>
+                </form>
+                <div className='hidden w-full items-center justify-center gap-2'>
                   <button
                     className='w-full rounded-xl bg-h3LightBlue px-6 py-4 font-bold text-black hover:bg-h3LightBlue/60'
                     onClick={() => {
