@@ -1,11 +1,11 @@
 ![apple-touch-icon](https://github.com/Jacksonmills/hoe4hila/assets/19780885/c8edee9d-cde7-4e86-8405-1ed6ec5d5801)
-# HOE4HILA
+# H4HILA
 
 **A playful web application for fans of the H3 podcast to create and browse through joke dating profiles.**
 
 ## Introduction
 
-HOE4HILA is a webapp built for H3 podcast fans to interact, share their humor, and engage with the community in a fun and lighthearted way. Users can create joke dating profiles with real or meme-like images and bios. Unlike traditional dating apps, users can swipe or tap their way through all the posts with no real consequence, creating a fun, stress-free environment for all H3 fans.
+H4HILA is a webapp built for H3 podcast fans to interact, share their humor, and engage with the community in a fun and lighthearted way. Users can create joke dating profiles with real or meme-like images and bios. Unlike traditional dating apps, users can swipe or tap their way through all the posts with no real consequence, creating a fun, stress-free environment for all H3 fans.
 
 ## Features
 
