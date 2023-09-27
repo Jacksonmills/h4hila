@@ -14,7 +14,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const { isSignedIn } = useUser();
   const { soundEnabled } = useSoundEnabledContext();
   const [ageLimitModalOpen, setAgeLimitModalOpen] = useState(false);
-  const [ageDate, setAgeDate] = useState(formatDate(new Date()));
+  const [ageDate, setAgeDate] = useState<string>(formatDate(new Date()));
 
   const router = useRouter();
 
