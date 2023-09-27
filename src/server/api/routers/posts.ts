@@ -24,7 +24,7 @@ export const postsRouter = createTRPCRouter({
   getById: publicProcedure.input(z.object({
     id: z.string(),
   })).query(async ({ input, ctx }) => {
-    const post = await ctx.prisma.post.findUnique({
+    const post = await ctx.db.post.findUnique({
       where: {
         id: input.id,
       },
@@ -42,7 +42,7 @@ export const postsRouter = createTRPCRouter({
   getOneByAuthorId: privateProcedure.query(async ({ ctx }) => {
     const authorId = ctx.userId;
 
-    const post = await ctx.prisma.post.findFirst({
+    const post = await ctx.db.post.findFirst({
       where: {
         authorId,
       },
@@ -62,7 +62,7 @@ export const postsRouter = createTRPCRouter({
       z.object({
         userId: z.string(),
       }))
-    .query(async ({ input, ctx }) => ctx.prisma.post.findMany({
+    .query(async ({ input, ctx }) => ctx.db.post.findMany({
       where: {
         authorId: input.userId,
       },
@@ -81,7 +81,7 @@ export const postsRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const cursor = input.cursor;
 
-      const posts = await ctx.prisma.post.findMany({
+      const posts = await ctx.db.post.findMany({
         take: input.take,
         cursor: cursor ? { id: cursor } : undefined,
         orderBy: [
@@ -101,7 +101,7 @@ export const postsRouter = createTRPCRouter({
       }));
     }),
   getAll: publicProcedure.query(async ({ ctx }) => {
-    const posts = await ctx.prisma.post.findMany();
+    const posts = await ctx.db.post.findMany();
 
     const users = (await clerkClient.users.getUserList({
       userId: posts.map((post) => post.authorId),
@@ -132,7 +132,7 @@ export const postsRouter = createTRPCRouter({
 
       if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" });
 
-      const post = await ctx.prisma.post.create({
+      const post = await ctx.db.post.create({
         data: {
           authorId,
           username: input.username,
@@ -165,7 +165,7 @@ export const postsRouter = createTRPCRouter({
         throw new TRPCError({ code: "TOO_MANY_REQUESTS", message: "Too many requests" });
       }
 
-      const post = await ctx.prisma.post.findFirst({
+      const post = await ctx.db.post.findFirst({
         where: {
           authorId,
         },
@@ -173,7 +173,7 @@ export const postsRouter = createTRPCRouter({
 
       if (!post) throw new TRPCError({ code: "NOT_FOUND", message: "Post not found" });
 
-      const updatedPost = await ctx.prisma.post.update({
+      const updatedPost = await ctx.db.post.update({
         where: {
           id: post.id,
         },
